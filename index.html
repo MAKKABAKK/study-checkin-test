@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=23b29f7e77d442d1"></script>
+  <script type="module" src="./app.js?v=eaed0675f61e9e26"></script>
 </head>
 <body>
   <section id="account" class="account" aria-labelledby="account-title">
@@ -22,8 +22,8 @@
       <label id="password-label" for="login-password" hidden>密码</label>
       <input id="login-password" type="password" autocomplete="current-password" required disabled hidden>
       <button id="send-code">发送登录邮件</button></form>
-    <form id="code-form" hidden><label for="login-code">邮件中的数字验证码（如果有）</label>
-      <input id="login-code" inputmode="numeric" autocomplete="one-time-code" required>
+    <form id="code-form" hidden><label for="login-code">登录链接或数字验证码</label>
+      <input id="login-code" type="password" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" required>
       <button id="verify-code">验证登录</button></form>
     <button id="login-method" type="button" hidden>使用密码登录</button>
     <button id="retry-account" type="button" hidden>重新同步</button>
