@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>拾课</title>
+  <defs>
+    <linearGradient id="field" x2="1" y2="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(512)">
+      <stop stop-color="#355f50"/>
+      <stop offset="1" stop-color="#153e35"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#field)" d="M0 0h512v512H0z"/>
+  <circle cx="345" cy="144" r="39" fill="#ffad71"/>
+  <path fill="#9db99a" d="M96 297c58-5 113 10 153 43v28c-42-30-92-43-148-39a5 5 0 0 1-5-5zm320-4c-59-1-107 14-151 48v27c43-30 93-44 146-43a5 5 0 0 0 5-5z"/>
+  <path fill="#fff3d5" d="M96 177c55-1 112 22 153 66v76c-43-33-94-49-153-48z"/>
+  <path fill="#dce8c3" d="M265 245c35-42 90-67 151-69v93c-59 1-109 17-151 50z"/>
+  <path fill="#fff3d5" d="M260 216c-26-25-54-43-85-54l5-28c39 12 71 32 96 60z"/>
+</svg>

@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "拾课",
+  "short_name": "拾课",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f4ed",
+  "theme_color": "#f5f4ed",
+  "icons": [
+    { "src": "./shike-v1-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any maskable" },
+    { "src": "./shike-v1-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any maskable" }
+  ]
+}
