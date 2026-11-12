@@ -3,20 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin">
   <title>雅思每日打卡</title>
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=1c73b35f5e8dba5f"></script>
+  <script type="module" src="./app.js?v=23b29f7e77d442d1"></script>
 </head>
 <body>
   <section id="account" class="account" aria-labelledby="account-title">
     <h1 id="account-title">雅思每日打卡</h1>
     <p id="account-status" role="status">正在读取登录配置…</p>
     <form id="email-form" hidden><label for="login-email">登录邮箱</label>
-      <input id="login-email" type="email" autocomplete="email" required>
-      <button id="send-code">发送登录码</button></form>
-    <form id="code-form" hidden><label for="login-code">邮箱验证码</label>
+      <input id="login-email" type="email" autocomplete="username" required>
+      <label id="password-label" for="login-password" hidden>密码</label>
+      <input id="login-password" type="password" autocomplete="current-password" required disabled hidden>
+      <button id="send-code">发送登录邮件</button></form>
+    <form id="code-form" hidden><label for="login-code">邮件中的数字验证码（如果有）</label>
       <input id="login-code" inputmode="numeric" autocomplete="one-time-code" required>
       <button id="verify-code">验证登录</button></form>
+    <button id="login-method" type="button" hidden>使用密码登录</button>
     <button id="retry-account" type="button" hidden>重新同步</button>
     <button id="sign-out" type="button" hidden>退出登录</button>
   </section>
