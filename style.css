@@ -1,0 +1,61 @@
+:root{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#203e36;background:#f5f4ed;font-synthesis:none}*{box-sizing:border-box}body{margin:0}main{max-width:780px;margin:auto;padding:26px 24px 50px}header{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;border-bottom:1px solid #d9e0d4}.brand{font-weight:750;letter-spacing:.04em}.private{font-size:12px;border:1px solid #c5d4c4;border-radius:30px;padding:5px 11px;color:#557365}.intro{padding:40px 0 26px}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.11em;color:#6e8374;margin:0 0 9px}h1{font-size:40px;letter-spacing:-.045em;font-weight:750;margin:0 0 14px}h2{font-size:23px;font-weight:700;margin:0}p{line-height:1.75}.intro>p:last-child{font-size:15px;color:#6c786f;margin:0}.summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;padding:22px 0 28px}.summary>div{border-left:2px solid #d5dfcc;padding-left:16px}.summary strong{font-size:29px;display:block;font-weight:600}.summary small{font-size:14px;color:#748071}.summary span{font-size:12px;color:#6e786c}nav{display:flex;gap:8px;padding:12px 0 20px}button,select{font:inherit;border:1px solid #d4ddd0;background:#fafbf7;color:#294a3d;border-radius:10px;padding:10px 14px;cursor:pointer;min-height:44px}select{flex:1;min-width:0;font-size:14px}button:disabled{opacity:.45;cursor:default}.day{background:#fff;border:1px solid #e2e7dc;border-radius:22px;padding:26px}.daytop{display:flex;align-items:center;justify-content:space-between;gap:10px}.count{font-size:14px;background:#edf3e8;border-radius:25px;padding:8px 14px;white-space:nowrap}.note{font-size:14px;color:#627461;border-left:3px solid #b8c9a8;padding-left:13px;margin:23px 0}.time{font-size:12px;color:#7b8579;margin-bottom:8px}.track{height:4px;background:#eef0e9;border-radius:5px;overflow:hidden}.track>div{height:100%;background:#658d58;transition:width .2s}ul{list-style:none;margin:12px 0 0;padding:0}li{border-bottom:1px solid #edf0e8}li:last-child{border-bottom:0}li label{display:flex;gap:15px;padding:19px 0;font-size:15px;line-height:1.8;cursor:pointer}input[type=checkbox]{width:23px;height:23px;flex:0 0 23px;accent-color:#32664d;margin:3px 0 0}li small{display:block;color:#87917f;font-size:12px;margin-top:7px}.done>span{color:#83917e}.done>span::first-line{text-decoration:line-through}.bbc{background:#e9efe3;border:1px solid #d4e0cc;border-radius:22px;padding:26px;margin-top:20px}.bbc-top{display:flex;gap:14px;align-items:center}.headphones{font-size:32px;color:#65804e}.bbc h2{font-size:22px}.bbc>p{font-size:14px;color:#596d51}.listen{display:inline-block;color:#fff;background:#365d42;text-decoration:none;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:600}.bbc .hint{font-size:12px;color:#78876f}.listen-check{display:flex;gap:13px;align-items:center;border-top:1px solid #cddcc3;padding-top:18px;margin-top:19px;font-size:15px}.rest{color:#76816f;font-size:15px;margin-top:24px}footer{padding:24px 5px;font-size:12px;color:#7d8875}footer>p[role=status]{color:#3b6a48;font-weight:600;font-size:13px}.warning{color:#9d5628!important}.actions{display:flex;gap:10px;margin:14px 0}footer button{font-size:12px;padding:8px 14px}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #9cae72;outline-offset:3px}@media(max-width:520px){main{padding:20px 16px 32px}.intro{padding-top:30px}h1{font-size:32px}.day,.bbc{padding:20px}.summary{gap:8px}.summary>div{padding-left:11px}.summary strong{font-size:25px}nav{gap:5px}nav button{padding:9px 11px}select{padding:9px 7px;font-size:13px}h2{font-size:21px}.bbc h2{font-size:20px}li label{font-size:14px}.count{font-size:12px;padding:7px 10px}}
+
+.podcast-player{display:block;border:0;border-radius:14px;max-width:100%;margin:16px 0;background:#fff}.listen{cursor:pointer}
+@media(max-width:400px){main{padding-left:12px;padding-right:12px}.bbc{padding-left:12px;padding-right:12px}.podcast-player{width:calc(100% + 24px);max-width:none;margin-left:-12px;margin-right:-12px;border-radius:0}}
+
+/* Apple's narrow embed displays a single landscape episode card. */
+.bbc{container-type:inline-size}
+@container (max-width:424px){.podcast-player{height:auto;aspect-ratio:16/9}}
+
+.episode-label{display:block;font-size:14px;font-weight:650;margin:18px 0 6px}
+#bbc-episode{width:100%;background:#fff}
+.bbc-steps,.bbc-languages{display:grid;gap:4px}
+.bbc-steps{grid-template-columns:repeat(3,minmax(0,1fr));margin:16px 0 6px}
+.bbc-steps button,.bbc-languages button{padding:8px 3px;font-size:14px;line-height:1.35}
+.bbc-steps button[aria-pressed=true]{background:#365d42;border-color:#365d42;color:white}
+.bbc-languages{grid-template-columns:repeat(4,minmax(0,1fr));max-width:360px;margin-bottom:14px}
+.bbc-languages button[aria-pressed=true]{background:#d4e4cf;border:2px solid #426747;font-weight:650}
+#bbc-instruction{margin:12px 0}
+.bbc-video,.bbc-episode-player{display:block;width:100%;border:0;border-radius:12px;margin:12px 0}
+.bbc-video{aspect-ratio:16/9;min-height:200px;background:#17231d}
+.bbc-episode-player{height:175px}
+.bbc-controls{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.bbc-controls button{font-size:14px}
+.bbc-guide{background:#fafbf7;border:1px solid #d2ddcc;border-radius:12px;margin-top:16px;padding:16px}
+.bbc-guide h3{font-size:17px;margin:0}
+.bbc-guide h3 small{font-size:12px;font-weight:400;color:#536751;margin-left:5px}
+.bbc-guide p{font-size:15px;line-height:1.6;margin:12px 0}
+.bbc-guide span{display:block}
+.bbc-guide span+span{margin-top:3px;color:#4d654c}
+.bbc-reading{border-top:1px solid #cddcc3;margin-top:18px;padding-top:16px}
+.bbc-reading h3{font-size:16px;margin:0 0 8px}
+.bbc-reading a{color:#275b37;font-weight:600;text-underline-offset:3px}
+.bbc-reading .hint{margin:6px 0 12px}
+.bbc-reading summary{cursor:pointer;padding:10px 0;font-size:14px}
+.bbc-reading label,.bbc-reading input{display:block;font-size:14px;max-width:100%;margin-bottom:6px}
+#bbc-pdf-view iframe{width:100%;height:clamp(340px,60vh,640px);border:1px solid #c5d4bd;border-radius:8px}
+.bbc-guide-line{padding:10px 12px;border-left:3px solid transparent;border-bottom:1px solid #e0e6da}
+.bbc-guide-line[aria-current=true],.bbc-cue[aria-current=true]{border-left-color:#32664d;background:#e3eddf}
+.bbc-page-jump{font-size:13px;font-weight:650;padding:4px 9px;margin:0 0 5px;font-variant-numeric:tabular-nums}
+#bbc-timeline-info{color:#405a43;min-height:1.6em}
+#bbc-cues-panel summary{padding:12px 0;cursor:pointer;font-size:14px}
+#bbc-cues-label,#bbc-cues-file{display:block;font-size:14px;max-width:100%;margin-bottom:6px}
+#bbc-cues-list{max-height:19rem;overflow-y:auto;overscroll-behavior:contain}
+.bbc-cue{width:100%;display:grid;grid-template-columns:3.1em 1fr;align-items:baseline;gap:6px;text-align:left;border:0;border-left:3px solid transparent;border-radius:4px;padding:8px;margin:2px 0}
+.bbc-cue-time{font-variant-numeric:tabular-nums;font-size:12px;color:#476743}
+.bbc-cue .bbc-cue-text{color:#203e36;margin:0;white-space:pre-line;overflow-wrap:anywhere}
+#bbc-follow-label{display:flex;align-items:center;gap:8px;min-height:44px}
+#bbc-follow-label[hidden]{display:none}
+@media(max-width:400px){
+  .bbc-steps button{font-size:13px}
+  .bbc-episode-player,.bbc-video{width:calc(100% + 24px);margin-left:-12px;border-radius:0}
+}
+
+[hidden]{display:none!important}
+.account{max-width:780px;margin:0 auto;padding:24px}.account h1{font-size:26px}
+.account form{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.account input,#backup-file{max-width:100%;padding:10px;font:inherit}
+.account.signed-in{display:flex;justify-content:space-between;align-items:center;padding-bottom:0}
+.account.signed-in h1,.account.signed-in #account-status:empty{display:none}
+#day-details details,#import-panel{padding:14px 0}summary{cursor:pointer}
+#day-details p{line-height:1.55}#import-panel input{display:block}

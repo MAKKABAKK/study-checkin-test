@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>雅思每日打卡</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <section id="account" class="account" aria-labelledby="account-title">
+    <h1 id="account-title">雅思每日打卡</h1>
+    <p id="account-status" role="status">正在读取登录配置…</p>
+    <form id="email-form" hidden><label for="login-email">登录邮箱</label>
+      <input id="login-email" type="email" autocomplete="email" required>
+      <button id="send-code">发送登录码</button></form>
+    <form id="code-form" hidden><label for="login-code">邮箱验证码</label>
+      <input id="login-code" inputmode="numeric" autocomplete="one-time-code" required>
+      <button id="verify-code">验证登录</button></form>
+    <button id="retry-account" type="button" hidden>重新同步</button>
+    <button id="sign-out" type="button" hidden>退出登录</button>
+  </section>
+  <main id="app" hidden>
+    <header><div class="brand">IELTS · 学习计划</div><span class="private">仅自己可见</span></header>
+    <section class="intro"><h1>每日打卡</h1><p>按当天的清单练习，完成一项就勾一项。</p></section>
+    <noscript>请启用 JavaScript 以读取学习计划和保存打卡。</noscript>
+    <section class="summary" aria-label="学习进度">
+      <div><strong><b id="finished">—</b><small id="study-days"></small></strong><span>完成学习日</span></div>
+      <div><strong><b id="listening">—</b><small> 天</small></strong><span>BBC 泛听打卡</span></div>
+      <div><strong id="last-day">—</strong><span>计划截止日</span></div>
+    </section>
+    <nav aria-label="选择日期">
+      <button id="previous" aria-label="前一天" disabled>←</button>
+      <select id="date" aria-label="学习日期" disabled></select>
+      <button id="next" aria-label="后一天" disabled>→</button>
+      <button id="today" disabled>今天</button>
+    </nav>
+    <section class="day" aria-labelledby="day-title">
+      <div class="daytop"><div><p id="calendar-date" class="eyebrow"></p><h2 id="day-title">正在读取计划…</h2></div><span class="count" id="day-count" hidden></span></div>
+      <p class="note" id="note" hidden></p>
+      <p class="time" id="minutes" hidden></p>
+      <div class="track" id="track" aria-hidden="true" hidden><div id="bar"></div></div>
+      <ul id="tasks" aria-label="当天任务"></ul>
+      <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
+      <div id="day-details"></div>
+    </section>
+    <section class="bbc" aria-labelledby="bbc-title">
+      <div class="bbc-top"><span class="headphones" aria-hidden="true">♫</span><div><p class="eyebrow">每日泛听 · 约 6 分钟</p><h2 id="bbc-title" lang="en">BBC 6 Minute English</h2></div></div>
+      <p id="bbc-description">听一集，试着用一句话说出大意。</p>
+      <label class="episode-label" for="bbc-episode">本次节目</label>
+      <select id="bbc-episode"></select>
+      <div class="bbc-steps" role="group" aria-label="选择练习阶段">
+        <button type="button" data-pass="first" aria-pressed="true">第一遍 · 盲听</button>
+        <button type="button" data-pass="study" aria-pressed="false">第二遍 · 对照</button>
+        <button type="button" data-pass="again" aria-pressed="false">隐藏重听</button>
+      </div>
+      <p id="bbc-instruction" aria-live="polite"></p>
+      <div class="bbc-languages" role="group" aria-label="对照文字">
+        <button type="button" data-mode="off" aria-pressed="true">隐藏</button>
+        <button type="button" data-mode="en" aria-pressed="false">英文</button>
+        <button type="button" data-mode="zh" aria-pressed="false">中文</button>
+        <button type="button" data-mode="both" aria-pressed="false">双语</button>
+      </div>
+      <div id="player"></div>
+      <div class="bbc-controls">
+        <button type="button" class="listen" id="load-player">加载本集音频</button>
+        <button type="button" id="bbc-switch-player" hidden></button>
+      </div>
+      <p class="hint">音频来自 Apple Podcasts，字幕视频来自 BBC 的 YouTube 频道。切换播放器后请点播放；在同一播放器内切换导读语言可继续听。</p>
+      <div class="bbc-guide" id="bbc-guide" hidden>
+        <h3>文稿时间轴 <small>按 PDF 正文页定位</small></h3>
+        <p id="bbc-timeline-info" class="hint"></p>
+        <div id="bbc-lines"></div>
+        <details id="bbc-cues-panel">
+          <summary>用自己的字幕逐句跟读</summary>
+          <p class="hint">选择对应本集 YouTube 版本、带时间码的字幕。点击字幕可以跳回原句。文件只在本机读取，换集或隐藏重听时清除。</p>
+          <label for="bbc-cues-file" id="bbc-cues-label">选择本集字幕（VTT / SRT）</label>
+          <input id="bbc-cues-file" type="file" accept=".vtt,.srt,text/vtt,application/x-subrip">
+          <p class="hint" id="bbc-cues-status" role="status"></p>
+          <div id="bbc-cues-list" aria-label="本地字幕"></div>
+        </details>
+      </div>
+      <section class="bbc-reading" id="bbc-reading" aria-label="官方英文学习稿">
+        <h3>官方英文学习稿</h3>
+        <a id="bbc-source" target="_blank" rel="noopener noreferrer">打开 BBC 本集英文稿（PDF）↗</a>
+        <p class="hint" id="bbc-reading-note">BBC 按对话整理，个别措辞与录音有出入。</p>
+        <details id="bbc-local-reader">
+          <summary>在本页读已下载的 PDF</summary>
+          <p class="hint">先从上面的 BBC 链接保存原稿，再选择这份 PDF，就能边听边读。文件只在这台设备上打开。</p>
+          <label for="bbc-pdf">选择本集 BBC 原稿</label>
+          <input type="file" id="bbc-pdf" accept="application/pdf,.pdf">
+          <p class="hint" id="bbc-pdf-status" role="status"></p>
+          <label id="bbc-follow-label" hidden><input id="bbc-follow-pdf" type="checkbox" checked> PDF 随视频翻页</label>
+          <div id="bbc-pdf-view"></div>
+        </details>
+      </section>
+      <label class="listen-check"><input type="checkbox" id="bbc-check" disabled>今天已泛听一集</label>
+    </section>
+    <footer>
+      <p id="status" role="status">正在连接云端…</p>
+      <div class="actions"><button id="refresh">重新同步</button><button id="export" disabled>导出备份</button></div>
+      <details id="import-panel"><summary>从本机备份恢复</summary>
+        <p>选择备份后先预览。确认前请下载当前记录，方便恢复。</p>
+        <label for="backup-file">学习计划与打卡（JSON）</label>
+        <input type="file" id="backup-file" accept=".json,application/json">
+        <p id="import-preview" role="status"></p>
+        <button type="button" id="import-confirm" hidden>确认导入并替换当前记录</button>
+      </details>
+      <p>手机和电脑请登录同一邮箱。在另一台设备打开或切回本页就能同步，停留在页面时每 15 秒刷新。</p>
+      <p>本机听写器单独保管听写记录和错词。</p>
+    </footer>
+  </main>
+</body>
+</html>
