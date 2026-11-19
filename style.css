@@ -72,3 +72,21 @@
 #connect-panel{margin:12px 0}
 #connect-panel summary{font-weight:600;padding:8px 0;color:#335f46}
 .account.signed-in{display:block}
+
+.speaking-entry{display:inline-flex;align-items:center;gap:12px;margin:4px 0;padding:12px 16px;border-radius:10px;background:#e7eddf;color:#294b3c;font-weight:650;text-decoration:none}
+.speaking-entry:hover{background:#dce7d3}
+.recital{max-width:760px}
+.recital header{font-size:14px;color:#526a58}
+.recital a{color:#315f48;text-underline-offset:3px}
+.recital .intro{padding-bottom:18px}
+.recital .intro p{max-width:64ch}
+.recite-modes{display:flex;flex-wrap:wrap;gap:8px}
+.recital ol{list-style:none;counter-reset:question;margin:20px 0;padding:0}
+.recital li{counter-increment:question;display:grid;grid-template-columns:2em 1fr;column-gap:10px;padding:22px 20px;margin-bottom:12px;background:#fff;border:1px solid #d9e0d4;border-radius:14px}
+.recital li::before{content:counter(question, decimal-leading-zero);font:600 14px/1.8 system-ui;color:#607448}
+.recital h2{font-size:21px;line-height:1.35}
+.recital details{grid-column:2;min-width:0;margin-top:8px}
+.recital summary{padding:8px 0;color:#386047;font-size:14px}
+.recital details p[lang=en]{font-size:18px;line-height:1.65;margin:5px 0 10px}
+.recital .cue{font-size:14px;color:#526450;margin:0}
+@media(max-width:520px){.recital li{padding:16px 12px;column-gap:6px;grid-template-columns:1.6em 1fr}.recital h2{font-size:19px}.recital details p[lang=en]{font-size:17px}}

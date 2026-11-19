@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>作业三口语 · 住房六问｜拾课</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="recital" id="top">
+    <header><a href="./">← 拾课首页</a><span lang="en">IELTS Speaking · Part 1</span></header>
+    <section class="intro" aria-labelledby="title">
+      <p class="eyebrow">作业三 · 口语背诵</p>
+      <h1 id="title">住房六问</h1>
+      <p>每题用 2–4 句回答，六题说完算一轮。作业要求至少练 30 轮，熟练后录音。</p>
+      <p>这组参考回答以「和朋友合租两居室」为例。先把室友、房间和日常活动换成自己的情况，再合上答案练习。</p>
+    </section>
+    <div class="recite-modes" hidden>
+      <button type="button" id="show-all" aria-controls="questions">展开全部回答</button>
+      <button type="button" id="hide-all" aria-controls="questions">收起答案自测</button>
+    </div>
+    <ol id="questions">
+      <li>
+        <h2 lang="en">What do you usually do in your flat?</h2>
+        <details open><summary>参考回答与记忆提示</summary>
+          <p lang="en">On weekdays, I usually study at my desk and cook something simple for dinner. After dinner, my flatmate and I often watch a show together.</p>
+          <p class="cue">书桌前学习 → 做顿简单的晚饭 → 和室友看剧</p>
+        </details>
+      </li>
+      <li>
+        <h2 lang="en">Do you plan to live there for a long time?</h2>
+        <details><summary>参考回答与记忆提示</summary>
+          <p lang="en">I’ll probably stay here until I finish my studies. After that, I’d like to find a place closer to work so I can spend less time on the bus.</p>
+          <p class="cue">住到毕业 → 搬到公司附近 → 少坐公交</p>
+        </details>
+      </li>
+      <li>
+        <h2 lang="en">What kind of accommodation do you live in?</h2>
+        <details><summary>参考回答与记忆提示</summary>
+          <p lang="en">I share a two-bedroom flat with a friend. We each have our own bedroom, but we share the kitchen and the living room.</p>
+          <p class="cue">和朋友合租两居室 → 卧室各自用 → 厨房、客厅共用</p>
+        </details>
+      </li>
+      <li>
+        <h2 lang="en">Can you describe the place where you live?</h2>
+        <details><summary>参考回答与记忆提示</summary>
+          <p lang="en">It’s a small flat on the third floor. The living room gets a lot of sunlight, and from the sofa I can see the park across the road.</p>
+          <p class="cue">三楼的小公寓 → 客厅采光好 → 坐在沙发上能看见公园</p>
+        </details>
+      </li>
+      <li>
+        <h2 lang="en">What’s your favourite room in your home?</h2>
+        <details><summary>参考回答与记忆提示</summary>
+          <p lang="en">My favourite room is my bedroom because it’s the quietest part of the flat. My desk is right by the window, so I can look outside when I take a break.</p>
+          <p class="cue">卧室最安静 → 书桌靠窗 → 休息时看看窗外</p>
+        </details>
+      </li>
+      <li>
+        <h2 lang="en">Is there anything you would like to change about your home?</h2>
+        <details><summary>参考回答与记忆提示</summary>
+          <p lang="en">I’d like to get a bigger kitchen table. The one we have is fine for two people, but when our friends come over for dinner, we run out of space for the dishes.</p>
+          <p class="cue">想换大一点的餐桌 → 两人够用 → 朋友来时放不下菜</p>
+        </details>
+      </li>
+    </ol>
+    <a href="#top">回到第一题 ↑</a>
+  </main>
+  <script>
+    const answers = document.querySelectorAll('#questions details');
+    function setAnswers(open) {
+      for (const answer of answers) answer.open = open;
+    }
+    document.getElementById('show-all').onclick = () => setAnswers(true);
+    document.getElementById('hide-all').onclick = () => setAnswers(false);
+    document.querySelector('.recite-modes').hidden = false;
+  </script>
+</body>
+</html>
