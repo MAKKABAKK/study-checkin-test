@@ -30,6 +30,10 @@
         <details class="answer"><summary>第 8 页 · <span class="edition-label">讲义简版</span></summary>
           <p lang="en">I spend a lot of time at my desk studying. To relax, I read or watch TV, and sometimes a friend comes round at the weekend.</p>
         </details>
+        <details class="translation"><summary>中文翻译</summary>
+          <p class="question-zh"><strong>你平时在公寓里都做些什么？</strong></p>
+          <p class="answer-zh">我花很多时间在书桌前学习。我会读书或看电视放松一下，周末有时也会有朋友来家里串门。</p>
+        </details>
       </li>
       <li>
         <h2 lang="en">Do you plan to live there for a long time?</h2>
@@ -39,6 +43,10 @@
         </details>
         <details class="answer"><summary>第 7 页 · <span class="edition-label">讲义简版</span></summary>
           <p lang="en">I’ll probably move out after university. Where I live next will depend on where I get a job.</p>
+        </details>
+        <details class="translation"><summary>中文翻译</summary>
+          <p class="question-zh"><strong>你打算在那里住很久吗？</strong></p>
+          <p class="answer-zh">我大学毕业后大概就会搬出去。接下来住哪儿，要看我在哪儿找到工作。</p>
         </details>
       </li>
       <li>
@@ -50,6 +58,10 @@
         <details class="answer"><summary>第 8 页 · <span class="edition-label">讲义简版</span></summary>
           <p lang="en">Our flat has three bedrooms. It’s fairly ordinary, but it’s comfortable, and there’s a lift and security at the entrance.</p>
         </details>
+        <details class="translation"><summary>中文翻译</summary>
+          <p class="question-zh"><strong>你住的是什么类型的房子？</strong></p>
+          <p class="answer-zh">我们家有三间卧室。房子挺普通的，但住起来很舒服，楼里有电梯，入口也有安保措施。</p>
+        </details>
       </li>
       <li>
         <h2 lang="en">Can you describe the place where you live?</h2>
@@ -59,6 +71,10 @@
         </details>
         <details class="answer"><summary>第 7 页 · <span class="edition-label">讲义简版</span></summary>
           <p lang="en">Our flat is on the eighth floor of a block with about twenty floors. There’s a small garden downstairs and a good view from our flat.</p>
+        </details>
+        <details class="translation"><summary>中文翻译</summary>
+          <p class="question-zh"><strong>你能描述一下你住的地方吗？</strong></p>
+          <p class="answer-zh">我们家在一栋大约二十层的住宅楼里，住八楼。楼下有个小花园，从家里望出去，景色也很好。</p>
         </details>
       </li>
       <li>
@@ -70,6 +86,10 @@
         <details class="answer"><summary>第 8 页 · <span class="edition-label">讲义简版</span></summary>
           <p lang="en">I like the balcony just off our living room best. I keep a chair and a few plants there, and it’s a lovely spot to sit and drink tea.</p>
         </details>
+        <details class="translation"><summary>中文翻译</summary>
+          <p class="question-zh"><strong>你最喜欢家里的哪个房间？</strong></p>
+          <p class="answer-zh">我最喜欢客厅旁边的阳台。我在那儿放了一把椅子，养了几盆植物，坐在那里喝茶很惬意。</p>
+        </details>
       </li>
       <li>
         <h2 lang="en">Is there anything you would like to change about your home?</h2>
@@ -80,6 +100,10 @@
         <details class="answer"><summary>第 6 页素材改写 · 讲义未收录本题</summary>
           <p lang="en">I’d like my flat to get a bit more natural light. I’d also love a little more space on the balcony so I could grow more plants there.</p>
         </details>
+        <details class="translation"><summary>中文翻译</summary>
+          <p class="question-zh"><strong>家里有没有什么地方是你想改一改的？</strong></p>
+          <p class="answer-zh">我希望家里的自然光能再多一点。我也希望阳台能再宽敞一些，这样我就能多种些植物。</p>
+        </details>
       </li>
     </ol>
     <a href="#top">回到第一题 ↑</a>
@@ -89,7 +113,7 @@
     function setAnswers(open) {
       for (const answer of answers) answer.open = open;
       if (!open) {
-        for (const hint of document.querySelectorAll('.hint')) hint.open = false;
+        for (const panel of document.querySelectorAll('.hint, .translation')) panel.open = false;
       }
     }
     document.getElementById('show-all').onclick = () => setAnswers(true);
@@ -125,12 +149,14 @@
       try {
         const decode = text => Uint8Array.from(atob(text), ch => ch.charCodeAt(0));
         const secret = decode(key.replaceAll('-', '+').replaceAll('_', '/'));
-        const packed = decode('/AzmVMLlbI+hfwB2z0VdaH/s6jRuycZJ/dYA/BmO99rPZCOiNapWyqnwQ3ezu4P9d+ggs28d2xOSueJubTJjB5+6eZMs9tnk/JiF2KESeKElzaxsT9Q+T+3k4T7AF2DDmA/Wad41Izkx2OiHwevKMPkSLryEvdypN8dh0cTpOA9cWJOiB6SMgn041bidVLNoUCbFJYl90Lfufh2NRHtnibZN+oaDk6WB83M2m+Zjs6Qs8ax9i4Ovf1PCAU8Kf6Ji8Jy/0VAucVkBaXTHa5DrdxYURjEIO2C4qf/3tbaugMsqscHA1+WOxSB3tEQNkcmK6olarBs9Q9SD7EaopKz8MuA7qdOANwCSFty+rHy8KF/8wkDGxZM2k4q4kLDlIngfORdAH2i9F0f0q+uki6X723YkAkQzZTaK3yBveKVj8LQhaxy7H0+TiS18Pat4oTDT1veiUe3uGjebi6uKC1iNDbh1n7Ygm2a4jBPOsCrdInjeqs4uMww/Sp/EEqwem1bv5q3tyBZ+SaRR1RTy3vfIkdDKPnVDpSrXGs6y56dFvp8A8SrjrvbjhqZVL0JZE4AvXj4utHFhwXTtrrp5HP7ehmZjeBaoNcdLizTjlBLuLrxVPmqtsblSqazFkE6ExKblnGgTzbPSfkFJ3yK21uGR184lQ21XjGLcu1BqactadPAaFUcn/FLlaZCbJRrGvVM+DlKweebhwYna+1S38R3BsPAPxu/dyssVDJgHfVp5pblUe/CyL/oKS4e5BkhnzYT0ZoScBZGAmMwiR7a2bmKxRNFLdFx2koFPK4wM1GHwRJ9iQjVd2gw7MeOG9N0o96zT7U/kCe/U+2wMtflYFnBtj5my94pgMi7YuCKNrBP/jKVWszO9uG5gpI1Q3qVGNLR66VvJ7Db8aPRRfu6xJMZZuyddqo3vYKWB57TXAcKERbfKSf0BBwaxqCDcCYPAynp8xZ2AgvUKoZ463q4cgqEbiVrsvDGFvOYClCVvlVQmAgBB2Xw6JbdCJaMZUZEZyy8YcvWj9x2oGFUqpze3+6x8HQQ4NhUlXF905fFLteOZoSjxjtdOKblgsMVZmqktAR0pHWX22zr3cx8aqjT0Rbn51fxhHXxJofA+a1NXNImwVitxAZDjVJkZyfeR7rPwuKX9EpI0k3seG01b8WP1uhSQ+kAHa8u7ssCca7qZpERO5QaHjahsXxzezaLFAGimZIALnn65H4dnMZHcWBPeAIzDs3TRftEyEGmdflWepTjLvxpEC7ukbkqQFJkSCZTNSqIZUNpgwQdhKTRasPGuNJeHcHkM78TfyYfJfphiCnREDK/FHvI4rB4h6CcT0VWeF3xde7HV/enSEQqlMg==');
+        const packed = decode('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');
         const cryptoKey = await crypto.subtle.importKey('raw', secret, 'AES-GCM', false, ['decrypt']);
         const plain = await crypto.subtle.decrypt({name: 'AES-GCM', iv: packed.slice(0, 12)}, cryptoKey, packed.slice(12));
         const texts = JSON.parse(new TextDecoder().decode(plain));
         document.querySelectorAll('.edition-label').forEach((label, i) => {
-          label.closest('details').querySelector('p[lang=en]').textContent = texts[i];
+          const card = label.closest('li');
+          card.querySelector('.answer p[lang=en]').textContent = texts[i].en;
+          card.querySelector('.answer-zh').textContent = texts[i].zh;
           label.textContent = '讲义原文';
         });
         updateStarters();
