@@ -1,0 +1,256 @@
+{
+  "books": [
+    {
+      "id": "class-notes-10",
+      "title": "课堂知识点 · 第 1–10 节",
+      "pages": 84,
+      "chapters": [
+        {
+          "title": "第一节课",
+          "page": 1
+        },
+        {
+          "title": "第二节课",
+          "page": 5
+        },
+        {
+          "title": "第三节课",
+          "page": 16
+        },
+        {
+          "title": "第四节课",
+          "page": 25
+        },
+        {
+          "title": "第五节课",
+          "page": 33
+        },
+        {
+          "title": "第六节课",
+          "page": 42
+        },
+        {
+          "title": "第七节课",
+          "page": 51
+        },
+        {
+          "title": "第八节课",
+          "page": 59
+        },
+        {
+          "title": "第九节课",
+          "page": 69
+        },
+        {
+          "title": "第十节课",
+          "page": 77
+        }
+      ],
+      "text": true
+    },
+    {
+      "id": "speaking-part1-2026-09",
+      "title": "口语 Part 1 · 9–12 月",
+      "pages": 40,
+      "chapters": [
+        {
+          "title": "目录",
+          "page": 1
+        },
+        {
+          "title": "起手问题(刚开始考官一般挑一到两个起手问题)",
+          "page": 4
+        },
+        {
+          "title": "Work / Study",
+          "page": 4
+        },
+        {
+          "title": "Home/accommodation",
+          "page": 6
+        },
+        {
+          "title": "Hometown",
+          "page": 9
+        },
+        {
+          "title": "The area you live in",
+          "page": 11
+        },
+        {
+          "title": "9-12 月新题（优先看，考的几率高）",
+          "page": 12
+        },
+        {
+          "title": "Feeling Bored",
+          "page": 12
+        },
+        {
+          "title": "Computers/Tablets",
+          "page": 12
+        },
+        {
+          "title": "Collecting Things",
+          "page": 13
+        },
+        {
+          "title": "Lost and Found",
+          "page": 14
+        },
+        {
+          "title": "Street Market",
+          "page": 14
+        },
+        {
+          "title": "Opportunities",
+          "page": 15
+        },
+        {
+          "title": "Secondary School",
+          "page": 16
+        },
+        {
+          "title": "Paper",
+          "page": 16
+        },
+        {
+          "title": "Fruit and Vegetables",
+          "page": 17
+        },
+        {
+          "title": "Politeness",
+          "page": 18
+        },
+        {
+          "title": "Tiredness",
+          "page": 18
+        },
+        {
+          "title": "Rubbish and Recycling",
+          "page": 19
+        },
+        {
+          "title": "Travelling",
+          "page": 20
+        },
+        {
+          "title": "Advertisement",
+          "page": 20
+        },
+        {
+          "title": "Friends",
+          "page": 21
+        },
+        {
+          "title": "Shoes",
+          "page": 23
+        },
+        {
+          "title": "Name",
+          "page": 23
+        },
+        {
+          "title": "老题（新题看完了再看，也有几率考到）",
+          "page": 24
+        },
+        {
+          "title": "Watch",
+          "page": 24
+        },
+        {
+          "title": "Cars",
+          "page": 25
+        },
+        {
+          "title": "Websites",
+          "page": 25
+        },
+        {
+          "title": "Mirrors",
+          "page": 26
+        },
+        {
+          "title": "Public Gardens and Parks",
+          "page": 27
+        },
+        {
+          "title": "Shopping",
+          "page": 28
+        },
+        {
+          "title": "Tidiness",
+          "page": 28
+        },
+        {
+          "title": "Music",
+          "page": 29
+        },
+        {
+          "title": "Teachers",
+          "page": 30
+        },
+        {
+          "title": "Social Media",
+          "page": 30
+        },
+        {
+          "title": "Clothing",
+          "page": 31
+        },
+        {
+          "title": "Films/Cinemas",
+          "page": 32
+        },
+        {
+          "title": "Dream and Ambition",
+          "page": 33
+        },
+        {
+          "title": "Outer Space and Stars",
+          "page": 33
+        },
+        {
+          "title": "Art",
+          "page": 34
+        },
+        {
+          "title": "Singing",
+          "page": 35
+        },
+        {
+          "title": "Evening Time",
+          "page": 35
+        },
+        {
+          "title": "Old Buildings",
+          "page": 36
+        },
+        {
+          "title": "Sports Programs",
+          "page": 36
+        },
+        {
+          "title": "Science",
+          "page": 37
+        },
+        {
+          "title": "Headphones",
+          "page": 38
+        },
+        {
+          "title": "Jokes & Comedies",
+          "page": 39
+        },
+        {
+          "title": "History",
+          "page": 39
+        },
+        {
+          "title": "Morning Routines",
+          "page": 40
+        }
+      ],
+      "text": true
+    }
+  ]
+}

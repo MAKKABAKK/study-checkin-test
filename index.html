@@ -11,70 +11,57 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=dfdbd1fc274ee1fa"></script>
+  <script type="module" src="./app.js?v=2aa2660792ec0c37"></script>
 </head>
 <body>
-  <section id="account" class="account" aria-labelledby="account-title">
-    <h1 id="account-title">拾课 · 雅思每日打卡</h1>
-    <a class="speaking-entry" href="./homework-3.html">作业三口语 · 住房六问背诵 <span aria-hidden="true">→</span></a>
-    <section id="mac-practice" hidden aria-label="Mac 本机练习">
-      <h2>星级听写</h2>
-      <p>在保存原记录的 Mac 上继续听写。重启后若打不开，双击练习项目里的「启动六星跟练.command」。</p>
-      <div class="practice-links">
-        <a id="dictation-link" href="http://127.0.0.1:18736/#dictation">继续听写</a>
-        <a id="reports-link" href="http://127.0.0.1:18736/#reports">听写报告</a>
-        <a id="mac-plan-link" href="http://127.0.0.1:18736/#plan">听写器原有的打卡计划</a>
+  <header class="sitebar">
+    <div class="sitebar-inner">
+      <a class="sitebrand" href="./">拾课</a>
+      <nav class="site-nav" aria-label="学习导航">
+        <a href="./" aria-current="page">学习首页</a>
+        <a href="./handouts.html">讲义</a>
+        <a href="./homework-3.html">口语</a>
+        <a href="./#checkin">打卡</a>
+        <a href="./#bbc">泛听</a>
+        <a href="./#dictation-tools">听写</a>
+      </nav>
+    </div>
+  </header>
+  <section class="study-hub" aria-labelledby="account-title">
+    <h1 id="account-title">雅思学习首页</h1>
+    <div class="study-entries">
+      <a class="study-entry featured" href="./handouts.html"><strong>讲义复习</strong><span>课堂知识点 · 口语讲义</span></a>
+      <a class="study-entry" href="./homework-3.html"><strong>作业三口语</strong><span>住房六问 · 背诵与自测</span></a>
+      <a class="study-entry" href="#checkin"><strong>每日打卡</strong><span>今日任务与学习进度</span></a>
+      <a class="study-entry" href="#bbc"><strong>BBC 泛听</strong><span>盲听、对照和重听</span></a>
+    </div>
+    <section id="dictation-tools" aria-labelledby="dictation-heading">
+      <h2 id="dictation-heading">星级听写与错词</h2>
+      <p id="dictation-device">听写记录和错词保存在原来的 Mac 上。在那台电脑打开拾课即可继续练习。</p>
+      <div id="mac-practice" hidden>
+        <div class="practice-links">
+          <a id="dictation-link" href="http://127.0.0.1:18736/#dictation">继续听写</a>
+          <a href="http://127.0.0.1:18736/#review">错词复习</a>
+          <a href="http://127.0.0.1:18736/#meanings">看英文想中文</a>
+          <a href="http://127.0.0.1:18736/#consolidation">高频错词与巩固</a>
+          <a id="reports-link" href="http://127.0.0.1:18736/#reports">听写报告</a>
+          <a id="mac-plan-link" href="http://127.0.0.1:18736/#plan">听写器原有的打卡计划</a>
+        </div>
+        <p>使用原 Mac 上的听写记录。如果打不开，双击练习项目里的「启动六星跟练.command」。</p>
       </div>
     </section>
+    <a class="settings-jump" href="#settings">备份与同步设置</a>
+  </section>
+  <div id="checkin">
+  <section id="account" class="account" aria-label="本机打卡与泛听">
     <section id="local-entry" aria-labelledby="local-heading">
-      <h2 id="local-heading">用备份在浏览器打卡</h2>
+      <h2 id="local-heading">每日打卡</h2>
+      <p id="local-explanation">导入已有计划，在这个浏览器保存打卡。已有同步计划也可以<a href="#settings">连接账号</a>。</p>
       <label for="local-plan-file">打开计划备份（JSON）</label>
       <input type="file" id="local-plan-file" accept=".json,application/json" aria-describedby="local-explanation">
-      <p id="local-explanation">导入一次即可打卡，进度保存在这个浏览器。</p>
     </section>
     <p id="local-status" role="status"></p>
-    <details id="connect-panel">
-      <summary>同步手机和电脑的计划</summary>
-      <p id="account-status" role="status">正在读取同步设置…</p>
-    <form id="email-form" hidden><label for="login-email">登录邮箱</label>
-      <input id="login-email" type="email" autocomplete="username" required>
-      <label id="password-label" for="login-password" hidden>密码</label>
-      <input id="login-password" type="password" autocomplete="current-password" required disabled hidden>
-      <button id="send-code">发送登录邮件</button></form>
-    <form id="code-form" hidden><label for="login-code">登录链接或数字验证码</label>
-      <input id="login-code" type="password" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" required>
-      <button id="verify-code">验证登录</button>
-      <button id="change-email" type="button">重新发送或更换邮箱</button></form>
-    <button id="login-method" type="button" hidden>使用密码登录</button>
-    </details>
-    <button id="retry-account" type="button" hidden>重新同步</button>
-    <button id="sign-out" type="button" hidden>退出登录</button>
-  </section>
-  <main id="app" hidden>
-    <header><div class="brand">拾课 · 雅思学习计划</div><span class="private" id="plan-location">仅自己可见</span></header>
-    <section class="intro"><h1>每日打卡</h1><p>按当天的清单练习，完成一项就勾一项。</p></section>
-    <noscript>请启用 JavaScript 以读取学习计划和保存打卡。</noscript>
-    <section class="summary" aria-label="学习进度">
-      <div><strong><b id="finished">—</b><small id="study-days"></small></strong><span>完成学习日</span></div>
-      <div><strong><b id="listening">—</b><small> 天</small></strong><span>BBC 泛听打卡</span></div>
-      <div><strong id="last-day">—</strong><span>计划截止日</span></div>
-    </section>
-    <nav aria-label="选择日期">
-      <button id="previous" aria-label="前一天" disabled>←</button>
-      <select id="date" aria-label="学习日期" disabled></select>
-      <button id="next" aria-label="后一天" disabled>→</button>
-      <button id="today" disabled>今天</button>
-    </nav>
-    <section class="day" aria-labelledby="day-title">
-      <div class="daytop"><div><p id="calendar-date" class="eyebrow"></p><h2 id="day-title">正在读取计划…</h2></div><span class="count" id="day-count" hidden></span></div>
-      <p class="note" id="note" hidden></p>
-      <p class="time" id="minutes" hidden></p>
-      <div class="track" id="track" aria-hidden="true" hidden><div id="bar"></div></div>
-      <ul id="tasks" aria-label="当天任务"></ul>
-      <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
-      <div id="day-details"></div>
-    </section>
-    <section class="bbc" aria-labelledby="bbc-title">
+    <section class="bbc" id="bbc" aria-labelledby="bbc-title">
       <div class="bbc-top"><span class="headphones" aria-hidden="true">♫</span><div><p class="eyebrow">每日泛听 · 约 6 分钟</p><h2 id="bbc-title" lang="en">BBC 6 Minute English</h2></div></div>
       <p id="bbc-description">听一集，试着用一句话说出大意。</p>
       <label class="episode-label" for="bbc-episode">本次节目</label>
@@ -124,9 +111,34 @@
           <div id="bbc-pdf-view"></div>
         </details>
       </section>
-      <label class="listen-check"><input type="checkbox" id="bbc-check" disabled>今天已泛听一集</label>
+      <label class="listen-check" hidden><input type="checkbox" id="bbc-check" disabled>今天已泛听一集</label>
     </section>
-    <footer>
+  </section>
+  <main id="app" hidden>
+    <header class="day-heading"><h2>每日打卡</h2><span class="private" id="plan-location">仅自己可见</span></header>
+    <noscript>请启用 JavaScript 以读取学习计划和保存打卡。</noscript>
+    <section class="summary" aria-label="学习进度">
+      <div><strong><b id="finished">—</b><small id="study-days"></small></strong><span>完成学习日</span></div>
+      <div><strong><b id="listening">—</b><small> 天</small></strong><span>BBC 泛听打卡</span></div>
+      <div><strong id="last-day">—</strong><span>计划截止日</span></div>
+    </section>
+    <nav aria-label="选择日期">
+      <button id="previous" aria-label="前一天" disabled>←</button>
+      <select id="date" aria-label="学习日期" disabled></select>
+      <button id="next" aria-label="后一天" disabled>→</button>
+      <button id="today" disabled>今天</button>
+    </nav>
+    <section class="day" aria-labelledby="day-title">
+      <div class="daytop"><div><p id="calendar-date" class="eyebrow"></p><h2 id="day-title">正在读取计划…</h2></div><span class="count" id="day-count" hidden></span></div>
+      <p class="note" id="note" hidden></p>
+      <p class="time" id="minutes" hidden></p>
+      <div class="track" id="track" aria-hidden="true" hidden><div id="bar"></div></div>
+      <ul id="tasks" aria-label="当天任务"></ul>
+      <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
+      <div id="day-details"></div>
+    </section>
+    <footer id="backup-tools">
+      <h2>学习记录备份</h2>
       <p id="status" role="status">正在连接云端…</p>
       <div class="actions"><button id="refresh">重新同步</button><button id="export" disabled>导出备份</button></div>
       <details id="import-panel"><summary>从本机备份恢复</summary>
@@ -140,5 +152,26 @@
       <p>本机听写器单独保管听写记录和错词。</p>
     </footer>
   </main>
+  </div>
+  <section id="settings" class="account sync-settings" aria-labelledby="settings-title">
+    <h2 id="settings-title">备份与同步设置</h2>
+    <a id="backup-jump" href="#backup-tools" hidden>导出或恢复学习记录</a>
+    <details id="connect-panel">
+      <summary>同步手机和电脑的计划</summary>
+      <p id="account-status" role="status">正在读取同步设置…</p>
+    <form id="email-form" hidden><label for="login-email">登录邮箱</label>
+      <input id="login-email" type="email" autocomplete="username" required>
+      <label id="password-label" for="login-password" hidden>密码</label>
+      <input id="login-password" type="password" autocomplete="current-password" required disabled hidden>
+      <button id="send-code">发送登录邮件</button></form>
+    <form id="code-form" hidden><label for="login-code">登录链接或数字验证码</label>
+      <input id="login-code" type="password" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" required>
+      <button id="verify-code">验证登录</button>
+      <button id="change-email" type="button">重新发送或更换邮箱</button></form>
+    <button id="login-method" type="button" hidden>使用密码登录</button>
+    </details>
+    <button id="retry-account" type="button" hidden>重新同步</button>
+    <button id="sign-out" type="button" hidden>退出登录</button>
+  </section>
 </body>
 </html>
