@@ -15,9 +15,6 @@ button{min-height:42px;border:1px solid var(--line);border-radius:9px;background
 button:disabled{opacity:.43;cursor:default}
 button:hover:enabled,summary:hover{background:#ebf0e6}
 a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #719557;outline-offset:2px}
-#personal-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:-10px 0 18px}
-#personal-actions button,#copy-status,#personal-link{font-size:14px}
-#copy-status{color:var(--muted)}
 .shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-bottom:22px}
 .shelf button{display:flex;flex-direction:column;gap:5px;align-items:flex-start;text-align:left;padding:14px 17px;border-radius:13px}
 .shelf strong{font-size:16px}

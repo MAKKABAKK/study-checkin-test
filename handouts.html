@@ -9,25 +9,21 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./handouts.css">
-  <script type="module" src="./handouts.js?v=notes17"></script>
+  <script type="module" src="./handouts.js?v=public"></script>
 </head>
 <body>
   <header class="sitebar"><div class="sitebar-inner">
     <a class="sitebrand" href="./">拾课</a>
     <nav class="site-nav" aria-label="学习导航">
-      <a href="./">学习首页</a><a href="./handouts.html" aria-current="page">讲义</a><a href="./homework-3.html">口语</a><a href="./#checkin">打卡</a><a href="./#bbc">泛听</a><a href="./#dictation-tools">听写</a>
+      <a href="./">学习首页</a><a href="./handouts.html" aria-current="page">讲义</a><a href="./homework-3.html">口语</a><a href="./#checkin">打卡</a><a href="./#bbc">泛听</a><a href="./dictation.html">听写</a>
     </nav>
   </div></header>
   <main>
     <h1>讲义复习</h1>
     <p id="storage-note" class="subtitle">从第一页开始，或接着上次的位置读。每本讲义的页码会保存在当前浏览器。</p>
-    <div id="personal-actions" hidden>
-      <button id="copy-personal" type="button">复制个人阅读链接</button>
-      <a id="personal-link" hidden>个人阅读链接</a><span id="copy-status" role="status"></span>
-    </div>
     <div id="library-status" role="status">正在打开讲义目录…</div>
     <button id="load-again" hidden>重新加载目录</button>
-    <noscript>请启用 JavaScript 以打开个人讲义。</noscript>
+    <noscript>请启用 JavaScript 以打开讲义。</noscript>
     <div id="library" hidden>
       <div class="shelf" id="books" role="group" aria-label="选择讲义"></div>
       <div class="workspace">

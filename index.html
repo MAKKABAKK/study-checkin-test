@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=2aa2660792ec0c37"></script>
+  <script type="module" src="./app.js?v=a17c3bf61b72d89f"></script>
 </head>
 <body>
   <header class="sitebar">
@@ -23,7 +23,7 @@
         <a href="./homework-3.html">口语</a>
         <a href="./#checkin">打卡</a>
         <a href="./#bbc">泛听</a>
-        <a href="./#dictation-tools">听写</a>
+        <a href="./dictation.html?level=six">听写</a>
       </nav>
     </div>
   </header>
@@ -33,34 +33,28 @@
       <a class="study-entry featured" href="./handouts.html"><strong>讲义复习</strong><span>课堂知识点 · 口语讲义</span></a>
       <a class="study-entry" href="./homework-3.html"><strong>作业三口语</strong><span>住房六问 · 背诵与自测</span></a>
       <a class="study-entry" href="#checkin"><strong>每日打卡</strong><span>今日任务与学习进度</span></a>
+      <a class="study-entry" href="./dictation.html?level=six"><strong>星级听写</strong><span>一至六星 · 听原音、打字</span></a>
+      <a class="study-entry" href="./dictation.html?level=six&amp;view=review"><strong>错词复习</strong><span>按听写轮次练习</span></a>
       <a class="study-entry" href="#bbc"><strong>BBC 泛听</strong><span>盲听、对照和重听</span></a>
     </div>
     <section id="dictation-tools" aria-labelledby="dictation-heading">
       <h2 id="dictation-heading">星级听写与错词</h2>
-      <p id="dictation-device">听写记录和错词保存在原来的 Mac 上。在那台电脑打开拾课即可继续练习。</p>
-      <div id="mac-practice" hidden>
-        <div class="practice-links">
-          <a id="dictation-link" href="http://127.0.0.1:18736/#dictation">继续听写</a>
-          <a href="http://127.0.0.1:18736/#review">错词复习</a>
-          <a href="http://127.0.0.1:18736/#meanings">看英文想中文</a>
-          <a href="http://127.0.0.1:18736/#consolidation">高频错词与巩固</a>
-          <a id="reports-link" href="http://127.0.0.1:18736/#reports">听写报告</a>
-          <a id="mac-plan-link" href="http://127.0.0.1:18736/#plan">听写器原有的打卡计划</a>
-        </div>
-        <p>使用原 Mac 上的听写记录。如果打不开，双击练习项目里的「启动六星跟练.command」。</p>
+      <div class="practice-links" id="online-practice">
+        <a id="dictation-link" href="./dictation.html?level=six">继续听写</a>
+        <a href="./dictation.html?level=six&amp;view=review">错词复习</a>
+        <a href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
+        <a href="./dictation.html?level=six&amp;view=consolidation">高频错词与巩固</a>
+        <a id="reports-link" href="./dictation.html?level=six&amp;view=reports">听写报告</a>
       </div>
+      <p id="dictation-device">选一个星级，即可播放原音、调速和听写。</p>
+      <button type="button" id="copy-study-link" hidden>复制我的进度链接</button>
+      <p id="study-link-status" role="status"></p>
     </section>
-    <a class="settings-jump" href="#settings">备份与同步设置</a>
+    <a class="settings-jump" href="#backup-tools">学习记录备份</a>
   </section>
   <div id="checkin">
   <section id="account" class="account" aria-label="本机打卡与泛听">
-    <section id="local-entry" aria-labelledby="local-heading">
-      <h2 id="local-heading">每日打卡</h2>
-      <p id="local-explanation">导入已有计划，在这个浏览器保存打卡。已有同步计划也可以<a href="#settings">连接账号</a>。</p>
-      <label for="local-plan-file">打开计划备份（JSON）</label>
-      <input type="file" id="local-plan-file" accept=".json,application/json" aria-describedby="local-explanation">
-    </section>
-    <p id="local-status" role="status"></p>
+    <button id="load-plan" type="button" hidden>重新读取计划</button>
     <section class="bbc" id="bbc" aria-labelledby="bbc-title">
       <div class="bbc-top"><span class="headphones" aria-hidden="true">♫</span><div><p class="eyebrow">每日泛听 · 约 6 分钟</p><h2 id="bbc-title" lang="en">BBC 6 Minute English</h2></div></div>
       <p id="bbc-description">听一集，试着用一句话说出大意。</p>
@@ -139,8 +133,8 @@
     </section>
     <footer id="backup-tools">
       <h2>学习记录备份</h2>
-      <p id="status" role="status">正在连接云端…</p>
-      <div class="actions"><button id="refresh">重新同步</button><button id="export" disabled>导出备份</button></div>
+      <p id="status" role="status">正在读取计划…</p>
+      <div class="actions"><button id="refresh">刷新进度</button><button id="export" disabled>导出备份</button></div>
       <details id="import-panel"><summary>从本机备份恢复</summary>
         <p>选择备份后先预览。确认前请下载当前记录，方便恢复。</p>
         <label for="backup-file">学习计划与打卡（JSON）</label>
@@ -148,30 +142,10 @@
         <p id="import-preview" role="status"></p>
         <button type="button" id="import-confirm" hidden>确认导入并替换当前记录</button>
       </details>
-      <p id="sync-info">手机和电脑请登录同一邮箱。在另一台设备打开或切回本页就能同步，停留在页面时每 15 秒刷新。</p>
-      <p>本机听写器单独保管听写记录和错词。</p>
+
+      <p>查看听写轮次和错词，请打开<a href="./dictation.html?level=six&amp;view=reports">听写报告</a>。</p>
     </footer>
   </main>
   </div>
-  <section id="settings" class="account sync-settings" aria-labelledby="settings-title">
-    <h2 id="settings-title">备份与同步设置</h2>
-    <a id="backup-jump" href="#backup-tools" hidden>导出或恢复学习记录</a>
-    <details id="connect-panel">
-      <summary>同步手机和电脑的计划</summary>
-      <p id="account-status" role="status">正在读取同步设置…</p>
-    <form id="email-form" hidden><label for="login-email">登录邮箱</label>
-      <input id="login-email" type="email" autocomplete="username" required>
-      <label id="password-label" for="login-password" hidden>密码</label>
-      <input id="login-password" type="password" autocomplete="current-password" required disabled hidden>
-      <button id="send-code">发送登录邮件</button></form>
-    <form id="code-form" hidden><label for="login-code">登录链接或数字验证码</label>
-      <input id="login-code" type="password" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" required>
-      <button id="verify-code">验证登录</button>
-      <button id="change-email" type="button">重新发送或更换邮箱</button></form>
-    <button id="login-method" type="button" hidden>使用密码登录</button>
-    </details>
-    <button id="retry-account" type="button" hidden>重新同步</button>
-    <button id="sign-out" type="button" hidden>退出登录</button>
-  </section>
 </body>
 </html>

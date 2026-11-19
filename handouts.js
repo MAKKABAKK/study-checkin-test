@@ -1,5 +1,6 @@
+import {getCourseKey} from './course-access.js';
+
 const $ = selector => document.querySelector(selector);
-const accessStorage = 'shike.homework3.handout.v1';
 const lastBookStorage = 'shike.reader.lastBook';
 const pageStorage = id => 'shike.reader.position.' + id;
 const oldNotesId = 'class-notes-10';
@@ -21,7 +22,7 @@ const notesPageMap = [
 const pageCache = new Map();
 const texts = new Map();
 let books = [], book, page, view = 'image';
-let rawKey, importedKey, activeRequest, displayedURL;
+let activeRequest, displayedURL;
 
 function readStored(key) {
   try { return localStorage.getItem(key); } catch { return null; }
@@ -32,31 +33,8 @@ function saveStored(key, value) {
   catch { $('#storage-note').textContent = '当前浏览器无法保存页码。请记下本页页码，方便下次继续。'; }
 }
 
-function readAccess() {
-  const nextKey = new URLSearchParams(location.hash.slice(1)).get('handout') || readStored(accessStorage);
-  if (nextKey !== rawKey) {
-    rawKey = nextKey;
-    $('#personal-actions').hidden = true;
-    $('#personal-link').removeAttribute('href');
-    $('#personal-link').hidden = true;
-    $('#copy-status').textContent = '';
-    importedKey = null;
-    pageCache.clear();
-    texts.clear();
-    if (book) renderPage();
-  }
-}
-
-function getCryptoKey() {
-  if (!importedKey) {
-    const bytes = Uint8Array.from(atob(rawKey.replaceAll('-', '+').replaceAll('_', '/')), ch => ch.charCodeAt(0));
-    importedKey = crypto.subtle.importKey('raw', bytes, 'AES-GCM', false, ['decrypt']);
-  }
-  return importedKey;
-}
-
 async function decryptedFile(file, signal) {
-  const key = await getCryptoKey();
+  const key = await getCourseKey();
   const response = await fetch('./handouts-data/' + encodeURIComponent(book.id) + '/' + file, {signal});
   if (!response.ok) throw new Error('file ' + response.status);
   const data = new Uint8Array(await response.arrayBuffer());
@@ -149,13 +127,8 @@ async function renderPage() {
   $('.end-turn').hidden = true;
   $('#zoom').disabled = true;
   document.querySelectorAll('[data-view]').forEach(button => {
-    button.disabled = !rawKey;
     button.setAttribute('aria-pressed', String(button.dataset.view === view));
   });
-  if (!rawKey) {
-    $('#page-status').textContent = label + '。请用个人讲义链接打开原页。已在这个浏览器打开过作业三个人背诵链接，也可以直接阅读。';
-    return;
-  }
   $('#page-status').textContent = '正在读取' + label + '…';
   let pendingURL;
   try {
@@ -195,7 +168,6 @@ async function renderPage() {
     }
     $('.end-turn').hidden = false;
     $('#page-status').textContent = label;
-    if (readStored(accessStorage) !== rawKey) saveStored(accessStorage, rawKey);
     saveStored(pageStorage(book.id), String(page));
     saveStored(lastBookStorage, book.id);
     const opened = new URL(location.href);
@@ -204,15 +176,10 @@ async function renderPage() {
       opened.searchParams.delete('page');
       history.replaceState(null, '', opened);
     }
-    const personal = new URL('./handouts.html', location.href);
-    personal.hash = new URLSearchParams({handout:rawKey}).toString();
-    $('#personal-link').href = personal.href;
-    $('#personal-actions').hidden = false;
     updateShelf();
   } catch (error) {
     if (!isCurrent() || request.signal.aborted) return;
-    const wrongKey = ['OperationError','DataError','InvalidCharacterError'].includes(error.name);
-    $('#page-status').textContent = wrongKey ? '无法打开这一页，请重新使用完整的个人讲义链接。' : '暂时无法读取' + label + '。请检查网络后重试。';
+    $('#page-status').textContent = '暂时无法读取' + label + '。请检查网络后重试。';
     $('#retry-page').hidden = false;
   } finally {
     if (pendingURL) URL.revokeObjectURL(pendingURL);
@@ -271,16 +238,6 @@ $('#contents').open = !mobile.matches;
 $('#book-title').tabIndex = -1;
 $('#load-again').onclick = loadLibrary;
 $('#retry-page').onclick = renderPage;
-$('#copy-personal').onclick = async () => {
-  const link = $('#personal-link');
-  try {
-    await navigator.clipboard.writeText(link.href);
-    $('#copy-status').textContent = '已复制，可在自己的手机或电脑上打开。';
-  } catch {
-    link.hidden = false;
-    $('#copy-status').textContent = '可长按或右键复制链接。';
-  }
-};
 $('#restart').onclick = () => gotoPage(1, true);
 $('#jump').onsubmit = event => {
   event.preventDefault();
@@ -311,9 +268,4 @@ document.addEventListener('keydown', event => {
     gotoPage(page + step, true);
   }
 });
-window.addEventListener('hashchange', readAccess);
-window.addEventListener('storage', event => {
-  if (event.key === accessStorage || event.key === null) readAccess();
-});
-readAccess();
 loadLibrary();
