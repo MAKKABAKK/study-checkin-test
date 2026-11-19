@@ -2,6 +2,22 @@ const $ = selector => document.querySelector(selector);
 const accessStorage = 'shike.homework3.handout.v1';
 const lastBookStorage = 'shike.reader.lastBook';
 const pageStorage = id => 'shike.reader.position.' + id;
+const oldNotesId = 'class-notes-10';
+const currentNotesId = 'class-notes-17';
+// Each row is one old lesson. Topics moved within lessons in the 17-lesson edition.
+// Old page 39 has no direct equivalent; use the adjacent reading material on page 29.
+const notesPageMap = [
+  1, 2, 3, 3,
+  5, 8, 5, 9, 10, 6, 11, 11, 12, 7, 10,
+  14, 19, 14, 14, 15, 17, 16, 16, 18,
+  21, 23, 25, 21, 22, 24, 24, 26,
+  27, 31, 32, 28, 27, 28, 29, 29, 30,
+  34, 34, 35, 35, 37, 36, 38, 38, 39,
+  41, 45, 46, 41, 42, 44, 43, 46,
+  47, 47, 48, 48, 52, 52, 52, 54, 50, 50,
+  55, 55, 55, 55, 56, 58, 59, 56,
+  61, 61, 61, 62, 63, 63, 64, 66
+];
 const pageCache = new Map();
 const texts = new Map();
 let books = [], book, page, view = 'image';
@@ -49,7 +65,9 @@ async function decryptedFile(file, signal) {
 
 function storedPage(item) {
   const number = Number(readStored(pageStorage(item.id)));
-  return Number.isInteger(number) && number >= 1 && number <= item.pages ? number : 1;
+  if (Number.isInteger(number) && number >= 1 && number <= item.pages) return number;
+  if (item.id === currentNotesId) return notesPageMap[Number(readStored(pageStorage(oldNotesId))) - 1] || 1;
+  return 1;
 }
 
 function updateShelf() {
@@ -181,7 +199,8 @@ async function renderPage() {
     saveStored(pageStorage(book.id), String(page));
     saveStored(lastBookStorage, book.id);
     const opened = new URL(location.href);
-    if (opened.searchParams.has('page')) {
+    if (opened.searchParams.has('page') || opened.searchParams.get('book') === oldNotesId && book.id === currentNotesId) {
+      if (opened.searchParams.get('book') === oldNotesId) opened.searchParams.set('book', book.id);
       opened.searchParams.delete('page');
       history.replaceState(null, '', opened);
     }
@@ -204,7 +223,7 @@ async function loadLibrary() {
   $('#library-status').textContent = '正在打开讲义目录…';
   $('#load-again').hidden = true;
   try {
-    const response = await fetch('./handouts-data/manifest.json');
+    const response = await fetch('./handouts-data/manifest.json', {cache:'no-cache'});
     if (!response.ok) throw new Error('manifest');
     const manifest = await response.json();
     books = manifest.books || manifest;
@@ -234,8 +253,11 @@ async function loadLibrary() {
     $('#library-status').hidden = true;
     $('#library').hidden = false;
     const params = new URLSearchParams(location.search);
-    const chosen = books.find(item => item.id === params.get('book')) || books.find(item => item.id === readStored(lastBookStorage)) || books[0];
-    const number = Number(params.get('page'));
+    const findBook = id => books.find(item => item.id === id) || (id === oldNotesId && books.find(item => item.id === currentNotesId));
+    const requested = params.get('book');
+    const chosen = findBook(requested) || findBook(readStored(lastBookStorage)) || books[0];
+    let number = Number(params.get('page'));
+    if (requested === oldNotesId && chosen.id === currentNotesId) number = notesPageMap[number - 1];
     chooseBook(chosen, Number.isInteger(number) && number > 0 && number <= chosen.pages ? number : null);
   } catch {
     $('#library-status').hidden = false;
