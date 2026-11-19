@@ -62,3 +62,7 @@ aside summary span{margin-left:5px;font-size:13px;font-weight:400;color:var(--mu
   #chapters{max-height:42vh}
   #sheet.enlarged #page-image{width:max(200%,800px)}
 }
+
+.markdown-shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:10px;margin:18px 0 28px}
+.markdown-shelf a{display:grid;gap:3px;text-decoration:none;padding:13px 16px;background:#eaf0e4;border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.markdown-shelf a:hover,.markdown-shelf a:focus-visible{background:#e1eadc}.markdown-shelf span{font-size:14px;color:var(--muted)}

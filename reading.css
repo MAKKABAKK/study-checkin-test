@@ -1,0 +1,37 @@
+.markdown-book{margin:0;background:#f6f5ef;color:#24392f;font:16px/1.68 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.markdown-book main{width:min(100%,900px);max-width:900px;margin:0 auto;padding:26px clamp(16px,4vw,38px) 48px;box-sizing:border-box}
+.markdown-book .sitebar-inner{max-width:900px}.markdown-book .site-nav{display:flex;flex-wrap:nowrap}
+.markdown-book .book-intro{display:block;padding:0;border:0}.book-intro h1{margin:8px 0 10px;font-size:clamp(1.7rem,4.2vw,2.55rem);line-height:1.3;letter-spacing:-.03em}
+.book-intro p{margin:0 0 18px;color:#53645a}
+.book-contents, .markdown-book article{border:1px solid #dbe0d4;background:#fffefb;border-radius:12px}
+.book-contents{padding:12px 18px;margin:16px 0;scroll-margin-top:74px}
+.book-contents summary{font-weight:650;color:#315941;cursor:pointer}.book-contents p{margin:14px 0 4px}
+.book-contents ul{padding-inline-start:1.25em;margin:4px 0 12px}
+.markdown-book article{padding:0 clamp(15px,4vw,32px) 20px}
+.markdown-book h2,.markdown-book h3,.markdown-book h4{scroll-margin-top:76px;line-height:1.4}
+.markdown-book article h2{font-size:clamp(1.45rem,3vw,2rem);color:#284c39;margin:36px 0 4px;padding-top:22px;border-top:2px solid #d6dece}
+.markdown-book article h2:first-child{border:0;margin-top:0}
+.markdown-book h3{font-size:1.15rem;margin:25px 0 9px;color:#253c31}
+.markdown-book article p{margin:10px 0;overflow-wrap:break-word}
+.markdown-book .source-page{font-size:.85rem;color:#516658;text-decoration:underline}
+.markdown-book .question-gloss,.markdown-book .translation{color:#45594b}
+.markdown-book .translation{border-inline-start:3px solid #91a68b;padding:4px 0 4px 12px}
+.markdown-book strong{font-weight:650}.markdown-book a{color:#345f48;text-underline-offset:.2em}
+.markdown-book table{width:100%;border-collapse:collapse;font-size:.94rem;margin:12px 0 20px;line-height:1.56}
+.markdown-book th,.markdown-book td{padding:7px 10px;border:1px solid #d8dfd4;text-align:left;vertical-align:top;overflow-wrap:break-word}
+.markdown-book th{background:#eaf0e4;color:#294530}.markdown-book tr:nth-child(even) td{background:#f7f8f3}
+.markdown-book blockquote{margin:12px 0;padding:2px 14px;background:#f4f3ec;border-left:3px solid #babdaa}
+.markdown-book footer{margin:20px 0}.markdown-book a:focus-visible,.markdown-book summary:focus-visible{outline:3px solid #708f5c;outline-offset:3px}
+@media(max-width:680px){.markdown-book main{padding:12px 10px 32px}.markdown-book .sitebar-inner{padding-inline:10px}.markdown-book .site-nav a{padding:9px 7px;font-size:13px}.markdown-book article{padding-inline:14px}.markdown-book table{display:block;overflow-x:auto}.markdown-book th,.markdown-book td{min-width:5.2em}.markdown-book .book-contents table th,.markdown-book .book-contents table td{min-width:3.4em}.markdown-book .book-contents{padding:10px 12px}.markdown-book article h2{margin-top:26px}}
+@media print{.markdown-book{background:white;color:black}.markdown-book main{max-width:none;padding:0}.markdown-book .sitebar,.book-contents,.markdown-book footer{display:none}.markdown-book article{border:0;padding:0}.markdown-book h2,.markdown-book h3{break-after:avoid}.markdown-book tr{break-inside:avoid}}
+
+@media(max-width:680px){
+  .markdown-book table.vocabulary{display:block;overflow:visible}
+  .vocabulary thead{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+  .vocabulary tbody{display:grid;gap:9px}
+  .markdown-book .vocabulary tr{display:block;border:1px solid #d5dfd0;border-radius:7px;overflow:hidden}
+  .markdown-book .vocabulary td{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:5px;padding:4px 10px;background:transparent;border:0;line-height:1.47}
+  .markdown-book .vocabulary td:first-child{display:block;background:#eaf0e4;padding:6px 10px;font-weight:700}
+  .markdown-book .vocabulary td:not(:first-child)::before{content:attr(data-label);font-size:.82rem;color:#526956}
+  .markdown-book .vocabulary td:last-child{padding-bottom:8px}
+}
