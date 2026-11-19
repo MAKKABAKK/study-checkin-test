@@ -14,7 +14,7 @@
       <p class="eyebrow">作业三 · 口语背诵</p>
       <h1 id="title">住房六问</h1>
       <p>每题用 2–4 句回答，六题说完算一轮。作业要求至少练 30 轮，熟练后录音。</p>
-      <p>这组参考回答以「和朋友合租两居室」为例。先把室友、房间和日常活动换成自己的情况，再合上答案练习。</p>
+      <p id="edition">当前显示按讲义整理的简版。用个人背诵链接打开，即可查看前五题的讲义原文。</p>
     </section>
     <div class="recite-modes" hidden>
       <button type="button" id="show-all" aria-controls="questions">展开全部回答</button>
@@ -23,44 +23,44 @@
     <ol id="questions">
       <li>
         <h2 lang="en">What do you usually do in your flat?</h2>
-        <details open><summary>参考回答与记忆提示</summary>
-          <p lang="en">On weekdays, I usually study at my desk and cook something simple for dinner. After dinner, my flatmate and I often watch a show together.</p>
-          <p class="cue">书桌前学习 → 做顿简单的晚饭 → 和室友看剧</p>
+        <details open><summary>第 8 页 · <span class="edition-label">讲义简版</span></summary>
+          <p lang="en">I spend a lot of time at my desk studying. To relax, I read or watch TV, and sometimes a friend comes round at the weekend.</p>
+          <p class="cue">书桌前学习 → 偶尔帮忙做饭 → 看节目或读书 → 周末约朋友学习、聊天</p>
         </details>
       </li>
       <li>
         <h2 lang="en">Do you plan to live there for a long time?</h2>
-        <details><summary>参考回答与记忆提示</summary>
-          <p lang="en">I’ll probably stay here until I finish my studies. After that, I’d like to find a place closer to work so I can spend less time on the bus.</p>
-          <p class="cue">住到毕业 → 搬到公司附近 → 少坐公交</p>
+        <details><summary>第 7 页 · <span class="edition-label">讲义简版</span></summary>
+          <p lang="en">I’ll probably move out after university. Where I live next will depend on where I get a job.</p>
+          <p class="cue">住不久 → 毕业后跟着工作走 → 读大学期间暂住</p>
         </details>
       </li>
       <li>
         <h2 lang="en">What kind of accommodation do you live in?</h2>
-        <details><summary>参考回答与记忆提示</summary>
-          <p lang="en">I share a two-bedroom flat with a friend. We each have our own bedroom, but we share the kitchen and the living room.</p>
-          <p class="cue">和朋友合租两居室 → 卧室各自用 → 厨房、客厅共用</p>
+        <details><summary>第 8 页 · <span class="edition-label">讲义简版</span></summary>
+          <p lang="en">Our flat has three bedrooms. It’s fairly ordinary, but it’s comfortable, and there’s a lift and security at the entrance.</p>
+          <p class="cue">小区里的三居室 → 普通但舒适 → 电梯和入口安保</p>
         </details>
       </li>
       <li>
         <h2 lang="en">Can you describe the place where you live?</h2>
-        <details><summary>参考回答与记忆提示</summary>
-          <p lang="en">It’s a small flat on the third floor. The living room gets a lot of sunlight, and from the sofa I can see the park across the road.</p>
-          <p class="cue">三楼的小公寓 → 客厅采光好 → 坐在沙发上能看见公园</p>
+        <details><summary>第 7 页 · <span class="edition-label">讲义简版</span></summary>
+          <p lang="en">Our flat is on the eighth floor of a block with about twenty floors. There’s a small garden downstairs and a good view from our flat.</p>
+          <p class="cue">中等大小的公寓 → 整栋约二十层，家在八楼 → 看得到街区 → 楼龄约十年，有小花园</p>
         </details>
       </li>
       <li>
         <h2 lang="en">What’s your favourite room in your home?</h2>
-        <details><summary>参考回答与记忆提示</summary>
-          <p lang="en">My favourite room is my bedroom because it’s the quietest part of the flat. My desk is right by the window, so I can look outside when I take a break.</p>
-          <p class="cue">卧室最安静 → 书桌靠窗 → 休息时看看窗外</p>
+        <details><summary>第 8 页 · <span class="edition-label">讲义简版</span></summary>
+          <p lang="en">I like the balcony just off our living room best. I keep a chair and a few plants there, and it’s a lovely spot to sit and drink tea.</p>
+          <p class="cue">客厅旁的小阳台 → 严格来说不算房间 → 植物和小椅子 → 安静地喝茶</p>
         </details>
       </li>
       <li>
         <h2 lang="en">Is there anything you would like to change about your home?</h2>
-        <details><summary>参考回答与记忆提示</summary>
-          <p lang="en">I’d like to get a bigger kitchen table. The one we have is fine for two people, but when our friends come over for dinner, we run out of space for the dishes.</p>
-          <p class="cue">想换大一点的餐桌 → 两人够用 → 朋友来时放不下菜</p>
+        <details><summary>第 6 页素材改写 · 讲义未收录本题</summary>
+          <p lang="en">I’d like my flat to get a bit more natural light. I’d also love a little more space on the balcony so I could grow more plants there.</p>
+          <p class="cue">想要更多自然光 → 希望阳台大一点 → 可以多种些植物</p>
         </details>
       </li>
     </ol>
@@ -74,6 +74,38 @@
     document.getElementById('show-all').onclick = () => setAnswers(true);
     document.getElementById('hide-all').onclick = () => setAnswers(false);
     document.querySelector('.recite-modes').hidden = false;
+
+    // The personal link carries the key in its fragment, which stays in the browser.
+    async function showHandout() {
+      const storageKey = 'shike.homework3.handout.v1';
+      let key = new URLSearchParams(location.hash.slice(1)).get('handout');
+      if (!key) {
+        try { key = localStorage.getItem(storageKey); } catch { return; }
+      }
+      if (!key) return;
+
+      const edition = document.getElementById('edition');
+      try {
+        const decode = text => Uint8Array.from(atob(text), ch => ch.charCodeAt(0));
+        const secret = decode(key.replaceAll('-', '+').replaceAll('_', '/'));
+        const packed = decode('/AzmVMLlbI+hfwB2z0VdaH/s6jRuycZJ/dYA/BmO99rPZCOiNapWyqnwQ3ezu4P9d+ggs28d2xOSueJubTJjB5+6eZMs9tnk/JiF2KESeKElzaxsT9Q+T+3k4T7AF2DDmA/Wad41Izkx2OiHwevKMPkSLryEvdypN8dh0cTpOA9cWJOiB6SMgn041bidVLNoUCbFJYl90Lfufh2NRHtnibZN+oaDk6WB83M2m+Zjs6Qs8ax9i4Ovf1PCAU8Kf6Ji8Jy/0VAucVkBaXTHa5DrdxYURjEIO2C4qf/3tbaugMsqscHA1+WOxSB3tEQNkcmK6olarBs9Q9SD7EaopKz8MuA7qdOANwCSFty+rHy8KF/8wkDGxZM2k4q4kLDlIngfORdAH2i9F0f0q+uki6X723YkAkQzZTaK3yBveKVj8LQhaxy7H0+TiS18Pat4oTDT1veiUe3uGjebi6uKC1iNDbh1n7Ygm2a4jBPOsCrdInjeqs4uMww/Sp/EEqwem1bv5q3tyBZ+SaRR1RTy3vfIkdDKPnVDpSrXGs6y56dFvp8A8SrjrvbjhqZVL0JZE4AvXj4utHFhwXTtrrp5HP7ehmZjeBaoNcdLizTjlBLuLrxVPmqtsblSqazFkE6ExKblnGgTzbPSfkFJ3yK21uGR184lQ21XjGLcu1BqactadPAaFUcn/FLlaZCbJRrGvVM+DlKweebhwYna+1S38R3BsPAPxu/dyssVDJgHfVp5pblUe/CyL/oKS4e5BkhnzYT0ZoScBZGAmMwiR7a2bmKxRNFLdFx2koFPK4wM1GHwRJ9iQjVd2gw7MeOG9N0o96zT7U/kCe/U+2wMtflYFnBtj5my94pgMi7YuCKNrBP/jKVWszO9uG5gpI1Q3qVGNLR66VvJ7Db8aPRRfu6xJMZZuyddqo3vYKWB57TXAcKERbfKSf0BBwaxqCDcCYPAynp8xZ2AgvUKoZ463q4cgqEbiVrsvDGFvOYClCVvlVQmAgBB2Xw6JbdCJaMZUZEZyy8YcvWj9x2oGFUqpze3+6x8HQQ4NhUlXF905fFLteOZoSjxjtdOKblgsMVZmqktAR0pHWX22zr3cx8aqjT0Rbn51fxhHXxJofA+a1NXNImwVitxAZDjVJkZyfeR7rPwuKX9EpI0k3seG01b8WP1uhSQ+kAHa8u7ssCca7qZpERO5QaHjahsXxzezaLFAGimZIALnn65H4dnMZHcWBPeAIzDs3TRftEyEGmdflWepTjLvxpEC7ukbkqQFJkSCZTNSqIZUNpgwQdhKTRasPGuNJeHcHkM78TfyYfJfphiCnREDK/FHvI4rB4h6CcT0VWeF3xde7HV/enSEQqlMg==');
+        const cryptoKey = await crypto.subtle.importKey('raw', secret, 'AES-GCM', false, ['decrypt']);
+        const plain = await crypto.subtle.decrypt({name: 'AES-GCM', iv: packed.slice(0, 12)}, cryptoKey, packed.slice(12));
+        const texts = JSON.parse(new TextDecoder().decode(plain));
+        document.querySelectorAll('.edition-label').forEach((label, i) => {
+          label.closest('details').querySelector('p[lang=en]').textContent = texts[i];
+          label.textContent = '讲义原文';
+        });
+        edition.textContent = '前五题保留老马雅思 Part 1 讲义的英文原文，每题附中文记忆提示。第六题用第 6 页的住房素材改写。';
+        try { localStorage.setItem(storageKey, key); } catch { /* The personal link also works without storage. */ }
+      } catch {
+        edition.textContent = '当前显示讲义简版。请重新打开完整的个人背诵链接查看原文。';
+      }
+    }
+    showHandout();
+    window.addEventListener('hashchange', () => {
+      if (location.hash.startsWith('#handout=')) showHandout();
+    });
   </script>
 </body>
 </html>
