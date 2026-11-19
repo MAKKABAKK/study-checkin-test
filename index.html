@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=732273e21dc5bde0"></script>
+  <script type="module" src="./app.js?v=cfe2095cac116c55"></script>
 </head>
 <body>
   <header class="sitebar">
@@ -32,7 +32,7 @@
     <div class="study-entries">
       <a class="study-entry featured" href="./handouts.html"><strong>讲义复习</strong><span>课堂笔记 · 口语英汉对照</span></a>
       <a class="study-entry" href="./homework-3.html"><strong>作业三口语</strong><span>住房六问 · 背诵与自测</span></a>
-      <a class="study-entry" href="#checkin"><strong>每日打卡</strong><span>今日任务与学习进度</span></a>
+      <a class="study-entry" href="#checkin"><strong>每日打卡</strong><span>公开计划 · 自动同步</span></a>
       <a class="study-entry" href="./dictation.html?level=six"><strong>星级听写</strong><span>一至六星 · 听原音、打字</span></a>
       <a class="study-entry" href="./dictation.html?level=six&amp;view=review"><strong>错词复习</strong><span>按听写轮次练习</span></a>
       <a class="study-entry" href="#bbc"><strong>BBC 泛听</strong><span>盲听、对照和重听</span></a>
@@ -47,13 +47,14 @@
         <a id="reports-link" href="./dictation.html?level=six&amp;view=reports">听写报告</a>
       </div>
       <p id="dictation-device">选一个星级，即可播放原音、调速和听写。</p>
-      <button type="button" id="copy-study-link" hidden>复制我的进度链接</button>
+      <button type="button" id="copy-study-link" hidden>复制我的听写进度链接</button>
       <p id="study-link-status" role="status"></p>
     </section>
     <a class="settings-jump" href="#backup-tools">学习记录备份</a>
   </section>
   <div id="checkin">
-  <section id="account" class="account" aria-label="本机打卡与泛听">
+  <section id="account" class="account" aria-label="公开打卡与泛听">
+    <p id="loading-status" role="status">正在读取公开打卡…</p>
     <button id="load-plan" type="button" hidden>重新读取计划</button>
     <section class="bbc" id="bbc" aria-labelledby="bbc-title">
       <div class="bbc-top"><span class="headphones" aria-hidden="true">♫</span><div><p class="eyebrow">每日泛听 · 约 6 分钟</p><h2 id="bbc-title" lang="en">BBC 6 Minute English</h2></div></div>
@@ -109,7 +110,10 @@
     </section>
   </section>
   <main id="app" hidden>
-    <header class="day-heading"><h2>每日打卡</h2><span class="private" id="plan-location">仅自己可见</span></header>
+    <header class="day-heading"><h2>每日打卡</h2><span class="private" id="plan-location">公开打卡</span></header>
+    <p>所有打开链接的人都能查看、勾选和撤销打卡。进度会自动同步。</p>
+    <button type="button" id="copy-checkin-link">复制公开打卡链接</button>
+    <p id="status" role="status">正在读取计划…</p>
     <noscript>请启用 JavaScript 以读取学习计划和保存打卡。</noscript>
     <section class="summary" aria-label="学习进度">
       <div><strong><b id="finished">—</b><small id="study-days"></small></strong><span>完成学习日</span></div>
@@ -133,14 +137,14 @@
     </section>
     <footer id="backup-tools">
       <h2>学习记录备份</h2>
-      <p id="status" role="status">正在读取计划…</p>
       <div class="actions"><button id="refresh">刷新进度</button><button id="export" disabled>导出备份</button></div>
+      <button id="export-local" hidden>导出此浏览器原有的打卡记录</button>
       <details id="import-panel"><summary>从本机备份恢复</summary>
-        <p>选择备份后先预览。确认前请下载当前记录，方便恢复。</p>
+        <p>选择文件后可先预览。确认恢复会替换所有人共用的学习计划和打卡记录，并自动下载当前备份。</p>
         <label for="backup-file">学习计划与打卡（JSON）</label>
         <input type="file" id="backup-file" accept=".json,application/json">
         <p id="import-preview" role="status"></p>
-        <button type="button" id="import-confirm" hidden>确认导入并替换当前记录</button>
+        <button type="button" id="import-confirm" hidden>确认替换公开计划和打卡记录</button>
       </details>
 
       <p>查看听写轮次和错词，请打开<a href="./dictation.html?level=six&amp;view=reports">听写报告</a>。</p>
