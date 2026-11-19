@@ -59,3 +59,16 @@
 .account.signed-in h1,.account.signed-in #account-status:empty{display:none}
 #day-details details,#import-panel{padding:14px 0}summary{cursor:pointer}
 #day-details p{line-height:1.55}#import-panel input{display:block}
+
+#mac-practice,.account #local-entry{margin:16px 0;padding:18px 20px;border:1px solid #d9dfd3;border-radius:15px;background:#fff}
+#mac-practice h2,#local-entry h2{font-size:20px;margin:0 0 8px}
+#mac-practice p,#local-explanation{font-size:14px;color:#536751;margin:8px 0}
+.practice-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;margin-top:12px}
+.practice-links a{color:#285e43;font-weight:600;text-underline-offset:3px}
+.practice-links a:first-child{border-radius:9px;background:#365d42;color:white;padding:8px 14px;text-decoration:none}
+#local-entry label{display:block;margin:12px 0 4px}
+#local-entry input{min-width:0;width:100%}
+#local-status:empty{display:none}
+#connect-panel{margin:12px 0}
+#connect-panel summary{font-weight:600;padding:8px 0;color:#335f46}
+.account.signed-in{display:block}

@@ -11,12 +11,30 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=3965be5cec4ff4fb"></script>
+  <script type="module" src="./app.js?v=6e959a195604bf7a"></script>
 </head>
 <body>
   <section id="account" class="account" aria-labelledby="account-title">
     <h1 id="account-title">拾课 · 雅思每日打卡</h1>
-    <p id="account-status" role="status">正在读取登录配置…</p>
+    <section id="mac-practice" hidden aria-label="Mac 本机练习">
+      <h2>星级听写</h2>
+      <p>在保存原记录的 Mac 上继续听写。重启后若打不开，双击练习项目里的「启动六星跟练.command」。</p>
+      <div class="practice-links">
+        <a id="dictation-link" href="http://127.0.0.1:18736/#dictation">继续听写</a>
+        <a id="reports-link" href="http://127.0.0.1:18736/#reports">听写报告</a>
+        <a id="mac-plan-link" href="http://127.0.0.1:18736/#plan">听写器原有的打卡计划</a>
+      </div>
+    </section>
+    <section id="local-entry" aria-labelledby="local-heading">
+      <h2 id="local-heading">用备份在浏览器打卡</h2>
+      <label for="local-plan-file">打开计划备份（JSON）</label>
+      <input type="file" id="local-plan-file" accept=".json,application/json" aria-describedby="local-explanation">
+      <p id="local-explanation">导入一次即可打卡，进度保存在这个浏览器。</p>
+    </section>
+    <p id="local-status" role="status"></p>
+    <details id="connect-panel">
+      <summary>同步手机和电脑的计划</summary>
+      <p id="account-status" role="status">正在读取同步设置…</p>
     <form id="email-form" hidden><label for="login-email">登录邮箱</label>
       <input id="login-email" type="email" autocomplete="username" required>
       <label id="password-label" for="login-password" hidden>密码</label>
@@ -27,11 +45,12 @@
       <button id="verify-code">验证登录</button>
       <button id="change-email" type="button">重新发送或更换邮箱</button></form>
     <button id="login-method" type="button" hidden>使用密码登录</button>
+    </details>
     <button id="retry-account" type="button" hidden>重新同步</button>
     <button id="sign-out" type="button" hidden>退出登录</button>
   </section>
   <main id="app" hidden>
-    <header><div class="brand">拾课 · 雅思学习计划</div><span class="private">仅自己可见</span></header>
+    <header><div class="brand">拾课 · 雅思学习计划</div><span class="private" id="plan-location">仅自己可见</span></header>
     <section class="intro"><h1>每日打卡</h1><p>按当天的清单练习，完成一项就勾一项。</p></section>
     <noscript>请启用 JavaScript 以读取学习计划和保存打卡。</noscript>
     <section class="summary" aria-label="学习进度">
@@ -116,7 +135,7 @@
         <p id="import-preview" role="status"></p>
         <button type="button" id="import-confirm" hidden>确认导入并替换当前记录</button>
       </details>
-      <p>手机和电脑请登录同一邮箱。在另一台设备打开或切回本页就能同步，停留在页面时每 15 秒刷新。</p>
+      <p id="sync-info">手机和电脑请登录同一邮箱。在另一台设备打开或切回本页就能同步，停留在页面时每 15 秒刷新。</p>
       <p>本机听写器单独保管听写记录和错词。</p>
     </footer>
   </main>
