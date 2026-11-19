@@ -89,4 +89,7 @@
 .recital summary{padding:8px 0;color:#386047;font-size:14px}
 .recital details p[lang=en]{font-size:18px;line-height:1.65;margin:5px 0 10px}
 .recital .cue{font-size:14px;color:#526450;margin:0}
+.recital .hint[open]{padding:0 12px 10px;border-left:3px solid #92a581;background:#f3f6ef}
+.recital .cue strong{display:inline-block;color:#294b3c;margin-bottom:4px}
+.recital .starters{font-size:14px;color:#38523e;margin:8px 0 0}
 @media(max-width:520px){.recital li{padding:16px 12px;column-gap:6px;grid-template-columns:1.6em 1fr}.recital h2{font-size:19px}.recital details p[lang=en]{font-size:17px}}
