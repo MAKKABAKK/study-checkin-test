@@ -2,6 +2,7 @@ import {getCourseKey} from './course-access.js';
 
 const levels = {six:'六星', five:'五星', four:'四星', three:'三星', two:'二星', one:'一星'};
 const url = new URL(location.href);
+const bundleVersion = new URL(import.meta.url).search;
 const requestedLevel = url.searchParams.get('level');
 const level = Object.hasOwn(levels, requestedLevel) ? requestedLevel : 'six';
 const hash = url.hash.slice(1);
@@ -10,7 +11,7 @@ const journalStorage = 'shike.dictation.journal.v1';
 const status = document.getElementById('load-status');
 const retry = document.getElementById('retry-dictation');
 const view = url.searchParams.get('view') || (!hash.includes('=') ? hash : '');
-const viewPattern = /^(dictation|review|meanings|consolidation|legacy|reports(?:\/[\w-]+)?)$/;
+const viewPattern = /^(dictation|original|supplement|full-all|review|meanings|meaning-book|consolidation|legacy|reports(?:\/[\w-]+)?)$/;
 document.getElementById('level-title').textContent = levels[level] + '听写';
 retry.onclick = () => location.reload();
 
@@ -21,6 +22,8 @@ function read(store, name) {
 function save(store, name, value) {
   try { store.setItem(name,value); } catch { /* The open page still has the key. */ }
 }
+
+save(localStorage, 'shike.hub.level.v1', level);
 
 const journalKey = keys.get('journal') || read(localStorage, journalStorage);
 const cloudURL = document.querySelector('meta[name=shike-cloud-url]').content;
@@ -36,7 +39,7 @@ async function loadPractice() {
     const progress = new Map();
     let lastUpdate = 0;
     async function loadFile(name) {
-      const response = await fetch('./dictation-data/' + level + '/' + name + '.bin', {signal:controller.signal});
+      const response = await fetch('./dictation-data/' + level + '/' + name + '.bin' + (name === 'player' ? bundleVersion : ''), {signal:controller.signal});
       if (!response.ok) throw new Error('未能下载' + levels[level] + '的练习材料，请检查网络后重试。');
       const length = Number(response.headers.get('content-length')) || 0;
       progress.set(name, {received:0, length});
@@ -111,6 +114,10 @@ async function loadPractice() {
       script.textContent = code;
       document.body.append(script);
       script.remove();
+    }
+    if (level === 'six' && journalKey && Object.keys(adapter.legacyMarks()).length) {
+      const {attachLegacyAnswers} = await import('./dictation-seed.js'+bundleVersion);
+      attachLegacyAnswers(document.getElementById('legacyPanel'),journalKey,words,adapter.legacyMarks());
     }
     window.addEventListener('pagehide', event => {
       if (!event.persisted) URL.revokeObjectURL(audioURL);

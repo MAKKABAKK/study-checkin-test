@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="strict-origin">
-  <title>拾课 · 雅思每日打卡</title>
+  <title>拾课 · 雅思学习首页</title>
   <meta name="apple-mobile-web-app-title" content="拾课">
   <meta name="theme-color" content="#f5f4ed">
   <link rel="apple-touch-icon" sizes="180x180" href="./shike-v1-180.png">
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=cfe2095cac116c55"></script>
+  <script type="module" src="./app.js?v=de4d0d5bcffbedc3"></script>
 </head>
 <body>
   <header class="sitebar">
@@ -23,34 +23,49 @@
         <a href="./homework-3.html">口语</a>
         <a href="./#checkin">打卡</a>
         <a href="./#bbc">泛听</a>
-        <a href="./dictation.html?level=six">听写</a>
+        <a href="#dictation-tools">听写</a>
       </nav>
     </div>
   </header>
   <section class="study-hub" aria-labelledby="account-title">
     <h1 id="account-title">雅思学习首页</h1>
     <div class="study-entries">
-      <a class="study-entry featured" href="./handouts.html"><strong>讲义复习</strong><span>课堂笔记 · 口语英汉对照</span></a>
-      <a class="study-entry" href="./homework-3.html"><strong>作业三口语</strong><span>住房六问 · 背诵与自测</span></a>
-      <a class="study-entry" href="#checkin"><strong>每日打卡</strong><span>公开计划 · 自动同步</span></a>
-      <a class="study-entry" href="./dictation.html?level=six"><strong>星级听写</strong><span>一至六星 · 听原音、打字</span></a>
-      <a class="study-entry" href="./dictation.html?level=six&amp;view=review"><strong>错词复习</strong><span>按听写轮次练习</span></a>
-      <a class="study-entry" href="#bbc"><strong>BBC 泛听</strong><span>盲听、对照和重听</span></a>
+      <a class="study-entry featured" href="#checkin"><strong>每日学习打卡</strong><span>今天的作业、真题与订正 · 云端同步</span></a>
+      <a class="study-entry" href="#dictation-tools"><strong>听写与错词</strong><span>一至六星原音 · 按轮复习</span></a>
+      <a class="study-entry" href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
+      <a class="study-entry" href="./handouts-md/speaking-part1-2026-09.html"><strong>口语讲义</strong><span>Part 1 · 英文答案与中文翻译</span></a>
+      <a class="study-entry" href="./homework-3.html"><strong>作业三口语背诵</strong><span>住房六问 · 助记与自测</span></a>
+      <a class="study-entry" href="#bbc"><strong>BBC 泛听</strong><span>盲听、对照文稿、重听</span></a>
     </div>
     <section id="dictation-tools" aria-labelledby="dictation-heading">
-      <h2 id="dictation-heading">星级听写与错词</h2>
-      <div class="practice-links" id="online-practice">
-        <a id="dictation-link" href="./dictation.html?level=six">继续听写</a>
-        <a href="./dictation.html?level=six&amp;view=review">错词复习</a>
-        <a href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
-        <a href="./dictation.html?level=six&amp;view=consolidation">高频错词与巩固</a>
-        <a id="reports-link" href="./dictation.html?level=six&amp;view=reports">听写报告</a>
+      <div class="practice-heading">
+        <h2 id="dictation-heading">听写与错词</h2>
+        <label for="hub-level">练习星级
+          <select id="hub-level">
+            <option value="six">六星</option><option value="five">五星</option><option value="four">四星</option>
+            <option value="three">三星</option><option value="two">二星</option><option value="one">一星</option>
+          </select>
+        </label>
       </div>
-      <p id="dictation-device">选一个星级，即可播放原音、调速和听写。</p>
-      <button type="button" id="copy-study-link" hidden>复制我的听写进度链接</button>
+      <div class="practice-links" id="online-practice">
+        <a id="dictation-link" data-trainer-view="original" href="./dictation.html?level=six&amp;view=original">原声听写</a>
+        <a data-trainer-view="review" href="./dictation.html?level=six&amp;view=review">按轮复习错词</a>
+        <a data-trainer-view="meanings" href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
+        <a data-trainer-view="meaning-book" href="./dictation.html?level=six&amp;view=meaning-book">词义生词本</a>
+        <a data-trainer-view="consolidation" href="./dictation.html?level=six&amp;view=consolidation">高频错词与间隔巩固</a>
+        <a id="reports-link" data-trainer-view="reports" href="./dictation.html?level=six&amp;view=reports">每轮正确率与报告</a>
+        <a data-trainer-view="full-all" href="./dictation.html?level=six&amp;view=full-all">完整词表（含补音）</a>
+        <a data-trainer-view="supplement" href="./dictation.html?level=six&amp;view=supplement">只听补音词</a>
+        <a data-trainer-view="legacy" href="./dictation.html?level=six&amp;view=legacy">纸笔听写记录</a>
+      </div>
+      <p id="dictation-device">听写进度保存在当前浏览器。用已有的学习进度链接可在手机和电脑间续练。</p>
+      <button type="button" id="copy-study-link" hidden>复制学习首页（含我的听写进度）</button>
       <p id="study-link-status" role="status"></p>
     </section>
-    <a class="settings-jump" href="#backup-tools">学习记录备份</a>
+    <div class="hub-secondary">
+      <a href="./handouts.html">查看讲义原页</a>
+      <a href="#backup-tools">学习记录备份</a>
+    </div>
   </section>
   <div id="checkin">
   <section id="account" class="account" aria-label="公开打卡与泛听">
@@ -94,17 +109,19 @@
       </div>
       <section class="bbc-reading" id="bbc-reading" aria-label="官方英文学习稿">
         <h3>官方英文学习稿</h3>
-        <a id="bbc-source" target="_blank" rel="noopener noreferrer">打开 BBC 本集英文稿（PDF）↗</a>
-        <p class="hint" id="bbc-reading-note">BBC 按对话整理，个别措辞与录音有出入。</p>
-        <details id="bbc-local-reader">
-          <summary>在本页读已下载的 PDF</summary>
-          <p class="hint">先从上面的 BBC 链接保存原稿，再选择这份 PDF，就能边听边读。文件只在这台设备上打开。</p>
-          <label for="bbc-pdf">选择本集 BBC 原稿</label>
-          <input type="file" id="bbc-pdf" accept="application/pdf,.pdf">
-          <p class="hint" id="bbc-pdf-status" role="status"></p>
+        <details id="bbc-reader">
+          <summary>在本页读本集英文稿</summary>
+          <p class="hint">BBC 按对话整理，个别措辞与录音有出入。</p>
           <label id="bbc-follow-label" hidden><input id="bbc-follow-pdf" type="checkbox" checked> PDF 随视频翻页</label>
           <div id="bbc-pdf-view"></div>
+          <details id="bbc-local-reader">
+            <summary>使用自己的 PDF</summary>
+            <label for="bbc-pdf">选择本集 BBC 原稿</label>
+            <input type="file" id="bbc-pdf" accept="application/pdf,.pdf">
+            <p class="hint" id="bbc-pdf-status" role="status"></p>
+          </details>
         </details>
+        <p id="bbc-fullscreen"><a id="bbc-source" target="_blank" rel="noopener noreferrer">在 BBC 全屏阅读（PDF）↗</a><span class="hint" id="bbc-return-note" hidden>　关闭文稿标签页即可回到本集。</span></p>
       </section>
       <label class="listen-check" hidden><input type="checkbox" id="bbc-check" disabled>今天已泛听一集</label>
     </section>
@@ -147,7 +164,7 @@
         <button type="button" id="import-confirm" hidden>确认替换公开计划和打卡记录</button>
       </details>
 
-      <p>查看听写轮次和错词，请打开<a href="./dictation.html?level=six&amp;view=reports">听写报告</a>。</p>
+      <p>查看听写轮次和错词，请打开<a data-trainer-view="reports" href="./dictation.html?level=six&amp;view=reports">听写报告</a>。</p>
     </footer>
   </main>
   </div>
