@@ -13,6 +13,7 @@ const retry = document.getElementById('retry-dictation');
 const view = url.searchParams.get('view') || (!hash.includes('=') ? hash : '');
 const viewPattern = /^(dictation|original|supplement|full-all|review|meanings|meaning-book|consolidation|legacy|reports(?:\/[\w-]+)?)$/;
 document.getElementById('level-title').textContent = levels[level] + '听写';
+document.getElementById('dictation-vocabulary').search = '?level='+level;
 retry.onclick = () => location.reload();
 
 function read(store, name) {
@@ -119,6 +120,8 @@ async function loadPractice() {
     document.title = levels[level] + '听写与错词复习 · 拾课';
     document.head.append(...doc.head.querySelectorAll('style'));
     const root = document.importNode(doc.body,true);
+    // Keep the same navigation while the loading screen gives way to the player.
+    root.querySelector('.study-links').replaceChildren(...document.querySelector('.site-nav').children);
     document.body.replaceWith(root);
     document.getElementById('landing-style').remove();
     for (const code of source) {

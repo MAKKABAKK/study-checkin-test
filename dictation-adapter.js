@@ -1,5 +1,5 @@
 import {applyEvent, compactState, createVocabulary, prepareState} from './dictation-engine.js';
-import {publicJournalKey} from './course-access.js';
+import {journalScope,publicJournalKey} from './course-access.js';
 
 // Confirmed cloud events and pending device events stay separate. A UI submission
 // is acknowledged only after its local IndexedDB transaction commits.
@@ -116,12 +116,6 @@ function reply(data,status=200) {
   // practiceJournal consumes the response in memory; avoid serializing every
   // completed session just to immediately parse the exact same object.
   return {ok:status>=200 && status<300,status,json:async () => data};
-}
-
-async function journalScope(key) {
-  if (!key) return 'guest';
-  const digest = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key));
-  return 'p-' + [...new Uint8Array(digest).slice(0,16)].map(n=>n.toString(16).padStart(2,'0')).join('');
 }
 
 // The training page may open this level during the download. Insert the base

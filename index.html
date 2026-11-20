@@ -11,19 +11,15 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=b3366255cd18d9c3"></script>
+  <script type="module" src="./app.js?v=eb4c0727bcf105db"></script>
 </head>
 <body>
   <header class="sitebar">
     <div class="sitebar-inner">
       <a class="sitebrand" href="./">拾课</a>
       <nav class="site-nav" aria-label="学习导航">
-        <a href="./" aria-current="page">学习首页</a>
-        <a href="./handouts.html">讲义</a>
-        <a href="./homework-3.html">口语</a>
-        <a href="./#checkin">打卡</a>
-        <a href="./#bbc">泛听</a>
-        <a href="#dictation-tools">听写</a>
+        <a href="#checkin">每日打卡</a>
+        <a href="#study-tools">全部功能</a>
       </nav>
     </div>
   </header>
@@ -37,54 +33,103 @@
       </div>
       <div class="evening-actions">
         <button id="focus-first" type="button" hidden>开始计时</button>
-        <a href="#checkin">查看当日安排</a>
+        <a href="#checkin">查看计划与打卡</a>
+        <a id="next-study-day" href="#checkin" hidden>查看下个学习日</a>
       </div>
     </section>
-    <div class="study-entries">
-      <a class="study-entry" href="#dictation-tools"><strong>听写与错词</strong><span>原声听写 · 跨星级错词复习</span></a>
-      <a class="study-entry" data-vocabulary-link href="./vocabulary.html?level=six"><strong>听力词表背诵</strong><span>一至六星 · 中英对照</span></a>
-      <a class="study-entry" href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
-      <a class="study-entry" href="./handouts-md/speaking-part1-2026-09.html"><strong>口语讲义</strong><span>Part 1 · 英文答案与中文翻译</span></a>
-      <a class="study-entry" href="./homework-3.html"><strong>作业三口语背诵</strong><span>住房六问 · 助记与自测</span></a>
-      <a class="study-entry" href="#bbc"><strong>BBC 泛听</strong><span>盲听、对照文稿、重听</span></a>
-    </div>
-    <section id="dictation-tools" aria-labelledby="dictation-heading">
-      <div class="practice-heading">
-        <h2 id="dictation-heading">听写与错词</h2>
-        <label for="hub-level">练习星级
-          <select id="hub-level">
-            <option value="six">六星</option><option value="five">五星</option><option value="four">四星</option>
-            <option value="three">三星</option><option value="two">二星</option><option value="one">一星</option>
-          </select>
-        </label>
-      </div>
-      <div class="practice-links" id="online-practice">
-        <a id="dictation-link" data-trainer-view="original" href="./dictation.html?level=six&amp;view=original">原声听写</a>
-        <a data-vocabulary-link href="./vocabulary.html?level=six">听力词表背诵</a>
-        <a id="mixed-review-link" href="./mixed-review.html">跨星级错词复习</a>
-        <a data-trainer-view="review" href="./dictation.html?level=six&amp;view=review">按轮复习错词</a>
-        <a data-trainer-view="meanings" href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
-        <a data-trainer-view="meaning-book" href="./dictation.html?level=six&amp;view=meaning-book">词义生词本</a>
-        <a data-trainer-view="consolidation" href="./dictation.html?level=six&amp;view=consolidation">高频错词与间隔巩固</a>
-        <a id="reports-link" data-trainer-view="reports" href="./dictation.html?level=six&amp;view=reports">每轮正确率与报告</a>
-        <a data-trainer-view="full-all" href="./dictation.html?level=six&amp;view=full-all">全词听写（含补音）</a>
-        <a data-trainer-view="supplement" href="./dictation.html?level=six&amp;view=supplement">只听补音词</a>
-        <a data-trainer-view="legacy" href="./dictation.html?level=six&amp;view=legacy">纸笔听写记录</a>
-      </div>
-      <section class="material-download" aria-labelledby="preload-title">
-        <div class="material-download-head">
-          <h3 id="preload-title">学习资料预下载</h3>
-          <button type="button" id="preload-materials">一次下载全部资料</button>
+    <section class="study-directory" id="study-tools" aria-labelledby="tools-title">
+      <h2 id="tools-title">全部功能</h2>
+      <nav class="category-shortcuts" aria-label="功能分类">
+        <a href="#dictation-tools">听力与背词</a>
+        <a href="#speaking-tools">口语与作业</a>
+        <a href="#course-tools">课堂与真题</a>
+        <a href="#study-settings">资料与设置</a>
+      </nav>
+      <section class="tool-panel" id="dictation-tools" aria-labelledby="dictation-heading">
+        <div class="panel-heading">
+          <h3 id="dictation-heading">听力与背词</h3>
+          <label class="level-picker" for="hub-level">练习星级
+            <select id="hub-level">
+              <option value="six">六星</option><option value="five">五星</option><option value="four">四星</option>
+              <option value="three">三星</option><option value="two">二星</option><option value="one">一星</option>
+            </select>
+          </label>
         </div>
-        <p id="preload-status" role="status">六级词库和原音、两本讲义、两期 BBC 音频和文稿，共约 164 MB。下载后，在这个浏览器打开就能直接读取。</p>
-        <progress id="preload-progress" aria-label="学习资料下载进度" hidden></progress>
+        <div class="listening-groups" id="online-practice">
+          <div class="tool-group">
+            <h4>背词与词义</h4>
+            <a class="primary-tool" data-vocabulary-link href="./vocabulary.html?level=six">听力词表背诵</a>
+            <a data-trainer-view="meanings" href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
+            <a data-trainer-view="meaning-book" href="./dictation.html?level=six&amp;view=meaning-book">词义生词本</a>
+          </div>
+          <div class="tool-group">
+            <h4>听写练习</h4>
+            <a class="primary-tool" id="dictation-link" data-trainer-view="original" href="./dictation.html?level=six&amp;view=original">原声听写</a>
+            <a data-trainer-view="full-all" href="./dictation.html?level=six&amp;view=full-all">全词听写（含补音）</a>
+            <a data-trainer-view="supplement" href="./dictation.html?level=six&amp;view=supplement">只听补音词</a>
+          </div>
+          <div class="tool-group">
+            <h4>错词复习</h4>
+            <a class="primary-tool" id="mixed-review-link" href="./mixed-review.html">跨星级错词复习</a>
+            <a data-trainer-view="review" href="./dictation.html?level=six&amp;view=review">按轮复习错词</a>
+            <a data-trainer-view="consolidation" href="./dictation.html?level=six&amp;view=consolidation">高频错词与间隔巩固</a>
+          </div>
+          <div class="tool-group">
+            <h4>听写记录</h4>
+            <a id="reports-link" data-trainer-view="reports" href="./dictation.html?level=six&amp;view=reports">每轮正确率与报告</a>
+            <a data-trainer-view="legacy" href="./dictation.html?level=six&amp;view=legacy">纸笔听写记录</a>
+          </div>
+          <div class="tool-group">
+            <h4>泛听</h4>
+            <a href="#bbc">BBC 泛听与跟读</a>
+          </div>
+        </div>
+        <p id="study-link-status" role="status"></p>
       </section>
-      <p id="study-link-status" role="status"></p>
+      <div class="course-panels">
+        <section class="tool-panel" id="speaking-tools" aria-labelledby="speaking-heading">
+          <h3 id="speaking-heading">口语与作业</h3>
+          <div class="tool-list">
+            <a href="./homework-3.html"><strong>作业三口语背诵</strong><span>住房六问 · 助记与脱稿自测</span></a>
+            <a href="./handouts-md/speaking-part1-2026-09.html"><strong>口语 Part 1 讲义</strong><span>按话题看英文答案和中文翻译</span></a>
+            <a href="./handouts.html?book=speaking-part1-2026-09&amp;page=1">口语讲义原页</a>
+          </div>
+        </section>
+        <section class="tool-panel" id="course-tools" aria-labelledby="course-heading">
+          <h3 id="course-heading">课堂与真题</h3>
+          <div class="tool-list">
+            <a href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
+            <a href="./handouts.html?book=class-notes-17&amp;page=1">课堂讲义原页</a>
+            <a data-material-open="recording" href="#material-links">课程录屏<span>添加录屏网址</span></a>
+            <a data-material-open="paper" href="#material-links">真题资料<span>添加真题网址</span></a>
+          </div>
+        </section>
+      </div>
+      <section class="tool-panel" id="study-settings" aria-labelledby="settings-heading">
+        <h3 id="settings-heading">资料与设置</h3>
+        <div class="settings-options">
+          <section class="material-download" aria-labelledby="preload-title">
+            <h4 id="preload-title">离线学习资料</h4>
+            <p id="preload-status" role="status">六个星级的词库和原音、两本讲义及 BBC 音频和文稿可保存在这个浏览器。</p>
+            <button type="button" id="preload-materials">一次下载全部资料</button>
+            <progress id="preload-progress" aria-label="学习资料下载进度" hidden></progress>
+          </section>
+          <div class="settings-records">
+            <a href="#backup-tools">打卡记录备份与恢复</a>
+            <details class="material-settings">
+              <summary>设置我的录屏和真题链接</summary>
+              <form id="material-links">
+                <p>有线上资料时可保存入口，计时中也能打开。链接保存在这个浏览器。用纸质书时可以留空。</p>
+                <label>课程录屏<input type="url" name="recording" placeholder="https://" autocomplete="off"></label>
+                <label>真题资料<input type="url" name="paper" placeholder="https://" autocomplete="off"></label>
+                <button type="submit">保存资料链接</button>
+                <span id="links-status" role="status"></span>
+              </form>
+            </details>
+          </div>
+        </div>
+      </section>
     </section>
-    <div class="hub-secondary">
-      <a href="./handouts.html">查看讲义原页</a>
-      <a href="#backup-tools">学习记录备份</a>
-    </div>
   </section>
   <div>
   <section id="account" class="account" aria-label="公开打卡与泛听">
@@ -169,16 +214,6 @@
       <ul id="tasks" aria-label="当天任务"></ul>
       <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
       <div id="day-details"></div>
-      <details class="material-settings">
-        <summary>设置我的录屏和真题链接</summary>
-        <form id="material-links">
-          <p>有线上资料时可保存入口，计时中也能打开。链接保存在这个浏览器；用纸质书时可以留空。</p>
-          <label>课程录屏<input type="url" name="recording" placeholder="https://" autocomplete="off"></label>
-          <label>真题资料<input type="url" name="paper" placeholder="https://" autocomplete="off"></label>
-          <button type="submit">保存资料链接</button>
-          <span id="links-status" role="status"></span>
-        </form>
-      </details>
     </section>
     <footer id="backup-tools">
       <h2>学习记录备份</h2>
@@ -192,7 +227,6 @@
         <button type="button" id="import-confirm" hidden>确认替换公开计划和打卡记录</button>
       </details>
 
-      <p>查看听写轮次和错词，请打开<a data-trainer-view="reports" href="./dictation.html?level=six&amp;view=reports">听写报告</a>。</p>
     </footer>
   </main>
   </div>

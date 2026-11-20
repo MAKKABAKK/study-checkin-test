@@ -9,23 +9,25 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./handouts.css">
+  <script type="module" src="./study-navigation.js"></script>
   <script type="module" src="./focus-timer.js"></script>
   <script type="module" src="./handouts.js?v=public"></script>
 </head>
 <body>
   <header class="sitebar"><div class="sitebar-inner">
-    <a class="sitebrand" href="./">拾课</a>
+    <a class="sitebrand" data-home href="./">拾课</a>
     <nav class="site-nav" aria-label="学习导航">
-      <a href="./">学习首页</a><a href="./handouts.html" aria-current="page">讲义</a><a href="./homework-3.html">口语</a><a href="./#checkin">打卡</a><a href="./#bbc">泛听</a><a href="./#dictation-tools">听写</a>
+      <a data-study-tools href="./#study-tools">全部功能</a>
+      <a href="#original-handouts">原版讲义</a>
     </nav>
   </div></header>
   <main>
     <h1>讲义复习</h1>
     <div class="markdown-shelf" aria-label="Markdown 讲义">
-      <a href="./handouts-md/class-notes-17.html"><strong>课堂讲义 · Markdown</strong><span>第 1–17 节 · 词汇、语法与例句</span></a>
-      <a href="./handouts-md/speaking-part1-2026-09.html"><strong>口语讲义 · 英汉对照</strong><span>9–12 月 Part 1 · 原题、回答与中文翻译</span></a>
+      <a data-study-page href="./handouts-md/class-notes-17.html"><strong>课堂讲义 · Markdown</strong><span>第 1–17 节 · 词汇、语法与例句</span></a>
+      <a data-study-page href="./handouts-md/speaking-part1-2026-09.html"><strong>口语讲义 · 英汉对照</strong><span>9–12 月 Part 1 · 原题、回答与中文翻译</span></a>
     </div>
-    <h2>原版讲义</h2>
+    <h2 id="original-handouts">原版讲义</h2>
     <p id="storage-note" class="subtitle">从第一页开始，或接着上次的位置读。每本讲义的页码会保存在当前浏览器。</p>
     <div id="library-status" role="status">正在打开讲义目录…</div>
     <button id="load-again" hidden>重新加载目录</button>
