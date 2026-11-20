@@ -1,4 +1,5 @@
-import {getCourseKey,publicJournalKey} from './course-access.js';
+import {publicJournalKey} from './course-access.js';
+import {getWordAudio} from './word-audio.js';
 import {installDictationEngine} from './dictation-adapter.js';
 import {journalEndpoint} from './dictation-sync.js';
 import {prepareMaterialReads} from './material-cache.js';
@@ -16,18 +17,6 @@ export function reviewJournalKey(url = new URL(location.href)) {
   return key;
 }
 
-async function wordClips(folder) {
-  const [response,key] = await Promise.all([fetch(folder+'player.bin'),getCourseKey()]);
-  if (!response.ok) throw Error('单词录音暂时无法读取，请再试一次。');
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  const plain = await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes.subarray(0,12)},key,bytes.subarray(12));
-  const {html} = JSON.parse(new TextDecoder().decode(plain));
-  const start = '<script id="data" type="application/json">';
-  const left = html.indexOf(start), right = html.indexOf('</script>',left);
-  if (left < 0 || right < 0) throw Error('这一级的单词录音不完整。');
-  return new Map(JSON.parse(html.slice(left+start.length,right)).map(row=>[row.id,row.mp3]));
-}
-
 export async function openReviewLevel(id,journalKey,onChange) {
   const level = reviewLevels.find(item=>item.id===id);
   if (!level) throw Error('无法识别星级。');
@@ -39,7 +28,7 @@ export async function openReviewLevel(id,journalKey,onChange) {
   const engine = await installDictationEngine({level:id,words,times:recorded.map(id=>({id})),
     acceptedSpellings,journalKey,url:journalEndpoint});
   await engine.ready();
-  let scores, clips;
+  let scores;
   await refresh();
 
   function items() {
@@ -80,13 +69,6 @@ export async function openReviewLevel(id,journalKey,onChange) {
     });
   }
 
-  async function playSource(wordId) {
-    clips ??= wordClips(folder).catch(error=>{ clips=undefined; throw error; });
-    const mp3 = (await clips).get(wordId);
-    if (!mp3) throw Error('未找到这个词的单词录音。');
-    return 'data:audio/mpeg;base64,'+mp3;
-  }
-
   async function record(wordId,answer,{sessionId,attempt=1,spaced=false}) {
     const base = {sessionId,wordId,mode:'review'};
     async function save(event) {
@@ -103,5 +85,5 @@ export async function openReviewLevel(id,journalKey,onChange) {
     const outcome = correct ? 'correct' : ['?','？'].includes(answer.trim()) ? 'unknown' : 'wrong';
     return {outcome,practiced:delta.words[wordId].practiced};
   }
-  return {...level,items,refresh,playSource,record,status:engine.status};
+  return {...level,items,refresh,playSource:wordId=>getWordAudio(id,wordId),record,status:engine.status};
 }

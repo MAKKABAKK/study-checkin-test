@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <meta name="referrer" content="no-referrer">
+  <title>听力词表背诵 · 拾课</title>
+  <link rel="icon" href="./shike-v1.svg">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./vocabulary.css">
+  <script type="module" src="./vocabulary.js"></script>
+  <script type="module" src="./focus-timer.js"></script>
+</head>
+<body>
+  <header class="sitebar"><div class="sitebar-inner">
+    <a class="sitebrand" href="./" data-home>拾课</a>
+    <nav class="site-nav" aria-label="学习导航"><a href="./" data-home>学习首页</a><a id="vocab-dictation" href="./dictation.html?level=six&amp;view=original">原声听写</a></nav>
+  </div></header>
+  <main class="vocabulary">
+    <h1>听力词表背诵</h1>
+    <nav id="vocab-levels" aria-label="选择词表星级">
+      <a data-level="six" href="?level=six&amp;group=1">六星</a>
+      <a data-level="five" href="?level=five&amp;group=1">五星</a>
+      <a data-level="four" href="?level=four&amp;group=1">四星</a>
+      <a data-level="three" href="?level=three&amp;group=1">三星</a>
+      <a data-level="two" href="?level=two&amp;group=1">二星</a>
+      <a data-level="one" href="?level=one&amp;group=1">一星</a>
+    </nav>
+    <div class="vocab-book">
+      <div class="vocab-tools">
+        <h2 id="vocab-heading">六星词表</h2>
+        <label class="vocab-range">浏览范围<select id="vocab-group" disabled></select></label>
+        <div id="vocab-modes" role="group" aria-label="显示方式">
+          <button type="button" data-mode="both" aria-pressed="true">英汉对照</button>
+          <button type="button" data-mode="hide-meaning" aria-pressed="false">遮中文</button>
+          <button type="button" data-mode="hide-word" aria-pressed="false">遮英文</button>
+        </div>
+      </div>
+      <p id="vocab-status" role="status">正在打开词表…</p>
+      <button id="vocab-retry" type="button" hidden>重新读取词表</button>
+      <table id="vocab-table" aria-labelledby="vocab-heading" hidden>
+        <colgroup><col class="vocab-id-col"><col class="vocab-word-col"><col><col class="vocab-audio-col"></colgroup>
+        <thead><tr><th scope="col">词序</th><th scope="col">英文</th><th scope="col">中文释义</th><th scope="col">发音</th></tr></thead>
+        <tbody id="vocab-rows"></tbody>
+      </table>
+      <nav id="vocab-pager" aria-label="翻组" hidden>
+        <button id="vocab-prev" type="button">上一组</button><span id="vocab-page"></span><button id="vocab-next" type="button">下一组</button>
+      </nav>
+    </div>
+  </main>
+  <audio id="vocab-audio" preload="none"></audio>
+</body>
+</html>
