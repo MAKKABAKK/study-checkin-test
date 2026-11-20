@@ -35,6 +35,7 @@ function visit(url) {
   const isBoard = url.pathname === base.pathname && url.hash === '#checkin';
   if (isBoard && document.getElementById('date')?.value === url.searchParams.get('date')) {
     history.replaceState(history.state, '', url);
+    window.dispatchEvent(new PopStateEvent('popstate',{state:history.state}));
     document.getElementById('day-title')?.scrollIntoView({block:'start'});
   } else location.assign(url.href);
 }

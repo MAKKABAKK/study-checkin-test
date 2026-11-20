@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-hub="home">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,228 +8,250 @@
   <meta name="apple-mobile-web-app-title" content="拾课">
   <meta name="theme-color" content="#f5f4ed">
   <link rel="apple-touch-icon" sizes="180x180" href="./shike-v1-180.png">
-  <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHRpdGxlPuaLvuivvjwvdGl0bGU+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZpZWxkIiB4Mj0iMSIgeTI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0ic2NhbGUoNTEyKSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMzNTVmNTAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTUzZTM1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBmaWxsPSJ1cmwoI2ZpZWxkKSIgZD0iTTAgMGg1MTJ2NTEySDB6Ii8+CiAgPGNpcmNsZSBjeD0iMzQ1IiBjeT0iMTQ0IiByPSIzOSIgZmlsbD0iI2ZmYWQ3MSIvPgogIDxwYXRoIGZpbGw9IiM5ZGI5OWEiIGQ9Ik05NiAyOTdjNTgtNSAxMTMgMTAgMTUzIDQzdjI4Yy00Mi0zMC05Mi00My0xNDgtMzlhNSA1IDAgMCAxLTUtNXptMzIwLTRjLTU5LTEtMTA3IDE0LTE1MSA0OHYyN2M0My0zMCA5My00NCAxNDYtNDNhNSA1IDAgMCAwIDUtNXoiLz4KICA8cGF0aCBmaWxsPSIjZmZmM2Q1IiBkPSJNOTYgMTc3YzU1LTEgMTEyIDIyIDE1MyA2NnY3NmMtNDMtMzMtOTQtNDktMTUzLTQ4eiIvPgogIDxwYXRoIGZpbGw9IiNkY2U4YzMiIGQ9Ik0yNjUgMjQ1YzM1LTQyIDkwLTY3IDE1MS02OXY5M2MtNTkgMS0xMDkgMTctMTUxIDUweiIvPgogIDxwYXRoIGZpbGw9IiNmZmYzZDUiIGQ9Ik0yNjAgMjE2Yy0yNi0yNS01NC00My04NS01NGw1LTI4YzM5IDEyIDcxIDMyIDk2IDYweiIvPgo8L3N2Zz4K">
   <link rel="manifest" href="./shike.webmanifest">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=872af06fca9986ce">
   <script>(()=>{async function c(a){if(!a)return"guest";let r=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(a));return"p-"+[...new Uint8Array(r).slice(0,16)].map(n=>n.toString(16).padStart(2,"0")).join("")}var d="ARk2a8Fn7pvuQmRJPLl6A4G9Yd4T05k7AdpzGo_BC8s";var s=new URL(location.href),l=s.searchParams.get("notebook")||s.searchParams.get("book"),o=new URLSearchParams(s.hash.slice(1)).get("journal");if(!o&&l)try{o=sessionStorage.getItem("shike.book."+l)}catch{}if(/^[A-Za-z0-9_-]{43}$/.test(o)&&o!==d){let n=function(e){let t=new URL(e.href);if(!(e.target==="_blank"||t.origin!==s.origin)){if(e.hasAttribute("data-study-section")){let u=e.dataset.studySection||(t.hash==="#"+a?t.searchParams.get("section"):t.hash.slice(1));u&&t.searchParams.set("section",u)}else e.hasAttribute("data-study-tools")&&t.searchParams.set("section","study-tools");t.hash=a,e.href=t.href}},h=function(e){let t=e.target.closest?.(r);t&&n(t)},i=function(){document.querySelectorAll(r).forEach(n),document.querySelector(".markdown-book, .recital, #books")&&c(o).then(e=>{sessionStorage.setItem("shike.book."+e,o);let t=new URL(location.href);t.searchParams.set("notebook",e),history.replaceState(history.state,"",t)}).catch(()=>{})},a=new URLSearchParams({journal:o}).toString(),r="a[data-home], a[data-study-page], a[data-study-tools], a[data-study-section]";for(let e of["pointerdown","click","contextmenu"])document.addEventListener(e,h,!0);document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:!0}):i()}})();</script>
-  <script type="module" src="./app.js?v=1940f0bc13a9bb8e"></script>
+  <script>(()=>{var u={"dictation-tools":"listening",bbc:"listening","online-practice":"listening","speaking-tools":"speaking","handout-tools":"handouts","course-tools":"course","study-settings":"settings","material-links":"settings","backup-tools":"settings",home:"home","study-tools":"home",checkin:"home"},b={home:"\u96C5\u601D\u5B66\u4E60\u9996\u9875",listening:"\u542C\u529B",speaking:"\u53E3\u8BED",handouts:"\u8BB2\u4E49",course:"\u5F55\u5C4F\u4E0E\u771F\u9898",settings:"\u8D44\u6599\u8BBE\u7F6E"},m=document.documentElement,h=t=>document.getElementById(t);function r(t){return t.hash.startsWith("#journal=")?t.searchParams.get("section"):t.hash.slice(1)}function c(t,{interacted:n=!1,material:o}={}){let e=h(t),s=e?.closest("[data-hub-view]")?.dataset.hubView||(Object.hasOwn(u,t)?u[t]:"home"),f=m.dataset.hub!==s;if(f&&document.querySelector("[data-hub-view].hub-enter")?.classList.remove("hub-enter"),m.dataset.hub=s,document.title="\u62FE\u8BFE \xB7 "+b[s],!e)return;let l=e.closest("[data-hub-view]");f&&n&&l&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&l.classList.add("hub-enter"),t==="material-links"&&(e.closest("details").open=!0);let a=e.closest("[hidden]")?h("account"):e;if(a){if(a===l?window.scrollTo(0,0):a.scrollIntoView({block:"start"}),o)h("material-links")?.elements[o]?.focus({preventScroll:!0});else if(n){let d=a.querySelector("h1,h2")||a;d.hasAttribute("tabindex")||(d.tabIndex=-1),d.focus({preventScroll:!0})}}}var i=location.href;c(r(new URL(i)));document.addEventListener("DOMContentLoaded",()=>c(r(new URL(location.href))),{once:!0});document.addEventListener("animationend",t=>{t.target.classList.contains("hub-enter")&&t.target.classList.remove("hub-enter")});document.addEventListener("click",t=>{if(t.defaultPrevented||t.button!==0||t.metaKey||t.ctrlKey||t.shiftKey||t.altKey)return;let n=t.target.closest("a[href]");if(!n||n.target||n.id==="next-study-day")return;let o=new URL(n.href);if(o.origin!==location.origin||o.pathname!==location.pathname)return;let e=n.dataset.studySection||n.dataset.section||r(o);if(!Object.hasOwn(u,e))return;t.preventDefault();let s=new URL(location.href);s.hash.startsWith("#journal=")?s.searchParams.set("section",e):s.hash=e,location.href!==s.href&&history.pushState(null,"",s),i=location.href,c(e,{interacted:!0,material:n.dataset.materialOpen})});function g(){i!==location.href&&(i=location.href,c(r(new URL(i)),{interacted:!0}))}window.addEventListener("popstate",g);window.addEventListener("hashchange",g);})();</script>
+  <script type="module" src="./app.js?v=fc4f606c37c8ef61"></script>
 </head>
 <body>
   <header class="sitebar">
     <div class="sitebar-inner">
-      <a class="sitebrand" data-home href="./">拾课</a>
+      <a class="sitebrand" data-study-section="home" href="#home">拾课</a>
       <nav class="site-nav" aria-label="学习导航">
         <a data-study-section="checkin" href="#checkin">每日打卡</a>
-        <a data-study-section="study-tools" href="#study-tools">全部功能</a>
+        <a data-study-section="study-tools" href="#study-tools">首页索引</a>
       </nav>
     </div>
   </header>
-  <section class="study-hub" aria-labelledby="account-title">
-    <h1 id="account-title">雅思学习首页</h1>
-    <section class="evening-entry" aria-labelledby="evening-title">
-      <div>
-        <p id="focus-date">每日学习计划</p>
-        <h2 id="evening-title">今晚学什么</h2>
-        <p id="focus-meta"></p>
-      </div>
-      <div class="evening-actions">
-        <button id="focus-first" type="button" hidden>开始计时</button>
-        <a data-study-section="checkin" href="#checkin">查看计划与打卡</a>
-        <a id="next-study-day" href="#checkin" hidden>查看下个学习日</a>
-      </div>
-    </section>
-    <section class="study-directory" id="study-tools" aria-labelledby="tools-title">
-      <h2 id="tools-title">全部功能</h2>
-      <nav class="category-shortcuts" aria-label="功能分类">
-        <a data-study-section="dictation-tools" href="#dictation-tools">听力与背词</a>
-        <a data-study-section="speaking-tools" href="#speaking-tools">口语与作业</a>
-        <a data-study-section="course-tools" href="#course-tools">课堂与真题</a>
-        <a data-study-section="study-settings" href="#study-settings">资料与设置</a>
-      </nav>
-      <section class="tool-panel" id="dictation-tools" aria-labelledby="dictation-heading">
-        <div class="panel-heading">
-          <h3 id="dictation-heading">听力与背词</h3>
-          <label class="level-picker" for="hub-level">练习星级
-            <select id="hub-level">
-              <option value="six">六星</option><option value="five">五星</option><option value="four">四星</option>
-              <option value="three">三星</option><option value="two">二星</option><option value="one">一星</option>
-            </select>
-          </label>
+  <main class="learning-shell">
+    <section class="study-home" id="home" data-hub-view="home" aria-labelledby="account-title">
+      <h1 id="account-title">雅思学习首页</h1>
+      <section class="evening-entry" aria-labelledby="evening-title">
+        <div>
+          <p id="focus-date">每日学习计划</p>
+          <h2 id="evening-title">今晚学什么</h2>
+          <p id="focus-meta"></p>
         </div>
+        <div class="evening-actions">
+          <button id="focus-first" type="button" hidden>开始计时</button>
+          <a data-study-section="checkin" href="#checkin">查看计划与打卡</a>
+          <a id="next-study-day" href="#checkin" hidden>查看下个学习日</a>
+        </div>
+      </section>
+      <section class="study-directory" id="study-tools" aria-labelledby="tools-title">
+        <h2 id="tools-title">学习板块</h2>
+        <nav class="category-shortcuts" aria-label="学习板块">
+          <a data-study-section="dictation-tools" href="#dictation-tools">听力</a>
+          <a data-study-section="speaking-tools" href="#speaking-tools">口语</a>
+          <a data-study-section="handout-tools" href="#handout-tools">讲义</a>
+          <a data-study-section="course-tools" href="#course-tools">录屏与真题</a>
+          <a data-study-section="study-settings" href="#study-settings">资料设置</a>
+        </nav>
+      </section>
+      <section id="account" class="account" aria-label="加载每日打卡">
+        <noscript>请启用 JavaScript 以进入学习板块和保存打卡。</noscript>
+        <p id="loading-status" role="status">正在读取公开打卡…</p>
+        <button id="load-plan" type="button" hidden>重新读取计划</button>
+      </section>
+      <section id="app" aria-label="每日打卡" hidden>
+        <header class="day-heading"><h2>每日打卡</h2><span class="private" id="plan-location">公开打卡</span></header>
+        <p id="status" role="status">正在读取计划…</p>
+        <nav id="checkin" aria-label="选择日期">
+          <button id="previous" aria-label="前一天" disabled>←</button>
+          <select id="date" aria-label="学习日期" disabled></select>
+          <button id="next" aria-label="后一天" disabled>→</button>
+          <button id="today" disabled>今天</button>
+        </nav>
+        <section class="day" aria-labelledby="day-title">
+          <div class="daytop"><div><p id="calendar-date" class="eyebrow"></p><h2 id="day-title">正在读取计划…</h2></div><span class="count" id="day-count" hidden></span></div>
+          <p class="note" id="note" hidden></p>
+          <p class="time" id="minutes" hidden></p>
+          <div class="track" id="track" aria-hidden="true" hidden><div id="bar"></div></div>
+          <ul id="tasks" aria-label="当天任务"></ul>
+          <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
+          <div id="day-details"></div>
+        </section>
+        <details class="progress-history"><summary>累计学习进度</summary>
+          <section class="summary" aria-label="学习进度">
+            <div><strong><b id="finished">—</b><small id="study-days"></small></strong><span>完成学习日</span></div>
+            <div><strong><b id="listening">—</b><small> 天</small></strong><span>BBC 泛听打卡</span></div>
+            <div><strong id="last-day">—</strong><span>计划截止日</span></div>
+          </section>
+        </details>
+      </section>
+    </section>
+    <section class="subject-page" id="dictation-tools" data-hub-view="listening" aria-labelledby="dictation-heading">
+      <a class="back-to-index" data-study-section="study-tools" href="#study-tools">返回首页</a>
+      <h1 id="dictation-heading">听力</h1>
+      <div class="tool-panel">
+        <label class="level-picker" for="hub-level">练习星级
+          <select id="hub-level">
+            <option value="six">六星</option><option value="five">五星</option><option value="four">四星</option>
+            <option value="three">三星</option><option value="two">二星</option><option value="one">一星</option>
+          </select>
+        </label>
         <div class="listening-groups" id="online-practice">
           <div class="tool-group">
-            <h4>背词与词义</h4>
+            <h2>背词与词义</h2>
             <a class="primary-tool" data-vocabulary-link data-study-page href="./vocabulary.html?level=six">听力词表背诵</a>
             <a data-trainer-view="meanings" data-study-page href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
             <a data-trainer-view="meaning-book" data-study-page href="./dictation.html?level=six&amp;view=meaning-book">词义生词本</a>
           </div>
           <div class="tool-group">
-            <h4>听写练习</h4>
+            <h2>听写练习</h2>
             <a class="primary-tool" id="dictation-link" data-trainer-view="original" data-study-page href="./dictation.html?level=six&amp;view=original">原声听写</a>
             <a data-trainer-view="full-all" data-study-page href="./dictation.html?level=six&amp;view=full-all">全词听写（含补音）</a>
             <a data-trainer-view="supplement" data-study-page href="./dictation.html?level=six&amp;view=supplement">只听补音词</a>
           </div>
           <div class="tool-group">
-            <h4>错词复习</h4>
+            <h2>错词复习</h2>
             <a class="primary-tool" id="mixed-review-link" data-study-page href="./mixed-review.html">跨星级错词复习</a>
             <a data-trainer-view="review" data-study-page href="./dictation.html?level=six&amp;view=review">按轮复习错词</a>
             <a data-trainer-view="consolidation" data-study-page href="./dictation.html?level=six&amp;view=consolidation">高频错词与间隔巩固</a>
           </div>
           <div class="tool-group">
-            <h4>听写记录</h4>
+            <h2>听写记录</h2>
             <a id="reports-link" data-trainer-view="reports" data-study-page href="./dictation.html?level=six&amp;view=reports">每轮正确率与报告</a>
             <a data-trainer-view="legacy" data-study-page href="./dictation.html?level=six&amp;view=legacy">纸笔听写记录</a>
           </div>
           <div class="tool-group">
-            <h4>泛听</h4>
+            <h2>泛听</h2>
             <a data-study-section="bbc" href="#bbc">BBC 泛听与跟读</a>
           </div>
         </div>
         <p id="study-link-status" role="status"></p>
-      </section>
-      <div class="course-panels">
-        <section class="tool-panel" id="speaking-tools" aria-labelledby="speaking-heading">
-          <h3 id="speaking-heading">口语与作业</h3>
-          <div class="tool-list">
-            <a data-study-page href="./homework-3.html"><strong>作业三口语背诵</strong><span>住房六问 · 助记与脱稿自测</span></a>
-            <a data-study-page href="./handouts-md/speaking-part1-2026-09.html"><strong>口语 Part 1 讲义</strong><span>按话题看英文答案和中文翻译</span></a>
-            <a data-study-page href="./handouts.html?book=speaking-part1-2026-09&amp;page=1">口语讲义原页</a>
-          </div>
-        </section>
-        <section class="tool-panel" id="course-tools" aria-labelledby="course-heading">
-          <h3 id="course-heading">课堂与真题</h3>
-          <div class="tool-list">
-            <a data-study-page href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
-            <a data-study-page href="./handouts.html?book=class-notes-17&amp;page=1">课堂讲义原页</a>
-            <a data-material-open="recording" data-study-section="material-links" href="#material-links">课程录屏<span>添加录屏网址</span></a>
-            <a data-material-open="paper" data-study-section="material-links" href="#material-links">真题资料<span>添加真题网址</span></a>
-          </div>
-        </section>
       </div>
-      <section class="tool-panel" id="study-settings" aria-labelledby="settings-heading">
-        <h3 id="settings-heading">资料与设置</h3>
-        <div class="settings-options">
-          <section class="material-download" aria-labelledby="preload-title">
-            <h4 id="preload-title">离线学习资料</h4>
-            <p id="preload-status" role="status">六个星级的词库和原音、两本讲义及 BBC 音频和文稿可保存在这个浏览器。</p>
-            <button type="button" id="preload-materials">一次下载全部资料</button>
-            <progress id="preload-progress" aria-label="学习资料下载进度" hidden></progress>
-          </section>
-          <div class="settings-records">
-            <a data-study-section="backup-tools" href="#backup-tools">打卡记录备份与恢复</a>
-            <details class="material-settings">
-              <summary>设置我的录屏和真题链接</summary>
-              <form id="material-links">
-                <p>有线上资料时可保存入口，计时中也能打开。链接保存在这个浏览器。用纸质书时可以留空。</p>
-                <label>课程录屏<input type="url" name="recording" placeholder="https://" autocomplete="off"></label>
-                <label>真题资料<input type="url" name="paper" placeholder="https://" autocomplete="off"></label>
-                <button type="submit">保存资料链接</button>
-                <span id="links-status" role="status"></span>
-              </form>
-            </details>
-          </div>
+      <section class="bbc" id="bbc" aria-labelledby="bbc-title">
+        <div class="bbc-top"><span class="headphones" aria-hidden="true">♫</span><div><p class="eyebrow">每日泛听 · 约 6 分钟</p><h2 id="bbc-title" lang="en">BBC 6 Minute English</h2></div></div>
+        <p id="bbc-description">听一集，试着用一句话说出大意。</p>
+        <label class="episode-label" for="bbc-episode">本次节目</label>
+        <select id="bbc-episode"></select>
+        <div class="bbc-steps" role="group" aria-label="选择练习阶段">
+          <button type="button" data-pass="first" aria-pressed="true">第一遍 · 盲听</button>
+          <button type="button" data-pass="study" aria-pressed="false">第二遍 · 对照</button>
+          <button type="button" data-pass="again" aria-pressed="false">隐藏重听</button>
         </div>
-      </section>
-    </section>
-  </section>
-  <div>
-  <section id="account" class="account" aria-label="公开打卡与泛听">
-    <p id="loading-status" role="status">正在读取公开打卡…</p>
-    <button id="load-plan" type="button" hidden>重新读取计划</button>
-    <section class="bbc" id="bbc" aria-labelledby="bbc-title">
-      <div class="bbc-top"><span class="headphones" aria-hidden="true">♫</span><div><p class="eyebrow">每日泛听 · 约 6 分钟</p><h2 id="bbc-title" lang="en">BBC 6 Minute English</h2></div></div>
-      <p id="bbc-description">听一集，试着用一句话说出大意。</p>
-      <label class="episode-label" for="bbc-episode">本次节目</label>
-      <select id="bbc-episode"></select>
-      <div class="bbc-steps" role="group" aria-label="选择练习阶段">
-        <button type="button" data-pass="first" aria-pressed="true">第一遍 · 盲听</button>
-        <button type="button" data-pass="study" aria-pressed="false">第二遍 · 对照</button>
-        <button type="button" data-pass="again" aria-pressed="false">隐藏重听</button>
-      </div>
-      <p id="bbc-instruction" aria-live="polite"></p>
-      <div class="bbc-languages" role="group" aria-label="对照文字">
-        <button type="button" data-mode="off" aria-pressed="true">隐藏</button>
-        <button type="button" data-mode="en" aria-pressed="false">英文</button>
-        <button type="button" data-mode="zh" aria-pressed="false">中文</button>
-        <button type="button" data-mode="both" aria-pressed="false">双语</button>
-      </div>
-      <div id="player"></div>
-      <div class="bbc-controls">
-        <button type="button" class="listen" id="load-player">加载本集音频</button>
-        <button type="button" id="bbc-switch-player" hidden></button>
-      </div>
-      <p class="hint">下载资料后可直接播放两期 BBC 官方原音。在线播放使用 Apple Podcasts，字幕视频来自 YouTube。</p>
-      <div class="bbc-guide" id="bbc-guide" hidden>
-        <h3>文稿时间轴 <small>按 PDF 正文页定位</small></h3>
-        <p id="bbc-timeline-info" class="hint"></p>
-        <div id="bbc-lines"></div>
-        <details id="bbc-cues-panel">
-          <summary>用自己的字幕逐句跟读</summary>
-          <p class="hint">选择对应本集 YouTube 版本、带时间码的字幕。点击字幕可以跳回原句。文件只在本机读取，换集或隐藏重听时清除。</p>
-          <label for="bbc-cues-file" id="bbc-cues-label">选择本集字幕（VTT / SRT）</label>
-          <input id="bbc-cues-file" type="file" accept=".vtt,.srt,text/vtt,application/x-subrip">
-          <p class="hint" id="bbc-cues-status" role="status"></p>
-          <div id="bbc-cues-list" aria-label="本地字幕"></div>
-        </details>
-      </div>
-      <section class="bbc-reading" id="bbc-reading" aria-label="官方英文学习稿">
-        <h3>官方英文学习稿</h3>
-        <details id="bbc-reader">
-          <summary>在本页读本集英文稿</summary>
-          <p class="hint">BBC 按对话整理，个别措辞与录音有出入。</p>
-          <label id="bbc-follow-label" hidden><input id="bbc-follow-pdf" type="checkbox" checked> PDF 随视频翻页</label>
-          <div id="bbc-pdf-view"></div>
-          <details id="bbc-local-reader">
-            <summary>使用自己的 PDF</summary>
-            <label for="bbc-pdf">选择本集 BBC 原稿</label>
-            <input type="file" id="bbc-pdf" accept="application/pdf,.pdf">
-            <p class="hint" id="bbc-pdf-status" role="status"></p>
+        <p id="bbc-instruction" aria-live="polite"></p>
+        <div class="bbc-languages" role="group" aria-label="对照文字">
+          <button type="button" data-mode="off" aria-pressed="true">隐藏</button>
+          <button type="button" data-mode="en" aria-pressed="false">英文</button>
+          <button type="button" data-mode="zh" aria-pressed="false">中文</button>
+          <button type="button" data-mode="both" aria-pressed="false">双语</button>
+        </div>
+        <div id="player"></div>
+        <div class="bbc-controls">
+          <button type="button" class="listen" id="load-player">加载本集音频</button>
+          <button type="button" id="bbc-switch-player" hidden></button>
+        </div>
+        <p class="hint">下载资料后可直接播放两期 BBC 官方原音。在线播放使用 Apple Podcasts，字幕视频来自 YouTube。</p>
+        <div class="bbc-guide" id="bbc-guide" hidden>
+          <h3>文稿时间轴 <small>按 PDF 正文页定位</small></h3>
+          <p id="bbc-timeline-info" class="hint"></p>
+          <div id="bbc-lines"></div>
+          <details id="bbc-cues-panel">
+            <summary>用自己的字幕逐句跟读</summary>
+            <p class="hint">选择对应本集 YouTube 版本、带时间码的字幕。点击字幕可以跳回原句。文件只在本机读取，换集或隐藏重听时清除。</p>
+            <label for="bbc-cues-file" id="bbc-cues-label">选择本集字幕（VTT / SRT）</label>
+            <input id="bbc-cues-file" type="file" accept=".vtt,.srt,text/vtt,application/x-subrip">
+            <p class="hint" id="bbc-cues-status" role="status"></p>
+            <div id="bbc-cues-list" aria-label="本地字幕"></div>
           </details>
-        </details>
-        <p id="bbc-fullscreen"><a id="bbc-source" target="_blank" rel="noopener noreferrer">在 BBC 全屏阅读（PDF）↗</a><span class="hint" id="bbc-return-note" hidden>　关闭文稿标签页即可回到本集。</span></p>
+        </div>
+        <section class="bbc-reading" id="bbc-reading" aria-label="官方英文学习稿">
+          <h3>官方英文学习稿</h3>
+          <details id="bbc-reader">
+            <summary>在本页读本集英文稿</summary>
+            <p class="hint">BBC 按对话整理，个别措辞与录音有出入。</p>
+            <label id="bbc-follow-label" hidden><input id="bbc-follow-pdf" type="checkbox" checked> PDF 随视频翻页</label>
+            <div id="bbc-pdf-view"></div>
+            <details id="bbc-local-reader">
+              <summary>使用自己的 PDF</summary>
+              <label for="bbc-pdf">选择本集 BBC 原稿</label>
+              <input type="file" id="bbc-pdf" accept="application/pdf,.pdf">
+              <p class="hint" id="bbc-pdf-status" role="status"></p>
+            </details>
+          </details>
+          <p id="bbc-fullscreen"><a id="bbc-source" target="_blank" rel="noopener noreferrer">在 BBC 全屏阅读（PDF）↗</a><span class="hint" id="bbc-return-note" hidden>　关闭文稿标签页即可回到本集。</span></p>
+        </section>
+        <label class="listen-check" hidden><input type="checkbox" id="bbc-check" disabled>今天已泛听一集</label>
       </section>
-      <label class="listen-check" hidden><input type="checkbox" id="bbc-check" disabled>今天已泛听一集</label>
     </section>
-  </section>
-  <main id="app" hidden>
-    <header class="day-heading"><h2>每日打卡</h2><span class="private" id="plan-location">公开打卡</span></header>
-    <p>打开这个首页的人共用同一份打卡和听写记录，进度会自动同步。</p>
-    <p id="status" role="status">正在读取计划…</p>
-    <noscript>请启用 JavaScript 以读取学习计划和保存打卡。</noscript>
-    <section class="summary" aria-label="学习进度">
-      <div><strong><b id="finished">—</b><small id="study-days"></small></strong><span>完成学习日</span></div>
-      <div><strong><b id="listening">—</b><small> 天</small></strong><span>BBC 泛听打卡</span></div>
-      <div><strong id="last-day">—</strong><span>计划截止日</span></div>
+    <section class="subject-page" id="speaking-tools" data-hub-view="speaking" aria-labelledby="speaking-heading">
+      <a class="back-to-index" data-study-section="study-tools" href="#study-tools">返回首页</a>
+      <h1 id="speaking-heading">口语</h1>
+      <div class="tool-list">
+        <a data-study-page href="./homework-3.html"><strong>作业三 · 住房六问</strong><span>背诵英文回答、看助记提示、脱稿自测</span></a>
+      </div>
     </section>
-    <nav id="checkin" aria-label="选择日期">
-      <button id="previous" aria-label="前一天" disabled>←</button>
-      <select id="date" aria-label="学习日期" disabled></select>
-      <button id="next" aria-label="后一天" disabled>→</button>
-      <button id="today" disabled>今天</button>
-    </nav>
-    <section class="day" aria-labelledby="day-title">
-      <div class="daytop"><div><p id="calendar-date" class="eyebrow"></p><h2 id="day-title">正在读取计划…</h2></div><span class="count" id="day-count" hidden></span></div>
-      <p class="note" id="note" hidden></p>
-      <p class="time" id="minutes" hidden></p>
-      <div class="track" id="track" aria-hidden="true" hidden><div id="bar"></div></div>
-      <ul id="tasks" aria-label="当天任务"></ul>
-      <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
-      <div id="day-details"></div>
+    <section class="subject-page" id="handout-tools" data-hub-view="handouts" aria-labelledby="handout-heading">
+      <a class="back-to-index" data-study-section="study-tools" href="#study-tools">返回首页</a>
+      <h1 id="handout-heading">讲义</h1>
+      <div class="handout-shelf">
+        <section class="tool-panel">
+          <h2>课堂讲义</h2>
+          <p>第 1–17 节课堂知识点</p>
+          <div class="tool-list">
+            <a data-study-page href="./handouts-md/class-notes-17.html">按课阅读</a>
+            <a data-study-page href="./handouts.html?book=class-notes-17&amp;page=1">查看讲义原页</a>
+          </div>
+        </section>
+        <section class="tool-panel">
+          <h2>口语 Part 1 讲义</h2>
+          <p>9–12 月话题 · 英文答案与中文翻译</p>
+          <div class="tool-list">
+            <a data-study-page href="./handouts-md/speaking-part1-2026-09.html">按话题阅读</a>
+            <a data-study-page href="./handouts.html?book=speaking-part1-2026-09&amp;page=1">查看讲义原页</a>
+          </div>
+        </section>
+      </div>
     </section>
-    <footer id="backup-tools">
-      <h2>学习记录备份</h2>
-      <div class="actions"><button id="refresh">刷新进度</button><button id="export" disabled>导出备份</button></div>
-      <button id="export-local" hidden>导出此浏览器原有的打卡记录</button>
-      <details id="import-panel"><summary>从本机备份恢复</summary>
-        <p>选择文件后可先预览。确认恢复会替换所有人共用的学习计划和打卡记录，并自动下载当前备份。</p>
-        <label for="backup-file">学习计划与打卡（JSON）</label>
-        <input type="file" id="backup-file" accept=".json,application/json">
-        <p id="import-preview" role="status"></p>
-        <button type="button" id="import-confirm" hidden>确认替换公开计划和打卡记录</button>
-      </details>
-
-    </footer>
+    <section class="subject-page" id="course-tools" data-hub-view="course" aria-labelledby="course-heading">
+      <a class="back-to-index" data-study-section="study-tools" href="#study-tools">返回首页</a>
+      <h1 id="course-heading">录屏与真题</h1>
+      <div class="tool-list">
+        <a data-material-open="recording" data-study-section="material-links" href="#material-links">课程录屏<span>添加录屏网址</span></a>
+        <a data-material-open="paper" data-study-section="material-links" href="#material-links">真题资料<span>添加真题网址</span></a>
+      </div>
+    </section>
+    <section class="subject-page" id="study-settings" data-hub-view="settings" aria-labelledby="settings-heading">
+      <a class="back-to-index" data-study-section="study-tools" href="#study-tools">返回首页</a>
+      <h1 id="settings-heading">资料设置</h1>
+      <div class="settings-options">
+        <section class="material-download" aria-labelledby="preload-title">
+          <h2 id="preload-title">离线学习资料</h2>
+          <p id="preload-status" role="status">六个星级的词库和原音、两本讲义及 BBC 音频和文稿可保存在这个浏览器。</p>
+          <button type="button" id="preload-materials">一次下载全部资料</button>
+          <progress id="preload-progress" aria-label="学习资料下载进度" hidden></progress>
+        </section>
+        <div class="settings-records">
+          <details class="material-settings">
+            <summary>设置我的录屏和真题链接</summary>
+            <form id="material-links">
+              <p>有线上资料时可保存入口，计时中也能打开。链接保存在这个浏览器。用纸质书时可以留空。</p>
+              <label>课程录屏<input type="url" name="recording" placeholder="https://" autocomplete="off"></label>
+              <label>真题资料<input type="url" name="paper" placeholder="https://" autocomplete="off"></label>
+              <button type="submit">保存资料链接</button>
+              <span id="links-status" role="status"></span>
+            </form>
+          </details>
+        </div>
+      </div>
+      <footer id="backup-tools">
+        <h2>学习记录备份</h2>
+        <p id="backup-status" role="status">正在读取打卡进度…</p>
+        <div class="actions"><button id="refresh">刷新进度</button><button id="export" disabled>导出备份</button></div>
+        <button id="export-local" hidden>导出此浏览器原有的打卡记录</button>
+        <details id="import-panel"><summary>从本机备份恢复</summary>
+          <p>选择文件后可先预览。确认恢复会替换所有人共用的学习计划和打卡记录，并自动下载当前备份。</p>
+          <label for="backup-file">学习计划与打卡（JSON）</label>
+          <input type="file" id="backup-file" accept=".json,application/json">
+          <p id="import-preview" role="status"></p>
+          <button type="button" id="import-confirm" hidden>确认替换公开计划和打卡记录</button>
+        </details>
+      </footer>
+    </section>
   </main>
-  </div>
 </body>
 </html>
