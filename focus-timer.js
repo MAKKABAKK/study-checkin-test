@@ -238,7 +238,10 @@ async function advance(markComplete) {
         snapshot.checked[current.date+'/'+current.tasks[next].id])) next++;
     }
     if (read()?.run !== current.run) { refresh(); return; }
-    if (next < current.tasks.length) begin({...current,index:next});
+    if (next < current.tasks.length) {
+      const openMaterial = externalMaterial(current.tasks[next]) !== externalMaterial(current.tasks[current.index]);
+      begin({...current,index:next},openMaterial);
+    }
     else if (write(null)) visit(boardURL(current.date));
   } catch (e) {
     if (read()?.run === current.run) {
