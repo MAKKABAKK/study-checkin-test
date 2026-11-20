@@ -1,5 +1,7 @@
 // The published course material is available to every visitor.
 const value = 'UwNcxmp5I4Wwx8Ahjy9exIiCysnopq_xn41nwmkObqQ';
+// The ordinary homepage shares the existing study notebook with every visitor.
+export const publicJournalKey = 'ARk2a8Fn7pvuQmRJPLl6A4G9Yd4T05k7AdpzGo_BC8s';
 let imported;
 export function getCourseKey() {
   if (!imported) {

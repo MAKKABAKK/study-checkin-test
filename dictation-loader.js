@@ -1,4 +1,4 @@
-import {getCourseKey} from './course-access.js';
+import {getCourseKey,publicJournalKey} from './course-access.js';
 import {prepareMaterialReads} from './material-cache.js';
 
 const levels = {six:'六星', five:'五星', four:'四星', three:'三星', two:'二星', one:'一星'};
@@ -8,7 +8,6 @@ const requestedLevel = url.searchParams.get('level');
 const level = Object.hasOwn(levels, requestedLevel) ? requestedLevel : 'six';
 const hash = url.hash.slice(1);
 const keys = new URLSearchParams(hash);
-const journalStorage = 'shike.dictation.journal.v1';
 const status = document.getElementById('load-status');
 const retry = document.getElementById('retry-dictation');
 const view = url.searchParams.get('view') || (!hash.includes('=') ? hash : '');
@@ -26,7 +25,10 @@ function save(store, name, value) {
 
 save(localStorage, 'shike.hub.level.v1', level);
 
-const journalKey = keys.get('journal') || read(localStorage, journalStorage);
+// Older bookmarks can name a different notebook. Keep its verified identity
+// across hash-based views and level changes without changing the public entry.
+const book = url.searchParams.get('book');
+const journalKey = keys.get('journal') ?? (book ? read(sessionStorage,'shike.book.'+book) : publicJournalKey);
 const cloudURL = document.querySelector('meta[name=shike-cloud-url]').content;
 const publishableKey = document.querySelector('meta[name=shike-cloud-key]').content;
 
@@ -36,6 +38,7 @@ async function loadPractice() {
   const controller = new AbortController();
   let audioURL;
   try {
+    if (!/^[A-Za-z0-9_-]{43}$/.test(journalKey)) throw Error('无法识别这份听写记录，请重新打开原书签。');
     const [key] = await Promise.all([getCourseKey(),prepareMaterialReads()]);
     const progress = new Map();
     let lastUpdate = 0;
@@ -84,18 +87,26 @@ async function loadPractice() {
       journalKey, url:cloudURL, publishableKey,
     });
     await adapter.ready();
-    if (journalKey && level === 'six') {
+    if (level === 'six') {
       const marks = adapter.legacyMarks();
       data.textContent = JSON.stringify(words.map(word => Object.hasOwn(marks,word.id)
         ? {...word,status:marks[word.id]} : word));
     }
     window.shikeDictation = adapter;
-    if (journalKey) save(localStorage,journalStorage,journalKey);
     audioURL = URL.createObjectURL(new Blob([original], {type:'audio/mpeg'}));
     window.shikeOriginalAudio = audioURL;
     const route = new URL(location.href);
     route.searchParams.set('level',level);
     route.searchParams.delete('view');
+    if (journalKey !== publicJournalKey) {
+      save(sessionStorage,'shike.book.'+adapter.scope,journalKey);
+      route.searchParams.set('book',adapter.scope);
+      for (const link of doc.querySelectorAll('.level-nav a[data-level]')) {
+        const target = new URL(link.getAttribute('href'),location.href);
+        target.searchParams.set('book',adapter.scope);
+        link.href = target.href;
+      }
+    } else route.searchParams.delete('book');
     if (viewPattern.test(view) || keys.has('journal') || keys.has('handout')) {
       route.hash = viewPattern.test(view) ? view : 'dictation';
     }
@@ -116,7 +127,7 @@ async function loadPractice() {
       document.body.append(script);
       script.remove();
     }
-    if (level === 'six' && journalKey && Object.keys(adapter.legacyMarks()).length) {
+    if (level === 'six' && Object.keys(adapter.legacyMarks()).length) {
       const {attachLegacyAnswers} = await import('./dictation-seed.js'+bundleVersion);
       attachLegacyAnswers(document.getElementById('legacyPanel'),journalKey,words,adapter.legacyMarks());
     }

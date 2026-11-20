@@ -1,4 +1,5 @@
 import {applyEvent, compactState, createVocabulary, prepareState} from './dictation-engine.js';
+import {publicJournalKey} from './course-access.js';
 
 // Confirmed cloud events and pending device events stay separate. A UI submission
 // is acknowledged only after its local IndexedDB transaction commits.
@@ -155,11 +156,9 @@ export async function readPaperHistory(journalKey) {
   return answers;
 }
 
-export async function preloadLinkedJournal(onProgress) {
-  let key;
-  try { key = localStorage.getItem('shike.dictation.journal.v1'); } catch { return {done:0,total:0}; }
-  const requested = new URLSearchParams(location.hash.slice(1)).get('journal');
-  if (!/^[A-Za-z0-9_-]{43}$/.test(key || '') || (requested && requested !== key)) return {done:0,total:0};
+export async function preloadLinkedJournal(onProgress,key = new URLSearchParams(location.hash.slice(1)).get('journal') ?? publicJournalKey) {
+  if (key !== publicJournalKey && (!/^[A-Za-z0-9_-]{43}$/.test(key) ||
+      localStorage.getItem('shike.dictation.journal.v1') !== key)) return {done:0,total:0};
   const scope = await journalScope(key);
   const levels = ['six','five','four','three','two','one'];
   return navigator.locks.request('shike-dictation-preload/'+scope,async () => {
@@ -207,7 +206,7 @@ export async function installDictationEngine(options) {
   let view, viewBase, queueVersion=-1, waiting=0, conflicts=0;
   let flight, timer, lastFailure=0, connection='checking';
   const local = job => navigator.locks.request('shike-dictation-local/'+stream,job);
-  let message = journalKey ? '正在读取个人云端记录…' : '正在打开这个浏览器的练习记录…';
+  let message = journalKey ? '正在读取云端听写记录…' : '正在打开这个浏览器的练习记录…';
 
   async function initialize() {
     if (state) return;
@@ -220,7 +219,7 @@ export async function installDictationEngine(options) {
       const source = journalKey ? await seedLoader(level,journalKey) : null;
       if (journalKey && !source) {
         const isPersonalSeed = options.hasPersonalSeed || (await import('./dictation-seed.js')).hasPersonalSeed;
-        if (await isPersonalSeed(journalKey)) throw Error('个人历史记录未能解密，请重新打开完整书签。');
+        if (await isPersonalSeed(journalKey)) throw Error('听写历史未能读取，请重新打开学习首页。');
         // A separately provisioned notebook has no historical seed. Its server
         // grant must succeed before an empty notebook can be stored locally.
         await (await openCloud()).read(0);
@@ -424,7 +423,7 @@ export async function installDictationEngine(options) {
       return reply({error:'无效的练习请求'},404);
     } catch (error) {
       if (error.status===400 || error.status===409) return reply({error:error.message},error.status);
-      message = !state && journalKey ? '无法读取个人练习记录，请稍后重试' : '无法写入此浏览器，请检查可用空间';
+      message = !state && journalKey ? '无法读取听写记录，请稍后重试' : '无法写入此浏览器，请检查可用空间';
       return reply({error:message},503);
     }
   }
