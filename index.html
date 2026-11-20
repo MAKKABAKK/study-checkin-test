@@ -11,15 +11,16 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=eb4c0727bcf105db"></script>
+  <script>(()=>{async function c(a){if(!a)return"guest";let r=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(a));return"p-"+[...new Uint8Array(r).slice(0,16)].map(n=>n.toString(16).padStart(2,"0")).join("")}var d="ARk2a8Fn7pvuQmRJPLl6A4G9Yd4T05k7AdpzGo_BC8s";var s=new URL(location.href),l=s.searchParams.get("notebook")||s.searchParams.get("book"),o=new URLSearchParams(s.hash.slice(1)).get("journal");if(!o&&l)try{o=sessionStorage.getItem("shike.book."+l)}catch{}if(/^[A-Za-z0-9_-]{43}$/.test(o)&&o!==d){let n=function(e){let t=new URL(e.href);if(!(e.target==="_blank"||t.origin!==s.origin)){if(e.hasAttribute("data-study-section")){let u=e.dataset.studySection||(t.hash==="#"+a?t.searchParams.get("section"):t.hash.slice(1));u&&t.searchParams.set("section",u)}else e.hasAttribute("data-study-tools")&&t.searchParams.set("section","study-tools");t.hash=a,e.href=t.href}},h=function(e){let t=e.target.closest?.(r);t&&n(t)},i=function(){document.querySelectorAll(r).forEach(n),document.querySelector(".markdown-book, .recital, #books")&&c(o).then(e=>{sessionStorage.setItem("shike.book."+e,o);let t=new URL(location.href);t.searchParams.set("notebook",e),history.replaceState(history.state,"",t)}).catch(()=>{})},a=new URLSearchParams({journal:o}).toString(),r="a[data-home], a[data-study-page], a[data-study-tools], a[data-study-section]";for(let e of["pointerdown","click","contextmenu"])document.addEventListener(e,h,!0);document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:!0}):i()}})();</script>
+  <script type="module" src="./app.js?v=1940f0bc13a9bb8e"></script>
 </head>
 <body>
   <header class="sitebar">
     <div class="sitebar-inner">
-      <a class="sitebrand" href="./">拾课</a>
+      <a class="sitebrand" data-home href="./">拾课</a>
       <nav class="site-nav" aria-label="学习导航">
-        <a href="#checkin">每日打卡</a>
-        <a href="#study-tools">全部功能</a>
+        <a data-study-section="checkin" href="#checkin">每日打卡</a>
+        <a data-study-section="study-tools" href="#study-tools">全部功能</a>
       </nav>
     </div>
   </header>
@@ -33,17 +34,17 @@
       </div>
       <div class="evening-actions">
         <button id="focus-first" type="button" hidden>开始计时</button>
-        <a href="#checkin">查看计划与打卡</a>
+        <a data-study-section="checkin" href="#checkin">查看计划与打卡</a>
         <a id="next-study-day" href="#checkin" hidden>查看下个学习日</a>
       </div>
     </section>
     <section class="study-directory" id="study-tools" aria-labelledby="tools-title">
       <h2 id="tools-title">全部功能</h2>
       <nav class="category-shortcuts" aria-label="功能分类">
-        <a href="#dictation-tools">听力与背词</a>
-        <a href="#speaking-tools">口语与作业</a>
-        <a href="#course-tools">课堂与真题</a>
-        <a href="#study-settings">资料与设置</a>
+        <a data-study-section="dictation-tools" href="#dictation-tools">听力与背词</a>
+        <a data-study-section="speaking-tools" href="#speaking-tools">口语与作业</a>
+        <a data-study-section="course-tools" href="#course-tools">课堂与真题</a>
+        <a data-study-section="study-settings" href="#study-settings">资料与设置</a>
       </nav>
       <section class="tool-panel" id="dictation-tools" aria-labelledby="dictation-heading">
         <div class="panel-heading">
@@ -58,30 +59,30 @@
         <div class="listening-groups" id="online-practice">
           <div class="tool-group">
             <h4>背词与词义</h4>
-            <a class="primary-tool" data-vocabulary-link href="./vocabulary.html?level=six">听力词表背诵</a>
-            <a data-trainer-view="meanings" href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
-            <a data-trainer-view="meaning-book" href="./dictation.html?level=six&amp;view=meaning-book">词义生词本</a>
+            <a class="primary-tool" data-vocabulary-link data-study-page href="./vocabulary.html?level=six">听力词表背诵</a>
+            <a data-trainer-view="meanings" data-study-page href="./dictation.html?level=six&amp;view=meanings">看英文想中文</a>
+            <a data-trainer-view="meaning-book" data-study-page href="./dictation.html?level=six&amp;view=meaning-book">词义生词本</a>
           </div>
           <div class="tool-group">
             <h4>听写练习</h4>
-            <a class="primary-tool" id="dictation-link" data-trainer-view="original" href="./dictation.html?level=six&amp;view=original">原声听写</a>
-            <a data-trainer-view="full-all" href="./dictation.html?level=six&amp;view=full-all">全词听写（含补音）</a>
-            <a data-trainer-view="supplement" href="./dictation.html?level=six&amp;view=supplement">只听补音词</a>
+            <a class="primary-tool" id="dictation-link" data-trainer-view="original" data-study-page href="./dictation.html?level=six&amp;view=original">原声听写</a>
+            <a data-trainer-view="full-all" data-study-page href="./dictation.html?level=six&amp;view=full-all">全词听写（含补音）</a>
+            <a data-trainer-view="supplement" data-study-page href="./dictation.html?level=six&amp;view=supplement">只听补音词</a>
           </div>
           <div class="tool-group">
             <h4>错词复习</h4>
-            <a class="primary-tool" id="mixed-review-link" href="./mixed-review.html">跨星级错词复习</a>
-            <a data-trainer-view="review" href="./dictation.html?level=six&amp;view=review">按轮复习错词</a>
-            <a data-trainer-view="consolidation" href="./dictation.html?level=six&amp;view=consolidation">高频错词与间隔巩固</a>
+            <a class="primary-tool" id="mixed-review-link" data-study-page href="./mixed-review.html">跨星级错词复习</a>
+            <a data-trainer-view="review" data-study-page href="./dictation.html?level=six&amp;view=review">按轮复习错词</a>
+            <a data-trainer-view="consolidation" data-study-page href="./dictation.html?level=six&amp;view=consolidation">高频错词与间隔巩固</a>
           </div>
           <div class="tool-group">
             <h4>听写记录</h4>
-            <a id="reports-link" data-trainer-view="reports" href="./dictation.html?level=six&amp;view=reports">每轮正确率与报告</a>
-            <a data-trainer-view="legacy" href="./dictation.html?level=six&amp;view=legacy">纸笔听写记录</a>
+            <a id="reports-link" data-trainer-view="reports" data-study-page href="./dictation.html?level=six&amp;view=reports">每轮正确率与报告</a>
+            <a data-trainer-view="legacy" data-study-page href="./dictation.html?level=six&amp;view=legacy">纸笔听写记录</a>
           </div>
           <div class="tool-group">
             <h4>泛听</h4>
-            <a href="#bbc">BBC 泛听与跟读</a>
+            <a data-study-section="bbc" href="#bbc">BBC 泛听与跟读</a>
           </div>
         </div>
         <p id="study-link-status" role="status"></p>
@@ -90,18 +91,18 @@
         <section class="tool-panel" id="speaking-tools" aria-labelledby="speaking-heading">
           <h3 id="speaking-heading">口语与作业</h3>
           <div class="tool-list">
-            <a href="./homework-3.html"><strong>作业三口语背诵</strong><span>住房六问 · 助记与脱稿自测</span></a>
-            <a href="./handouts-md/speaking-part1-2026-09.html"><strong>口语 Part 1 讲义</strong><span>按话题看英文答案和中文翻译</span></a>
-            <a href="./handouts.html?book=speaking-part1-2026-09&amp;page=1">口语讲义原页</a>
+            <a data-study-page href="./homework-3.html"><strong>作业三口语背诵</strong><span>住房六问 · 助记与脱稿自测</span></a>
+            <a data-study-page href="./handouts-md/speaking-part1-2026-09.html"><strong>口语 Part 1 讲义</strong><span>按话题看英文答案和中文翻译</span></a>
+            <a data-study-page href="./handouts.html?book=speaking-part1-2026-09&amp;page=1">口语讲义原页</a>
           </div>
         </section>
         <section class="tool-panel" id="course-tools" aria-labelledby="course-heading">
           <h3 id="course-heading">课堂与真题</h3>
           <div class="tool-list">
-            <a href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
-            <a href="./handouts.html?book=class-notes-17&amp;page=1">课堂讲义原页</a>
-            <a data-material-open="recording" href="#material-links">课程录屏<span>添加录屏网址</span></a>
-            <a data-material-open="paper" href="#material-links">真题资料<span>添加真题网址</span></a>
+            <a data-study-page href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
+            <a data-study-page href="./handouts.html?book=class-notes-17&amp;page=1">课堂讲义原页</a>
+            <a data-material-open="recording" data-study-section="material-links" href="#material-links">课程录屏<span>添加录屏网址</span></a>
+            <a data-material-open="paper" data-study-section="material-links" href="#material-links">真题资料<span>添加真题网址</span></a>
           </div>
         </section>
       </div>
@@ -115,7 +116,7 @@
             <progress id="preload-progress" aria-label="学习资料下载进度" hidden></progress>
           </section>
           <div class="settings-records">
-            <a href="#backup-tools">打卡记录备份与恢复</a>
+            <a data-study-section="backup-tools" href="#backup-tools">打卡记录备份与恢复</a>
             <details class="material-settings">
               <summary>设置我的录屏和真题链接</summary>
               <form id="material-links">

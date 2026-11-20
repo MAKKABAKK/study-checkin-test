@@ -1,5 +1,6 @@
 import {applyEvent, compactState, createVocabulary, prepareState} from './dictation-engine.js';
-import {journalScope,publicJournalKey} from './course-access.js';
+import {publicJournalKey} from './course-access.js';
+import {journalScope} from './journal-scope.js';
 
 // Confirmed cloud events and pending device events stay separate. A UI submission
 // is acknowledged only after its local IndexedDB transaction commits.
