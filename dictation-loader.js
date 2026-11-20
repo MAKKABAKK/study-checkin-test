@@ -101,7 +101,7 @@ async function loadPractice() {
     if (journalKey !== publicJournalKey) {
       save(sessionStorage,'shike.book.'+adapter.scope,journalKey);
       route.searchParams.set('book',adapter.scope);
-      for (const link of doc.querySelectorAll('.level-nav a[data-level]')) {
+      for (const link of doc.querySelectorAll('.level-nav a[data-level], a[data-mixed-review]')) {
         const target = new URL(link.getAttribute('href'),location.href);
         target.searchParams.set('book',adapter.scope);
         link.href = target.href;

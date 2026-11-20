@@ -383,7 +383,7 @@ export async function installDictationEngine(options) {
       }).catch(() => {connection='offline'; lastFailure=Date.now();}).finally(() => {
         flight=undefined;
         if (before !== status() || beforeCursor !== cursor) {
-          window.dispatchEvent(new Event('shike-dictation-refresh'));
+          window.dispatchEvent(new CustomEvent('shike-dictation-refresh',{detail:{stream}}));
         }
         if (waiting && connection==='offline') schedule();
       });
@@ -434,5 +434,6 @@ export async function installDictationEngine(options) {
     schedule(true);
   });
   return {scope,ready,legacyMarks:()=>state?.legacyMarks || {},status,
+    reviewWords:()=>local(async ()=>(await refreshLocal()).words),
     request:(path,event) => local(()=>handle(path,event))};
 }

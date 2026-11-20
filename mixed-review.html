@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <meta name="referrer" content="no-referrer">
+  <title>跨星级错词复习 · 拾课</title>
+  <link rel="icon" href="./shike-v1.svg">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./mixed-review.css">
+  <script type="module" src="./mixed-review.js"></script>
+  <script type="module" src="./focus-timer.js"></script>
+</head>
+<body>
+  <header class="sitebar"><div class="sitebar-inner">
+    <a class="sitebrand" data-home href="./">拾课</a>
+    <nav class="site-nav" aria-label="学习导航"><a data-home href="./">学习首页</a><a id="mixed-dictation" href="./dictation.html?level=six&amp;view=original">分星级听写</a></nav>
+  </div></header>
+  <main class="mixed">
+    <h1>跨星级错词复习</h1>
+    <p class="mixed-intro">先练到期的词，再练反复听错的词。跟读后打字，按回车接着练。一个错词拼对 30 遍会自动换词。</p>
+    <div class="mixed-loading"><p id="mixed-status" role="status">正在读取各星级的练习记录…</p><button id="mixed-retry" hidden>重新读取</button></div>
+    <section id="mixed-card" aria-label="当前错词" hidden>
+      <div class="mixed-line"><span id="mixed-level"></span><span id="mixed-reason"></span></div>
+      <h2 id="mixed-prompt">听音后，试着写出单词</h2>
+      <p id="mixed-meaning"></p>
+      <div class="mixed-spelling">
+        <button id="mixed-hint" aria-expanded="false" aria-controls="mixed-word">看拼写</button>
+        <strong id="mixed-word" lang="en" hidden></strong>
+      </div>
+      <div class="mixed-progress"><span id="mixed-count"></span><progress id="mixed-progress" max="30" aria-label="已拼对的遍数"></progress></div>
+      <button id="mixed-start" class="mixed-primary">开始听音练习</button>
+      <form id="mixed-form" autocomplete="off" hidden>
+        <label for="mixed-input">输入听到的单词</label>
+        <div class="mixed-inputs"><input id="mixed-input" type="text" lang="en" maxlength="100" spellcheck="false" autocapitalize="none" autocorrect="off" enterkeyhint="done"><button type="submit" id="mixed-submit" class="mixed-primary">提交</button></div>
+        <button type="button" id="mixed-replay">再听一次</button>
+      </form>
+      <p id="mixed-feedback" role="status"></p>
+      <button id="mixed-retry-save" hidden>重试保存</button>
+      <audio id="mixed-audio" preload="auto"></audio>
+    </section>
+    <details id="mixed-list" hidden>
+      <summary id="mixed-total">待练错词</summary>
+      <label for="mixed-queue">选择想先练的词</label>
+      <select id="mixed-queue"></select>
+    </details>
+  </main>
+</body>
+</html>
