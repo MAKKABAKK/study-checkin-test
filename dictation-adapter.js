@@ -28,10 +28,11 @@ function transactionResult(tx) {
   });
 }
 
-async function getRecord(store,key) {
+async function getRecord(store,key,{keyOnly=false}={}) {
   const db = await openDatabase();
   return new Promise((resolve,reject) => {
-    const request = db.transaction(store).objectStore(store).get(key);
+    const records = db.transaction(store).objectStore(store);
+    const request = keyOnly ? records.getKey(key) : records.get(key);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
@@ -116,11 +117,70 @@ function reply(data,status=200) {
   return {ok:status>=200 && status<300,status,json:async () => data};
 }
 
+async function journalScope(key) {
+  if (!key) return 'guest';
+  const digest = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key));
+  return 'p-' + [...new Uint8Array(digest).slice(0,16)].map(n=>n.toString(16).padStart(2,'0')).join('');
+}
+
+// The training page may open this level during the download. Insert the base
+// and confirmed events together only if no practice session initialized it.
+async function storeUnopenedJournal(stream,source,entries) {
+  const db = await openDatabase();
+  const tx = db.transaction(['checkpoints','events','heads'],'readwrite');
+  const done = transactionResult(tx);
+  const bases = tx.objectStore('checkpoints');
+  const read = bases.getKey(stream);
+  read.onsuccess = () => {
+    if (read.result !== undefined) return;
+    bases.add({state:source,cursor:0},stream);
+    const events = tx.objectStore('events');
+    for (const row of entries) events.add(row,[stream,row.cursor]);
+    tx.objectStore('heads').add(entries.length,stream);
+  };
+  await done;
+}
+
+export async function preloadLinkedJournal(onProgress) {
+  let key;
+  try { key = localStorage.getItem('shike.dictation.journal.v1'); } catch { return {done:0,total:0}; }
+  const requested = new URLSearchParams(location.hash.slice(1)).get('journal');
+  if (!/^[A-Za-z0-9_-]{43}$/.test(key || '') || (requested && requested !== key)) return {done:0,total:0};
+  const scope = await journalScope(key);
+  const levels = ['six','five','four','three','two','one'];
+  return navigator.locks.request('shike-dictation-preload/'+scope,async () => {
+    const missing = [];
+    for (const level of levels) {
+      if (!await getRecord('checkpoints',scope+'/'+level,{keyOnly:true})) missing.push(level);
+    }
+    const progress = {done:levels.length-missing.length,total:levels.length};
+    onProgress?.({...progress});
+    if (!missing.length) return progress;
+    const {loadSeed,hasPersonalSeed} = await import('./dictation-seed.js');
+    const {createDictationSync,journalEndpoint} = await import('./dictation-sync.js');
+    const seeded = await hasPersonalSeed(key);
+    for (const level of missing) {
+      const source = seeded ? await loadSeed(level,key) : null;
+      if (seeded && !source) throw Error('听写历史未能读取，请稍后重试。');
+      const service = await createDictationSync({url:journalEndpoint,journalKey:key,level});
+      const entries = [];
+      let page;
+      do {
+        page = await service.read(entries.length);
+        entries.push(...page.events);
+      } while (page.cursor < page.head);
+      await storeUnopenedJournal(scope+'/'+level,source,entries);
+      progress.done++;
+      onProgress?.({...progress});
+    }
+    return progress;
+  });
+}
+
 export async function installDictationEngine(options) {
   const {level,words,times,acceptedSpellings,journalKey,url,publishableKey} = options;
   const vocab = createVocabulary(words,acceptedSpellings,times?.map(t=>t.id));
-  const digest = journalKey && await crypto.subtle.digest('SHA-256',new TextEncoder().encode(journalKey));
-  const scope = digest ? 'p-' + [...new Uint8Array(digest).slice(0,16)].map(n=>n.toString(16).padStart(2,'0')).join('') : 'guest';
+  const scope = await journalScope(journalKey);
   const stream = scope + '/' + level;
   let state, cursor=0, checkpointAt=0, cloud;
   let view, viewBase, queueVersion=-1, waiting=0, conflicts=0;

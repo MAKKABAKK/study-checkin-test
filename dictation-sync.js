@@ -1,5 +1,6 @@
 // Only the derived access token reaches the server. Record contents and event IDs
 // use separate derived keys, including on Sites served from a shared origin.
+export const journalEndpoint = 'https://shike-dictation-journal.comelyshell2.chatgpt.site';
 const utf8 = new TextEncoder();
 const salt = utf8.encode('shike-dictation-v1');
 const levels = new Set(['six','five','four','three','two','one','plan']);
@@ -16,7 +17,7 @@ export async function createDictationSync({url, publishableKey, journalKey, leve
   if (!levels.has(level) || !/^[A-Za-z0-9_-]{43}$/.test(journalKey || '')) throw new Error('请打开你的个人听写链接。');
   const endpoint = new URL(url);
   const local = ['127.0.0.1','localhost','[::1]'].includes(endpoint.hostname);
-  const worker = endpoint.origin === 'https://shike-dictation-journal.comelyshell2.chatgpt.site';
+  const worker = endpoint.origin === journalEndpoint;
   if (!(worker || endpoint.protocol === 'https:' && /^[a-z0-9-]+\.supabase\.co$/.test(endpoint.hostname) && !endpoint.port ||
         local && (!globalThis.location || ['127.0.0.1','localhost','[::1]'].includes(location.hostname)) && ['http:','https:'].includes(endpoint.protocol)) ||
       endpoint.password || endpoint.username || endpoint.hash || endpoint.search || endpoint.pathname !== '/' ||

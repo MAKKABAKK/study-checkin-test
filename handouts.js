@@ -1,4 +1,5 @@
 import {getCourseKey} from './course-access.js';
+import {prepareMaterialReads} from './material-cache.js';
 
 const $ = selector => document.querySelector(selector);
 const lastBookStorage = 'shike.reader.lastBook';
@@ -190,6 +191,7 @@ async function loadLibrary() {
   $('#library-status').textContent = '正在打开讲义目录…';
   $('#load-again').hidden = true;
   try {
+    await prepareMaterialReads();
     const response = await fetch('./handouts-data/manifest.json', {cache:'no-cache'});
     if (!response.ok) throw new Error('manifest');
     const manifest = await response.json();

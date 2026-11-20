@@ -1,4 +1,5 @@
 import {getCourseKey} from './course-access.js';
+import {prepareMaterialReads} from './material-cache.js';
 
 const levels = {six:'六星', five:'五星', four:'四星', three:'三星', two:'二星', one:'一星'};
 const url = new URL(location.href);
@@ -35,7 +36,7 @@ async function loadPractice() {
   const controller = new AbortController();
   let audioURL;
   try {
-    const key = await getCourseKey();
+    const [key] = await Promise.all([getCourseKey(),prepareMaterialReads()]);
     const progress = new Map();
     let lastUpdate = 0;
     async function loadFile(name) {

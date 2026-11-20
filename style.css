@@ -19,6 +19,7 @@
 .bbc-video,.bbc-episode-player{display:block;width:100%;border:0;border-radius:12px;margin:12px 0}
 .bbc-video{aspect-ratio:16/9;min-height:200px;background:#17231d}
 .bbc-episode-player{height:175px}
+#player audio{display:block;width:100%;margin:12px 0}
 .bbc-controls{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .bbc-controls button{font-size:14px}
 .bbc-guide{background:#fafbf7;border:1px solid #d2ddcc;border-radius:12px;margin-top:16px;padding:16px}
@@ -111,6 +112,12 @@
 #dictation-tools .practice-links{gap:5px 14px;margin-top:6px}
 #dictation-tools .practice-links a{display:inline-flex;align-items:center;min-height:42px;font-size:14px}
 .hub-secondary a,#local-explanation a,#backup-jump{color:#395c47;text-underline-offset:3px}
+.material-download{margin:12px 0;padding:14px 16px;background:#eaf0e5;border:1px solid #cfdbc9;border-radius:12px}
+.material-download-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 12px}
+.material-download h3{margin:0;font-size:16px}
+.material-download button{font-size:14px;background:#fff}
+#dictation-tools .material-download p{margin:6px 0 0}
+#preload-progress{width:100%;height:8px;accent-color:#365d42;margin-top:8px}
 .hub-secondary{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .hub-secondary a{padding:9px 0;font-size:14px}
 .practice-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
