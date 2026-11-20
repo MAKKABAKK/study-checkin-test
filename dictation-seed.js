@@ -2,7 +2,7 @@ const levels = new Set(['six','five','four','three','two','one']);
 const utf8 = new TextEncoder();
 
 export async function loadSeed(level,journalKey) {
-  if (!levels.has(level)) return null;
+  if (!levels.has(level) && level !== 'legacy-six') return null;
   return readSeed(level,journalKey);
 }
 
@@ -41,7 +41,8 @@ export function attachLegacyAnswers(panel,journalKey,words,marks) {
     loading = true;
     status.textContent = '正在读取第三次听写记录…';
     try {
-      const answers = await readSeed('legacy-six',journalKey);
+      const {readPaperHistory} = await import('./dictation-adapter.js');
+      const answers = await readPaperHistory(journalKey);
       if (!Array.isArray(answers) || answers.length !== words.length) throw Error('记录不完整');
       const table = document.createElement('table');
       table.className = 'report-table';

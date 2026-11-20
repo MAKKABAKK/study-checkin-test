@@ -141,6 +141,20 @@ async function storeUnopenedJournal(stream,source,entries) {
   await done;
 }
 
+// Keep the immutable paper answers in the same per-notebook database. The
+// compound key cannot collide with a level's normal string checkpoint key.
+export async function readPaperHistory(journalKey) {
+  const id = ['legacy-six',await journalScope(journalKey)];
+  const cached = await getRecord('checkpoints',id);
+  if (cached) return cached.state;
+  const {loadSeed} = await import('./dictation-seed.js');
+  const answers = await loadSeed('legacy-six',journalKey);
+  if (!Array.isArray(answers) || answers.length !== 200 ||
+      answers.some(word=>word !== null && typeof word !== 'string')) throw Error('纸笔记录不完整');
+  await checkpoint(id,answers,0);
+  return answers;
+}
+
 export async function preloadLinkedJournal(onProgress) {
   let key;
   try { key = localStorage.getItem('shike.dictation.journal.v1'); } catch { return {done:0,total:0}; }
@@ -155,10 +169,12 @@ export async function preloadLinkedJournal(onProgress) {
     }
     const progress = {done:levels.length-missing.length,total:levels.length};
     onProgress?.({...progress});
-    if (!missing.length) return progress;
+    const paper = ['legacy-six',scope];
+    const needsPaper = !await getRecord('checkpoints',paper,{keyOnly:true});
+    if (!missing.length && !needsPaper) return progress;
     const {loadSeed,hasPersonalSeed} = await import('./dictation-seed.js');
     const {createDictationSync,journalEndpoint} = await import('./dictation-sync.js');
-    const seeded = await hasPersonalSeed(key);
+    const seeded = missing.length > 0 && await hasPersonalSeed(key);
     for (const level of missing) {
       const source = seeded ? await loadSeed(level,key) : null;
       if (seeded && !source) throw Error('听写历史未能读取，请稍后重试。');
@@ -172,6 +188,11 @@ export async function preloadLinkedJournal(onProgress) {
       await storeUnopenedJournal(scope+'/'+level,source,entries);
       progress.done++;
       onProgress?.({...progress});
+    }
+    if (needsPaper) {
+      const six = await getRecord('checkpoints',scope+'/six');
+      if (Object.keys(six?.state?.legacyMarks || {}).length) await readPaperHistory(key);
+      else await checkpoint(paper,null,0);
     }
     return progress;
   });
