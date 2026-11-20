@@ -1,0 +1,43 @@
+#focus-timer {
+  position: fixed;
+  z-index: 200;
+  inset: auto max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) auto;
+  width: min(398px, calc(100% - 24px));
+  padding: 0;
+  background: #fffffa;
+  color: #213d33;
+  border: 1px solid #92a697;
+  border-radius: 13px;
+  box-shadow: 0 4px 20px #233b3029;
+  font: 15px/1.45 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+}
+#focus-timer *, #focus-timer { box-sizing: border-box; }
+#focus-timer[hidden], #focus-timer [hidden] { display: none !important; }
+body:has(> #focus-timer:not([hidden])) { padding-bottom: 85px; }
+body:has(> #focus-timer:not([hidden]) #focus-toggle[aria-expanded="true"]) { padding-bottom: min(300px, 45vh); }
+#focus-timer button { font: inherit; cursor: pointer; }
+#focus-timer button:disabled { opacity: .55; cursor: wait; }
+#focus-timer button:focus-visible { outline: 3px solid #a3ae6c; outline-offset: 2px; }
+#focus-toggle {
+  display: flex; justify-content: space-between; align-items: center; gap: 9px;
+  width: 100%; min-height: 54px; padding: 8px 13px; border: 0; border-radius: 12px;
+  background: #e6eee6; color: #213d33; text-align: left;
+}
+#focus-timer[data-state="expired"] { border-color: #b97131; }
+#focus-timer[data-state="expired"] #focus-toggle { background: #fae7c9; color: #663a0f; }
+#focus-timer .focus-heading { display: grid; min-width: 0; }
+#focus-phase { font-size: 12px; font-weight: 600; }
+#focus-title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 650; }
+#focus-toggle[aria-expanded="true"] #focus-title { white-space: normal; overflow-wrap: anywhere; }
+#focus-clock { font-size: 23px; font-weight: 700; font-variant-numeric: tabular-nums; margin-left: auto; }
+#focus-timer .focus-arrow { font-size: 16px; }
+#focus-toggle[aria-expanded="true"] .focus-arrow { transform: rotate(180deg); }
+#focus-body { max-height: 47vh; overflow: auto; padding: 9px 12px 12px; }
+#focus-body p { font: inherit; margin: 0 0 8px; }
+#focus-body p:empty { display: none; }
+#focus-message { color: #783e13; font-weight: 600; }
+#focus-next { color: #52655c; font-size: 13px !important; }
+#focus-material { display: inline-block; color: #254f38; padding: 5px 0 8px; text-underline-offset: 3px; }
+#focus-timer .focus-actions { display: flex; flex-wrap: wrap; gap: 5px; }
+#focus-timer .focus-actions button { border: 1px solid #c2cfc3; background: #fff; color: #274635; border-radius: 8px; min-height: 40px; padding: 6px 10px; font-size: 14px; }
+#focus-timer #focus-complete { background: #315840; color: white; border-color: #315840; }

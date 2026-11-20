@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="./shike-v1.svg">
   <link rel="manifest" href="./shike.webmanifest">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js?v=f85f222dc8984a74"></script>
+  <script type="module" src="./app.js?v=56c5ee7b07571a29"></script>
 </head>
 <body>
   <header class="sitebar">
@@ -29,8 +29,18 @@
   </header>
   <section class="study-hub" aria-labelledby="account-title">
     <h1 id="account-title">雅思学习首页</h1>
+    <section class="evening-entry" aria-labelledby="evening-title">
+      <div>
+        <p id="focus-date">每日学习计划</p>
+        <h2 id="evening-title">今晚学什么</h2>
+        <p id="focus-meta"></p>
+      </div>
+      <div class="evening-actions">
+        <button id="focus-first" type="button" hidden>开始计时</button>
+        <a href="#checkin">查看当日安排</a>
+      </div>
+    </section>
     <div class="study-entries">
-      <a class="study-entry featured" href="#checkin"><strong>每日学习打卡</strong><span>今天的作业、真题与订正 · 云端同步</span></a>
       <a class="study-entry" href="#dictation-tools"><strong>听写与错词</strong><span>一至六星原音 · 按轮复习</span></a>
       <a class="study-entry" href="./handouts-md/class-notes-17.html"><strong>课堂讲义</strong><span>第 1–17 节 · 按课阅读</span></a>
       <a class="study-entry" href="./handouts-md/speaking-part1-2026-09.html"><strong>口语讲义</strong><span>Part 1 · 英文答案与中文翻译</span></a>
@@ -73,7 +83,7 @@
       <a href="#backup-tools">学习记录备份</a>
     </div>
   </section>
-  <div id="checkin">
+  <div>
   <section id="account" class="account" aria-label="公开打卡与泛听">
     <p id="loading-status" role="status">正在读取公开打卡…</p>
     <button id="load-plan" type="button" hidden>重新读取计划</button>
@@ -142,7 +152,7 @@
       <div><strong><b id="listening">—</b><small> 天</small></strong><span>BBC 泛听打卡</span></div>
       <div><strong id="last-day">—</strong><span>计划截止日</span></div>
     </section>
-    <nav aria-label="选择日期">
+    <nav id="checkin" aria-label="选择日期">
       <button id="previous" aria-label="前一天" disabled>←</button>
       <select id="date" aria-label="学习日期" disabled></select>
       <button id="next" aria-label="后一天" disabled>→</button>
@@ -156,6 +166,16 @@
       <ul id="tasks" aria-label="当天任务"></ul>
       <p class="rest" id="rest" hidden>今天休息，没有必做任务。</p>
       <div id="day-details"></div>
+      <details class="material-settings">
+        <summary>设置我的录屏和真题链接</summary>
+        <form id="material-links">
+          <p>有线上资料时可保存入口，计时中也能打开。链接保存在这个浏览器；用纸质书时可以留空。</p>
+          <label>课程录屏<input type="url" name="recording" placeholder="https://" autocomplete="off"></label>
+          <label>真题资料<input type="url" name="paper" placeholder="https://" autocomplete="off"></label>
+          <button type="submit">保存资料链接</button>
+          <span id="links-status" role="status"></span>
+        </form>
+      </details>
     </section>
     <footer id="backup-tools">
       <h2>学习记录备份</h2>

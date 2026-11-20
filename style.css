@@ -124,6 +124,26 @@
 .practice-heading label{display:flex;align-items:center;gap:8px;color:#45614d;font-size:14px}
 .practice-heading select{background:#fff}
 #study-link-status:empty{display:none}
+.evening-entry{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:22px 24px;margin-bottom:14px;color:#fff8e7;background:#254d3e;border-radius:16px}
+.evening-entry h2{font-size:clamp(18px,2.5vw,23px);line-height:1.5;overflow-wrap:anywhere}
+.evening-entry p{margin:0;color:#dbe8db;font-size:14px}
+.evening-entry #focus-date{margin-bottom:5px}
+.evening-entry #focus-meta:not(:empty){margin-top:5px;font-variant-numeric:tabular-nums}
+.evening-actions{display:flex;flex-shrink:0;flex-direction:column;align-items:center;gap:6px}
+.evening-actions button{color:#244936;background:#f5f6e9;border:0;font-weight:700}
+.evening-actions a{display:inline-flex;align-items:center;min-height:40px;color:#fff8ed;font-size:14px;text-underline-offset:3px}
+#tasks button[data-focus-task]{margin:0 8px 10px 38px;padding:5px 12px;min-height:40px;color:#255441;border-color:#b4c9b4;font-size:14px}
+#tasks li:has([data-focus-task]) label{padding-bottom:5px}
+#tasks button[data-focus-task]+.task-resource{margin-left:0}
+.material-settings{margin:16px 0 0;border-top:1px solid #dbe3d6;padding-top:6px}
+.material-settings summary{font-size:14px;color:#385b48;padding:8px 0}
+#material-links p,#links-status{font-size:13px;color:#526b5c}
+#material-links label{display:block;margin:8px 0;font-size:14px}
+#material-links input{font:inherit;display:block;box-sizing:border-box;margin-top:3px;padding:8px;width:100%;border:1px solid #b6c6b8;border-radius:7px}
+@media(max-width:600px){
+  .evening-entry{display:block;padding:16px}
+  .evening-actions{flex-direction:row;gap:16px;margin-top:10px}
+}
 #tasks li:has(.task-resource) label{padding-bottom:0}
 .task-resource{display:inline-block;margin:0 0 6px 38px;padding:7px 0;color:#285e43;font-size:14px;text-underline-offset:3px}
 #app,#account,#settings{max-width:860px}
