@@ -26,3 +26,14 @@
 .paper-line p { margin: 0 0 6px; line-height: 1.55; }
 .paper-line button { padding: 6px 12px; }
 #paper-pick { max-width: 100%; }
+#paper-score-fields { min-width: 0; border: 0; padding: 0; margin: 14px 0 0; display: grid; gap: 14px; }
+#paper-score-form label { display: grid; gap: 5px; font-size: .92rem; }
+.paper-score-counts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+#paper-score-form :is(select,input,textarea) { width: 100%; min-width: 0; box-sizing: border-box; padding: 9px 10px; border: 1px solid #bac9bb; border-radius: 8px; font: inherit; color: inherit; background: #fff; }
+#paper-score-extra > p { margin: 9px 0; }
+#paper-score-extra > label { margin-top: 12px; }
+#paper-score-cause { resize: vertical; }
+#paper-score-save { justify-self: start; background: #365d42; color: white; }
+#paper-score-status { margin: 10px 0 0; color: #465843; }
+#paper-score-status:empty { margin: 0; }
+#paper-score-reload { margin-top: 8px; }

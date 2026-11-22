@@ -33,6 +33,12 @@ function choose(partNumber, play = false) {
   const paper = '剑'+volume.value+' Test '+test.value;
   const publisherId = publisherBooks[volume.value];
   setReviewPart(Number(volume.value), Number(test.value), part);
+  const scorePanel=el('score');
+  if (scorePanel) {
+    scorePanel.open=false;
+    scorePanel.hidden=Boolean(publisherId);
+    scorePanel.dispatchEvent(new Event('partchange'));
+  }
   el('inline').hidden=Boolean(publisherId);
   if (publisherId) {
     audio.pause();

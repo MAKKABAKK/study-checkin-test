@@ -12,6 +12,7 @@
   <script>(()=>{async function c(a){if(!a)return"guest";let r=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(a));return"p-"+[...new Uint8Array(r).slice(0,16)].map(n=>n.toString(16).padStart(2,"0")).join("")}var d="ARk2a8Fn7pvuQmRJPLl6A4G9Yd4T05k7AdpzGo_BC8s";var s=new URL(location.href),l=s.searchParams.get("notebook")||s.searchParams.get("book"),o=new URLSearchParams(s.hash.slice(1)).get("journal");if(!o&&l)try{o=sessionStorage.getItem("shike.book."+l)}catch{}if(/^[A-Za-z0-9_-]{43}$/.test(o)&&o!==d){let n=function(e){let t=new URL(e.href);if(!(e.target==="_blank"||t.origin!==s.origin)){if(e.hasAttribute("data-study-section")){let u=e.dataset.studySection||(t.hash==="#"+a?t.searchParams.get("section"):t.hash.slice(1));u&&t.searchParams.set("section",u)}else e.hasAttribute("data-study-tools")&&t.searchParams.set("section","study-tools");t.hash=a,e.href=t.href}},h=function(e){let t=e.target.closest?.(r);t&&n(t)},i=function(){document.querySelectorAll(r).forEach(n),document.querySelector(".markdown-book, .recital, #books")&&c(o).then(e=>{sessionStorage.setItem("shike.book."+e,o);let t=new URL(location.href);t.searchParams.set("notebook",e),history.replaceState(history.state,"",t)}).catch(()=>{})},a=new URLSearchParams({journal:o}).toString(),r="a[data-home], a[data-study-page], a[data-study-tools], a[data-study-section]";for(let e of["pointerdown","click","contextmenu"])document.addEventListener(e,h,!0);document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:!0}):i()}})();</script>
   <script type="module" src="./focus-timer.js"></script>
   <script type="module" src="./paper-audio.js"></script>
+  <script type="module" src="./paper-score.js"></script>
 </head>
 <body>
   <header class="sitebar"><div class="sitebar-inner">
@@ -72,6 +73,28 @@
           <div id="paper-transcript-frame"></div>
         </details>
       </section>
+    </details>
+    <details id="paper-score" class="paper-review" hidden>
+      <summary>记录这段成绩</summary>
+      <form id="paper-score-form" hidden>
+        <fieldset id="paper-score-fields">
+          <label>练习日期<select id="paper-score-date"></select></label>
+          <label id="paper-score-custom-label" hidden>选择日期<input type="date" id="paper-score-custom"></label>
+          <div class="paper-score-counts">
+            <label>首听答对（共 10 题）<input type="number" min="0" max="10" step="1" inputmode="numeric" id="paper-score-first" placeholder="未记录"></label>
+            <label>第二遍答对（看答案前）<input type="number" min="0" max="10" step="1" inputmode="numeric" id="paper-score-second" placeholder="未记录"></label>
+          </div>
+          <details id="paper-score-extra">
+            <summary>补充首听错题号和错因（选填）</summary>
+            <p>点选已查清的首听错题号。</p>
+            <div id="paper-score-wrong" class="paper-questions" role="group" aria-label="首听错题号"></div>
+            <label>错在哪里<textarea id="paper-score-cause" rows="2" maxlength="500" placeholder="例如，第 3 题听到了单词，但漏写复数。"></textarea></label>
+          </details>
+          <button type="submit" id="paper-score-save">保存成绩</button>
+        </fieldset>
+      </form>
+      <p id="paper-score-status" role="status"></p>
+      <button type="button" id="paper-score-reload" hidden>重新读取</button>
     </details>
   </main>
 </body>
