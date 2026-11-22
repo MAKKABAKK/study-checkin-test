@@ -28,11 +28,16 @@
         <option value="12">剑桥雅思 12</option><option value="13">剑桥雅思 13</option>
         <option value="14">剑桥雅思 14</option><option value="15">剑桥雅思 15</option>
         <option value="16">剑桥雅思 16</option><option value="17">剑桥雅思 17</option>
+        <optgroup label="授权平台入口">
+          <option value="18">剑桥雅思 18</option><option value="19">剑桥雅思 19</option>
+          <option value="20">剑桥雅思 20</option><option value="21">剑桥雅思 21</option>
+        </optgroup>
       </select></label>
       <label>书上套号<select id="paper-test"></select></label>
     </div>
     <section class="paper-player" aria-labelledby="paper-title">
       <h2 id="paper-title">选择听力套题</h2>
+      <div id="paper-inline">
       <div id="paper-parts" aria-label="选择听力段落" role="group">
         <button type="button" value="1">Section 1</button><button type="button" value="2">Section 2</button>
         <button type="button" value="3">Section 3</button><button type="button" value="4">Section 4</button>
@@ -41,6 +46,7 @@
       <div class="paper-playback">
         <label>播放速度<select id="paper-rate"><option value="0.75">0.75×</option><option value="1" selected>1× 原速</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
         <label><input id="paper-continuous" type="checkbox" checked>自动播放下一节</label>
+      </div>
       </div>
       <p role="status" id="paper-status"></p>
       <a id="paper-source" target="_blank" rel="noopener noreferrer">在来源页打开本套音频</a>

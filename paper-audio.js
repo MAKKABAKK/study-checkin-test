@@ -4,6 +4,7 @@ const el = id => document.getElementById('paper-'+id);
 const volume = el('volume'), test = el('test'), audio = el('player');
 const buttons = [...el('parts').getElementsByTagName('button')];
 const url = new URL(location.href);
+const publisherBooks = {18:1360,19:2417,20:2695,21:3126};
 const requestedVolume = Number(url.searchParams.get('volume'));
 volume.value = String(testNumbers(requestedVolume).length ? requestedVolume : 12);
 const initialPart = Number(url.searchParams.get('part')) || 1;
@@ -29,7 +30,21 @@ function choose(partNumber, play = false) {
   if (part===1 && end===4) nextUrl.searchParams.delete('part');
   else nextUrl.searchParams.set('part',part);
   history.replaceState(history.state,'',nextUrl);
-  const label = '剑'+volume.value+' Test '+test.value+' · Section '+part;
+  const paper = '剑'+volume.value+' Test '+test.value;
+  const publisherId = publisherBooks[volume.value];
+  el('inline').hidden=Boolean(publisherId);
+  if (publisherId) {
+    audio.pause();
+    audio.removeAttribute('src');
+    audio.load();
+    clipEnd=0;
+    el('title').textContent=paper;
+    el('status').textContent='请在新东方授权题库选择 Test '+test.value+'。播放时可能需要登录。';
+    el('source').href='https://liuxue.koolearn.com/ielts/listen-0-'+publisherId+'-0/';
+    el('source').textContent='打开剑'+volume.value+'授权听力题库';
+    return;
+  }
+  const label = paper+' · Section '+part;
   el('title').textContent = label;
   audio.setAttribute('aria-label',label+'播放控件');
   for (const button of buttons) button.setAttribute('aria-pressed',String(Number(button.value)===part));

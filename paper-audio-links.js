@@ -1,5 +1,5 @@
 export function testNumbers(volume) {
-  if (![12,13,14,15,16,17].includes(volume)) return [];
+  if (!Number.isInteger(volume) || volume < 12 || volume > 21) return [];
   return volume === 12 ? [5,6,7,8] : [1,2,3,4];
 }
 
