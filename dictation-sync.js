@@ -3,7 +3,7 @@
 export const journalEndpoint = 'https://shike-dictation-journal.comelyshell2.chatgpt.site';
 const utf8 = new TextEncoder();
 const salt = utf8.encode('shike-dictation-v1');
-const levels = new Set(['six','five','four','three','two','one','plan']);
+const levels = new Set(['six','five','four','three','two','one','plan','translation']);
 
 function base64url(bytes) {
   return btoa(String.fromCharCode(...new Uint8Array(bytes))).replaceAll('+','-').replaceAll('/','_').replace(/=+$/,'');

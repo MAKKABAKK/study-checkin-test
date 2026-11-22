@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <meta name="referrer" content="no-referrer">
+  <title>中译英练习 · 拾课</title>
+  <link rel="icon" href="./shike-v1.svg">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./translation.css">
+  <script type="module" src="./translation.js"></script>
+  <script>(()=>{async function c(a){if(!a)return"guest";let r=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(a));return"p-"+[...new Uint8Array(r).slice(0,16)].map(n=>n.toString(16).padStart(2,"0")).join("")}var d="ARk2a8Fn7pvuQmRJPLl6A4G9Yd4T05k7AdpzGo_BC8s";var s=new URL(location.href),l=s.searchParams.get("notebook")||s.searchParams.get("book"),o=new URLSearchParams(s.hash.slice(1)).get("journal");if(!o&&l)try{o=sessionStorage.getItem("shike.book."+l)}catch{}if(/^[A-Za-z0-9_-]{43}$/.test(o)&&o!==d){let n=function(e){let t=new URL(e.href);if(!(e.target==="_blank"||t.origin!==s.origin)){if(e.hasAttribute("data-study-section")){let u=e.dataset.studySection||(t.hash==="#"+a?t.searchParams.get("section"):t.hash.slice(1));u&&t.searchParams.set("section",u)}else e.hasAttribute("data-study-tools")&&t.searchParams.set("section","study-tools");t.hash=a,e.href=t.href}},h=function(e){let t=e.target.closest?.(r);t&&n(t)},i=function(){document.querySelectorAll(r).forEach(n),document.querySelector(".markdown-book, .recital, #books")&&c(o).then(e=>{sessionStorage.setItem("shike.book."+e,o);let t=new URL(location.href);t.searchParams.set("notebook",e),history.replaceState(history.state,"",t)}).catch(()=>{})},a=new URLSearchParams({journal:o}).toString(),r="a[data-home], a[data-study-page], a[data-study-tools], a[data-study-section]";for(let e of["pointerdown","click","contextmenu"])document.addEventListener(e,h,!0);document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:!0}):i()}})();</script>
+  <script type="module" src="./focus-timer.js"></script>
+</head>
+<body>
+  <header class="sitebar"><div class="sitebar-inner">
+    <a class="sitebrand" href="./" data-home>拾课</a>
+    <nav class="site-nav" aria-label="学习导航">
+      <a data-study-section="writing-tools" href="./#writing-tools">写作</a>
+      <a data-study-tools href="./#study-tools">首页索引</a>
+    </nav>
+  </div></header>
+  <main class="translation">
+    <h1>中译英练习</h1>
+    <div class="tr-tools">
+      <label>练习范围<select id="tr-range"></select></label>
+      <label>切换题目<select id="tr-select"></select></label>
+      <p id="tr-count"></p>
+    </div>
+    <section id="tr-card" aria-labelledby="tr-prompt" hidden>
+      <div class="tr-meta"><span id="tr-number"></span><span id="tr-mark"></span></div>
+      <h2 id="tr-prompt" tabindex="-1"></h2>
+      <details id="tr-extended"><summary>看讲义扩展句</summary><p></p></details>
+      <details id="tr-hint"><summary>给我一点提示</summary><p></p></details>
+      <label class="tr-label" for="tr-input">你的英文译文</label>
+      <textarea id="tr-input" lang="en" rows="3" placeholder="试着用自己的英文表达这句话…" autocomplete="off" spellcheck="true" maxlength="1200"></textarea>
+      <p id="tr-save" role="status"></p>
+      <button id="tr-reveal" class="tr-primary" type="button" aria-controls="tr-compare" aria-expanded="false">展开对照</button>
+      <section id="tr-compare" aria-labelledby="tr-compare-title" hidden>
+        <h3 id="tr-compare-title">译文对照</h3>
+        <div id="tr-examples"></div>
+        <p class="tr-cue">意思表达完整、搭配和句子结构都合适，就可以标为已掌握。</p>
+        <div class="tr-actions">
+          <button id="tr-retry" type="button">需要重译</button>
+          <button id="tr-learned" class="tr-primary" type="button">已掌握</button>
+        </div>
+      </section>
+      <nav class="tr-pager" aria-label="翻题">
+        <button id="tr-prev" type="button">上一题</button>
+        <button id="tr-next" type="button">下一题</button>
+      </nav>
+    </section>
+    <section id="tr-empty" hidden><h2>目前没有需要重译的句子</h2><p>练习时点「需要重译」，下次就能在这里集中练。</p><button id="tr-resume" type="button">返回练习</button></section>
+    <p id="tr-notice" role="status" aria-live="polite"></p>
+    <details id="tr-report" hidden>
+      <summary>整理本组译稿</summary>
+      <label for="tr-report-text">本组的中文题目和你在网页写的译文</label>
+      <textarea id="tr-report-text" rows="8" readonly></textarea>
+      <button id="tr-copy" type="button">复制本组译稿</button>
+      <span id="tr-copy-status" role="status"></span>
+    </details>
+    <noscript>请打开浏览器的 JavaScript 以进行逐句练习。</noscript>
+  </main>
+</body>
+</html>

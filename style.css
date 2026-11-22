@@ -98,6 +98,7 @@
 html[data-hub="home"] [data-hub-view="home"],
 html[data-hub="listening"] [data-hub-view="listening"],
 html[data-hub="speaking"] [data-hub-view="speaking"],
+html[data-hub="writing"] [data-hub-view="writing"],
 html[data-hub="handouts"] [data-hub-view="handouts"],
 html[data-hub="course"] [data-hub-view="course"],
 html[data-hub="settings"] [data-hub-view="settings"]{display:block}
@@ -107,7 +108,7 @@ html[data-hub="settings"] [data-hub-view="settings"]{display:block}
 }
 .study-directory{margin:23px 0}
 .study-directory>h2{font-size:18px}
-.category-shortcuts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:10px 0 0}
+.category-shortcuts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding:10px 0 0}
 .category-shortcuts a,.back-to-index{display:flex;align-items:center;min-height:44px;color:#345440;text-decoration:none}
 .category-shortcuts a{justify-content:space-between;gap:4px;padding:10px 13px;border:1px solid #ccd6c8;border-radius:9px;background:#fffefa;font-weight:650;font-size:15px}
 .category-shortcuts a::after,.back-to-index::before,.tool-list a::after{content:"";width:6px;height:6px;flex:none;border:solid #758c78;border-width:1.5px 1.5px 0 0;transform:rotate(45deg)}
@@ -192,9 +193,8 @@ html[data-hub="settings"] [data-hub-view="settings"]{display:block}
   .study-hub{padding-top:22px;padding-bottom:13px}
   .learning-shell{padding-top:18px}
   .study-directory{margin:18px 0}
-  .category-shortcuts{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
-  .category-shortcuts a{grid-column:span 2;padding:9px 10px;font-size:14px}
-  .category-shortcuts a:nth-child(n+4){grid-column:span 3}
+  .category-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .category-shortcuts a{padding:9px 10px;font-size:14px}
   .tool-panel,.settings-options,#backup-tools{padding:16px}
   .listening-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .tool-group a{font-size:14px}
