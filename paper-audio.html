@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f5f4ed">
   <meta name="referrer" content="no-referrer">
-  <title>剑桥真题听力音频 · 拾课</title>
+  <title>剑桥听力音频与逐题订正 · 拾课</title>
   <link rel="icon" href="./shike-v1.svg">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./paper-audio.css">
@@ -22,7 +22,7 @@
     </nav>
   </div></header>
   <main class="paper-listen">
-    <h1>剑桥真题听力音频</h1>
+    <h1>剑桥听力音频与逐题订正</h1>
     <div class="paper-selectors">
       <label>册号<select id="paper-volume">
         <option value="12">剑桥雅思 12</option><option value="13">剑桥雅思 13</option>
@@ -51,6 +51,28 @@
       <p role="status" id="paper-status"></p>
       <a id="paper-source" target="_blank" rel="noopener noreferrer">在来源页打开本套音频</a>
     </section>
+    <details id="paper-review" class="paper-review" hidden>
+      <summary>第二遍听完，核对答案与原文</summary>
+      <p id="paper-review-status" role="status"></p>
+      <div id="paper-questions" class="paper-questions" role="group" aria-label="选择要核对的题号"></div>
+      <section id="paper-solution" aria-labelledby="paper-question-title" hidden>
+        <h2 id="paper-question-title"></h2>
+        <p>参考答案　<strong id="paper-answer"></strong></p>
+        <p id="paper-pair" hidden></p>
+        <h3 id="paper-lines-heading">录音原文</h3>
+        <p id="paper-lines-status" role="status"></p>
+        <label id="paper-pick-label" hidden>选择原句 <select id="paper-pick"></select></label>
+        <div id="paper-lines"></div>
+        <button type="button" id="paper-replay" hidden>重听定位片段</button>
+        <span id="paper-clip-status" role="status"></span>
+        <details id="paper-transcript">
+          <summary>查看新东方来源页</summary>
+          <p id="paper-transcript-position"></p>
+          <a id="paper-guide" target="_blank" rel="noopener noreferrer">在新标签页打开新东方原文</a>
+          <div id="paper-transcript-frame"></div>
+        </details>
+      </section>
+    </details>
   </main>
 </body>
 </html>

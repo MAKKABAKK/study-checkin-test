@@ -1,3 +1,4 @@
+import {setReviewPart} from './paper-review.js';
 import {bookTestNumber,testNumbers} from './paper-audio-links.js';
 
 const el = id => document.getElementById('paper-'+id);
@@ -31,6 +32,7 @@ function choose(partNumber, play = false) {
   history.replaceState(history.state,'',nextUrl);
   const paper = '剑'+volume.value+' Test '+test.value;
   const publisherId = publisherBooks[volume.value];
+  setReviewPart(Number(volume.value), Number(test.value), part);
   el('inline').hidden=Boolean(publisherId);
   if (publisherId) {
     audio.pause();

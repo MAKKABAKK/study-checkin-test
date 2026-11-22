@@ -10,3 +10,19 @@
 #paper-player { display: block; width: 100%; margin: 20px 0; }
 #paper-status { min-height: 1.3em; color: #465843; }
 #paper-source { font-size: .9rem; color: #365d42; }
+.paper-review { margin-top: 16px; padding: 18px clamp(16px,4vw,32px); border: 1px solid #d7ddcf; border-radius: 16px; background: #fff; }
+.paper-review summary { cursor: pointer; font-weight: 650; }
+.paper-review summary:focus-visible { outline: 2px solid #365d42; outline-offset: 3px; }
+.paper-questions { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
+.paper-questions button { padding: 9px 4px; }
+.paper-questions [aria-pressed="true"] { color: #fff; background: #365d42; }
+#paper-solution { margin-top: 16px; padding-top: 12px; border-top: 1px solid #d7ddcf; }
+#paper-solution h2 { margin: 0; font-size: 1.1rem; }
+#paper-transcript { margin-top: 16px; }
+#paper-transcript iframe { width: 100%; height: min(65vh,640px); margin-top: 12px; border: 1px solid #d7ddcf; border-radius: 8px; background: #fff; }
+#paper-clip-status, #paper-transcript-position, #paper-pair { font-size: .94rem; color: #465843; }
+#paper-solution h3 { margin: 18px 0 4px; font-size: 1rem; }
+.paper-line { margin: 10px 0; border-left: 3px solid #aac2ac; padding: 2px 0 2px 12px; }
+.paper-line p { margin: 0 0 6px; line-height: 1.55; }
+.paper-line button { padding: 6px 12px; }
+#paper-pick { max-width: 100%; }
