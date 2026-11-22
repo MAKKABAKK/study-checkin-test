@@ -29,11 +29,12 @@
     <section id="mixed-card" aria-label="当前错词" hidden>
       <div class="mixed-line"><span id="mixed-level"></span><span id="mixed-reason"></span></div>
       <h2 id="mixed-prompt">听音后，试着写出单词</h2>
-      <p id="mixed-meaning"></p>
       <div class="mixed-spelling">
         <button id="mixed-hint" aria-expanded="false" aria-controls="mixed-word">看拼写</button>
+        <button id="mixed-meaning-hint" type="button" aria-expanded="false" aria-controls="mixed-meaning">看中文释义</button>
         <strong id="mixed-word" lang="en" hidden></strong>
       </div>
+      <p id="mixed-meaning" hidden></p>
       <div class="mixed-progress"><span id="mixed-count"></span><progress id="mixed-progress" max="30" aria-label="已拼对的遍数"></progress></div>
       <button id="mixed-start" class="mixed-primary">开始听音练习</button>
       <form id="mixed-form" autocomplete="off" hidden>

@@ -22,6 +22,12 @@ function showSpelling(show) {
   el('hint').setAttribute('aria-expanded', String(show));
 }
 
+function showMeaning(show) {
+  el('meaning').hidden = !show;
+  el('meaning-hint').textContent = show ? '收起中文释义' : '看中文释义';
+  el('meaning-hint').setAttribute('aria-expanded', String(show));
+}
+
 function drawCard() {
   el('level').textContent = item.level.label;
   el('reason').textContent = item.kind === 'spaced' ? '间隔巩固 · ' + item.dueDate + ' 到期' :
@@ -37,6 +43,7 @@ function drawCard() {
 }
 
 function play() {
+  showMeaning(false);
   const token = ++playback;
   heard = false;
   if (audio.currentTime) audio.currentTime = 0;
@@ -55,6 +62,7 @@ function play() {
 
 async function prepareSource() {
   const token = generation;
+  showMeaning(false);
   el('replay').disabled = true;
   message('正在载入当前词的录音，可以先输入。');
   try {
@@ -101,6 +109,7 @@ function select(next) {
   dictation.searchParams.set('level',item.level.id);
   el('dictation').href = dictation.href;
   showSpelling(false);
+  showMeaning(false);
   drawCard();
   if (started) {
     input.focus({preventScroll:true});
@@ -229,6 +238,10 @@ input.addEventListener('keydown',e=>{
   if (e.key==='Enter' && (e.isComposing || e.repeat)) e.preventDefault();
 });
 el('hint').onclick = () => { showSpelling(!revealed); if (started) input.focus({preventScroll:true}); };
+el('meaning-hint').onclick = () => {
+  showMeaning(el('meaning').hidden);
+  if (started) input.focus({preventScroll:true});
+};
 el('retry-save').onclick = () => {
   retrySave = false;
   el('retry-save').hidden = true;
