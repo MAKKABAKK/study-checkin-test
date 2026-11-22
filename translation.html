@@ -29,18 +29,29 @@
       <p id="tr-count"></p>
     </div>
     <section id="tr-card" aria-labelledby="tr-prompt" hidden>
-      <div class="tr-meta"><span id="tr-number"></span><span id="tr-mark"></span></div>
+      <div class="tr-meta"><span id="tr-number"></span><span id="tr-written"></span><span id="tr-mark"></span></div>
       <h2 id="tr-prompt" tabindex="-1"></h2>
       <details id="tr-extended"><summary>看讲义扩展句</summary><p></p></details>
       <details id="tr-hint"><summary>给我一点提示</summary><p></p></details>
+      <details id="tr-archive" hidden><summary>回看作业记录</summary><div id="tr-sources"></div></details>
       <label class="tr-label" for="tr-input">你的英文译文</label>
       <textarea id="tr-input" lang="en" rows="3" placeholder="试着用自己的英文表达这句话…" autocomplete="off" spellcheck="true" maxlength="1200"></textarea>
       <p id="tr-save" role="status"></p>
-      <button id="tr-reveal" class="tr-primary" type="button" aria-controls="tr-compare" aria-expanded="false">展开对照</button>
+      <div class="tr-actions">
+        <button id="tr-submit" class="tr-primary" type="button" disabled>写完，批改</button>
+        <button id="tr-reveal" type="button" aria-controls="tr-compare" aria-expanded="false">展开对照</button>
+      </div>
+      <p class="tr-key">回车批改，Shift + 回车换行。首次检查新译法时按需下载约 100 MB，之后可在此浏览器复用。</p>
+      <p id="tr-grading" role="status"></p>
+      <section id="tr-feedback" aria-labelledby="tr-feedback-title" hidden>
+        <h3 id="tr-feedback-title"></h3>
+        <p id="tr-feedback-text"></p>
+        <ul id="tr-issues"></ul>
+      </section>
       <section id="tr-compare" aria-labelledby="tr-compare-title" hidden>
         <h3 id="tr-compare-title">译文对照</h3>
         <div id="tr-examples"></div>
-        <p class="tr-cue">意思表达完整、搭配和句子结构都合适，就可以标为已掌握。</p>
+        <p class="tr-cue">也可以根据对照结果自行标记。</p>
         <div class="tr-actions">
           <button id="tr-retry" type="button">需要重译</button>
           <button id="tr-learned" class="tr-primary" type="button">已掌握</button>
@@ -51,7 +62,7 @@
         <button id="tr-next" type="button">下一题</button>
       </nav>
     </section>
-    <section id="tr-empty" hidden><h2>目前没有需要重译的句子</h2><p>练习时点「需要重译」，下次就能在这里集中练。</p><button id="tr-resume" type="button">返回练习</button></section>
+    <section id="tr-empty" hidden><h2>目前没有需要重译的句子</h2><p>批改发现问题或自己标记过的句子，会收进这里。</p><button id="tr-resume" type="button">返回练习</button></section>
     <p id="tr-notice" role="status" aria-live="polite"></p>
     <details id="tr-report" hidden>
       <summary>整理本组译稿</summary>

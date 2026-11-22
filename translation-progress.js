@@ -2,10 +2,11 @@ import {publicJournalKey,journalScope} from './course-access.js';
 import {createDictationSync,journalEndpoint} from './dictation-sync.js';
 
 const publicPrefix = 'shike.translation.v1.';
-const empty = {draft:'',previous:'',status:''};
+const empty = {draft:'',previous:'',status:'',grade:''};
 const fields = Object.keys(empty);
 const validId = id => Number.isSafeInteger(id) && id >= 1 && id <= 100;
 const validValue = (field,value) => field === 'status' ? ['','retry','learned'].includes(value) :
+  field === 'grade' ? typeof value === 'string' && value.length <= 3000 && new TextEncoder().encode(JSON.stringify(value)).length <= 15000 :
   (field === 'draft' || field === 'previous') && typeof value === 'string' && value.length <= 1200;
 const validStamp = stamp => typeof stamp === 'string' && /^[0-9a-z]{11}-[0-9a-f-]{36}$/.test(stamp);
 
@@ -113,7 +114,13 @@ export function createTranslationProgress(onChange) {
         connected = true; denied = false;
         if (!dirty) break;
         const [id,row] = dirty;
-        const changes = Object.fromEntries(fields.filter(f=>row[f]?.pending).map(f=>[f,{value:row[f].value,stamp:row[f].stamp}]));
+        const changes = {};
+        // Split long multilingual feedback from the draft if they exceed one journal event.
+        for (const field of fields.filter(f=>row[f]?.pending)) {
+          const record = {value:row[field].value,stamp:row[field].stamp};
+          if (new TextEncoder().encode(JSON.stringify({...changes,[field]:record})).length > 15500) break;
+          changes[field] = record;
+        }
         try {
           const receipt = await service.append({eventId:crypto.randomUUID(),id,changes},cursor);
           for (const [field,record] of Object.entries(changes)) changed = merge(id,field,record) || changed;

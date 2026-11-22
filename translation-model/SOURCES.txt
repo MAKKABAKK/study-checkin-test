@@ -1,0 +1,17 @@
+English natural language inference (loaded on demand)
+
+Model, quantized ONNX weights, and RoBERTa tokenizer configuration:
+https://huggingface.co/cross-encoder/nli-MiniLM2-L6-H768/tree/b95119ce93d3e065de6214e38cd4a97b0f2f2c6d
+Upstream onnx/model_quint8_avx2.onnx is distributed unchanged as minilm-nli-int8.onnx.
+SHA-256: 44391a5241a62e0083c1a8899a71e69a092b95aea5ba89e14062925468eceac7.
+License: Apache 2.0, see LICENSE-MODEL.txt.
+
+Hugging Face Tokenizers.js 0.2.0, Copyright Hugging Face. Apache 2.0.
+https://www.npmjs.com/package/@huggingface/tokenizers/v/0.2.0
+The bundled tokenizers.min.mjs is the upstream browser build.
+See LICENSE-TOKENIZERS.txt.
+
+ONNX Runtime Web 1.20.1. Copyright Microsoft Corporation.
+https://www.npmjs.com/package/onnxruntime-web/v/1.20.1
+The ort*.mjs/wasm files are the unmodified npm CPU/WASM distribution.
+License: MIT, see LICENSE-ONNX-RUNTIME.txt and ThirdPartyNotices.txt.
