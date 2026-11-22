@@ -11,6 +11,8 @@ const keys = new URLSearchParams(hash);
 const status = document.getElementById('load-status');
 const retry = document.getElementById('retry-dictation');
 const view = url.searchParams.get('view') || (!hash.includes('=') ? hash : '');
+const plannedWord = view==='original' ? Number(url.searchParams.get('word')) : 0;
+const plannedEntry = document.getElementById('planned-entry');
 const viewPattern = /^(dictation|original|supplement|full-all|review|meanings|meaning-book|consolidation|legacy|reports(?:\/[\w-]+)?)$/;
 document.getElementById('level-title').textContent = levels[level] + '听写';
 document.getElementById('dictation-vocabulary').search = '?level='+level;
@@ -33,7 +35,8 @@ const journalKey = keys.get('journal') ?? (book ? read(sessionStorage,'shike.boo
 const cloudURL = document.querySelector('meta[name=shike-cloud-url]').content;
 const publishableKey = document.querySelector('meta[name=shike-cloud-key]').content;
 
-async function loadPractice() {
+async function loadPractice(word = 0) {
+  plannedEntry.hidden = true;
   retry.hidden = true;
   status.textContent = '正在读取词库和原录音…';
   const controller = new AbortController();
@@ -78,6 +81,9 @@ async function loadPractice() {
       loadFile('player'), loadFile('original'), import('./dictation-adapter.js'),
     ]);
     const content = JSON.parse(new TextDecoder().decode(player));
+    const group = Math.ceil(word/20);
+    const firstCue = word && content.times.find(cue=>cue.id>=word && cue.id<=group*20);
+    if (word && !firstCue) throw Error('本组从第 '+word+' 词起没有对应原音。可打开单词表，或继续上次原声听写。');
     const doc = new DOMParser().parseFromString(content.html, 'text/html');
     const data = doc.querySelector('#data');
     if (!data) throw new Error('此级练习内容不完整，请重新加载。');
@@ -99,6 +105,7 @@ async function loadPractice() {
     const route = new URL(location.href);
     route.searchParams.set('level',level);
     route.searchParams.delete('view');
+    route.searchParams.delete('word');
     if (journalKey !== publicJournalKey) {
       save(sessionStorage,'shike.book.'+adapter.scope,journalKey);
       route.searchParams.set('book',adapter.scope);
@@ -109,7 +116,8 @@ async function loadPractice() {
       }
     } else route.searchParams.delete('book');
     if (viewPattern.test(view) || keys.has('journal') || keys.has('handout')) {
-      route.hash = viewPattern.test(view) ? view : 'dictation';
+      // Wait for the journal without starting the default group's round.
+      route.hash = word ? 'reports' : viewPattern.test(view) ? view : 'dictation';
     }
     history.replaceState(null,'',route);
     // DOMParser keeps trainer scripts inert. Mount the authenticated markup first,
@@ -130,6 +138,22 @@ async function loadPractice() {
       document.body.append(script);
       script.remove();
     }
+    if (firstCue) {
+      const journal = window.practiceJournal;
+      await journal.init();
+      const scope = 'g'+group;
+      const round = journal.rounds().find(item=>item.group===scope && item.status!=='partial');
+      const answers = round?.answers || {};
+      const next = content.times.find(cue=>cue.id>=word && cue.id<=group*20 && !Object.hasOwn(answers,cue.id));
+      const notice = round?.status==='complete' ? '本组已有完整报告，可查看每轮正确率与错词。'
+        : Object.hasOwn(answers,firstCue.id) ? '计划起点已有答案，接着练本组剩余题。' : '';
+      window.switchTrainingView('original',{group:scope,manual:true,notice});
+      const picker = document.getElementById('tWordSelect');
+      if (next && !picker.disabled && picker.value!==String(next.id)) {
+        picker.value = String(next.id);
+        picker.dispatchEvent(new Event('change'));
+      }
+    }
     if (level === 'six' && Object.keys(adapter.legacyMarks()).length) {
       const {attachLegacyAnswers} = await import('./dictation-seed.js'+bundleVersion);
       attachLegacyAnswers(document.getElementById('legacyPanel'),journalKey,words,adapter.legacyMarks());
@@ -143,7 +167,17 @@ async function loadPractice() {
     status.textContent = error.name === 'OperationError' ? '练习材料未能读取，请重新加载。'
       : error instanceof TypeError ? '练习未能加载，请检查网络后重试。' : (error.message || '暂时无法打开练习。');
     retry.hidden = false;
+    if (word) plannedEntry.hidden = false;
   }
 }
 
-void loadPractice();
+if (Number.isSafeInteger(plannedWord) && plannedWord>0) {
+  const group = Math.ceil(plannedWord/20);
+  document.getElementById('dictation-vocabulary').search = '?level='+level+'&group='+group;
+  status.textContent = '第 '+group+' 组 · 保留已写答案和草稿。';
+  const enter = document.getElementById('planned-word');
+  enter.textContent = '从第 '+plannedWord+' 词起听写';
+  enter.onclick = ()=>void loadPractice(plannedWord);
+  document.getElementById('resume-original').onclick = ()=>void loadPractice();
+  plannedEntry.hidden = false;
+} else void loadPractice();
