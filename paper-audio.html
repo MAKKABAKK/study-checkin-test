@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <meta name="referrer" content="no-referrer">
+  <title>剑桥真题听力音频 · 拾课</title>
+  <link rel="icon" href="./shike-v1.svg">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./paper-audio.css">
+  <script>(()=>{async function c(a){if(!a)return"guest";let r=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(a));return"p-"+[...new Uint8Array(r).slice(0,16)].map(n=>n.toString(16).padStart(2,"0")).join("")}var d="ARk2a8Fn7pvuQmRJPLl6A4G9Yd4T05k7AdpzGo_BC8s";var s=new URL(location.href),l=s.searchParams.get("notebook")||s.searchParams.get("book"),o=new URLSearchParams(s.hash.slice(1)).get("journal");if(!o&&l)try{o=sessionStorage.getItem("shike.book."+l)}catch{}if(/^[A-Za-z0-9_-]{43}$/.test(o)&&o!==d){let n=function(e){let t=new URL(e.href);if(!(e.target==="_blank"||t.origin!==s.origin)){if(e.hasAttribute("data-study-section")){let u=e.dataset.studySection||(t.hash==="#"+a?t.searchParams.get("section"):t.hash.slice(1));u&&t.searchParams.set("section",u)}else e.hasAttribute("data-study-tools")&&t.searchParams.set("section","study-tools");t.hash=a,e.href=t.href}},h=function(e){let t=e.target.closest?.(r);t&&n(t)},i=function(){document.querySelectorAll(r).forEach(n),document.querySelector(".markdown-book, .recital, #books")&&c(o).then(e=>{sessionStorage.setItem("shike.book."+e,o);let t=new URL(location.href);t.searchParams.set("notebook",e),history.replaceState(history.state,"",t)}).catch(()=>{})},a=new URLSearchParams({journal:o}).toString(),r="a[data-home], a[data-study-page], a[data-study-tools], a[data-study-section]";for(let e of["pointerdown","click","contextmenu"])document.addEventListener(e,h,!0);document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i,{once:!0}):i()}})();</script>
+  <script type="module" src="./focus-timer.js"></script>
+  <script type="module" src="./paper-audio.js"></script>
+</head>
+<body>
+  <header class="sitebar"><div class="sitebar-inner">
+    <a class="sitebrand" href="./" data-home>拾课</a>
+    <nav class="site-nav" aria-label="学习导航">
+      <a data-study-section="checkin" href="./#checkin">每日打卡</a>
+      <a data-study-section="dictation-tools" href="./#dictation-tools">听力</a>
+    </nav>
+  </div></header>
+  <main class="paper-listen">
+    <h1>剑桥真题听力音频</h1>
+    <div class="paper-selectors">
+      <label>册号<select id="paper-volume">
+        <option value="12">剑桥雅思 12</option><option value="13">剑桥雅思 13</option>
+        <option value="14">剑桥雅思 14</option><option value="15">剑桥雅思 15</option>
+        <option value="16">剑桥雅思 16</option><option value="17">剑桥雅思 17</option>
+      </select></label>
+      <label>书上套号<select id="paper-test"></select></label>
+    </div>
+    <section class="paper-player" aria-labelledby="paper-title">
+      <h2 id="paper-title">选择听力套题</h2>
+      <div id="paper-parts" aria-label="选择听力段落" role="group">
+        <button type="button" value="1">Section 1</button><button type="button" value="2">Section 2</button>
+        <button type="button" value="3">Section 3</button><button type="button" value="4">Section 4</button>
+      </div>
+      <audio id="paper-player" controls preload="none" aria-label="听力原音播放控件"></audio>
+      <div class="paper-playback">
+        <label>播放速度<select id="paper-rate"><option value="0.75">0.75×</option><option value="1" selected>1× 原速</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+        <label><input id="paper-continuous" type="checkbox" checked>自动播放下一节</label>
+      </div>
+      <p role="status" id="paper-status"></p>
+      <a id="paper-source" target="_blank" rel="noopener noreferrer">在来源页打开本套音频</a>
+    </section>
+  </main>
+</body>
+</html>

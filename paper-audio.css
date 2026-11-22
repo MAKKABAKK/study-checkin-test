@@ -1,0 +1,12 @@
+.paper-listen { max-width: 720px; margin: 0 auto; }
+.paper-listen h1 { margin: 32px 0 22px; }
+.paper-selectors, .paper-playback { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.paper-selectors label, .paper-playback label { display: flex; align-items: center; gap: 8px; font-size: .94rem; }
+.paper-player { margin-top: 24px; padding: clamp(18px,4vw,32px); border: 1px solid #d7ddcf; border-radius: 20px; background: #fff; }
+.paper-player h2 { margin: 0 0 16px; }
+#paper-parts { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+#paper-parts button { padding: 10px 2px; }
+#paper-parts [aria-pressed=true] { background: #365d42; color: #fff; }
+#paper-player { display: block; width: 100%; margin: 20px 0; }
+#paper-status { min-height: 1.3em; color: #465843; }
+#paper-source { font-size: .9rem; color: #365d42; }
