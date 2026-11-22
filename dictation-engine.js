@@ -1,9 +1,9 @@
 // Online counterpart of the trainer's Journal. The state remains compatible with
 // the original Mac backup, including the event history needed for corrected answers.
-const scoreDefaults = {result:null, practiced:0, dictation:null, errorCount:0, spacedStage:0, dueDate:null};
+const scoreDefaults = {result:null, practiced:0, dictation:null, errorCount:0, spacedStage:0, dueDate:null, familiar:false};
 const intervals = [1, 2, 4, 7, 15, 30];
 const wrongOutcomes = new Set(['wrong', 'unknown', 'missed']);
-const scoreTypes = new Set(['practice','result','answer']);
+const scoreTypes = new Set(['practice','result','answer','familiar']);
 const own = (object, key) => Object.hasOwn(object, key) ? object[key] : undefined;
 const groupOf = id => 'g' + Math.ceil(id / 20);
 
@@ -47,11 +47,15 @@ function checkEvent(input, vocab) {
   const {eventId, sessionId, wordId, type} = input;
   check(validId(eventId,idPattern) && validId(sessionId,idPattern), '无效的练习标识');
   check(inRange(wordId,1,vocab.rows.length), '无效的词序');
-  const field = own({heard:'rep', practice:'count', result:'result', listen:'rep', answer:'answer', round:'action', meaning:'meaning'},type);
+  const field = own({heard:'rep', practice:'count', result:'result', listen:'rep', answer:'answer', round:'action', meaning:'meaning', familiar:'action'},type);
   check(field, '无效的事件类型');
   const value = input[field];
   const e = {eventId,sessionId,wordId,type,[field]:value};
   switch (type) {
+    case 'familiar':
+      check(value==='mark' && inRange(input.expectedErrorCount,0,Number.MAX_SAFE_INTEGER), '无效的熟悉标记');
+      e.expectedErrorCount = input.expectedErrorCount;
+      break;
     case 'round': check(['start','partial'].includes(value), '无效的轮次操作'); break;
     case 'meaning': check(['known','unfamiliar'].includes(value), '无效的词义标记'); break;
     case 'result': check(['wrong','correct'].includes(value), '无效的听写结果'); break;
@@ -124,6 +128,10 @@ function schedule(w,e,stage) {
 function score(w,e,renew,vocab) {
   const before = w.practiced;
   let wrong = false;
+  if (e.type === 'familiar' && before<30 && !w.familiar) {
+    w.familiar = true;
+    schedule(w,e,0);
+  }
   if (e.type === 'practice') w.practiced = Math.min(30,before+e.count);
   if (e.type === 'result') {
     if (w.result !== 'wrong') w.result = e.result;
@@ -135,23 +143,33 @@ function score(w,e,renew,vocab) {
     if (wrong) w.result = 'wrong';
     else if (!vocab.recorded.has(e.wordId) && w.result !== 'wrong') w.result = 'correct';
   }
-  if (e.type === 'answer' && e.mode === 'review' && e.outcome === 'correct') {
+  if (e.type === 'answer' && e.mode === 'review') {
     if (e.spaced) {
-      if (before === 30 && w.dueDate && w.dueDate <= studyDay(e)) schedule(w,e,(w.spacedStage || 0)+1);
-    } else if (!e.extraReviewOf) w.practiced = Math.min(30,before+1);
+      if ((before===30 || w.familiar) && w.dueDate && w.dueDate<=studyDay(e)) {
+        if (e.outcome==='correct') schedule(w,e,(w.spacedStage || 0)+1);
+        else if (w.familiar) Object.assign(w,{familiar:false,spacedStage:0,dueDate:null});
+      }
+    } else if (e.outcome==='correct' && !e.extraReviewOf) w.practiced = Math.min(30,before+1);
   }
-  if (renew && wrong) Object.assign(w,{practiced:0,result:'wrong',errorCount:(w.errorCount || 0)+1,spacedStage:0,dueDate:null});
-  else if (renew && before < 30 && w.practiced === 30) schedule(w,e,0);
+  if (renew && wrong) Object.assign(w,{practiced:0,result:'wrong',errorCount:(w.errorCount || 0)+1,spacedStage:0,dueDate:null,familiar:false});
+  else if (renew && before < 30 && w.practiced === 30) {
+    w.familiar = false;
+    schedule(w,e,0);
+  }
 }
 
-function rescore(w, events, wordId, vocab) {
+function isReviewMistake(w, wordId, vocab, legacyMarks) {
+  return w.result === 'wrong' || (legacyMarks?.[wordId] ?? vocab.rows[wordId-1].status) === 'wrong';
+}
+
+function rescore(w, events, wordId, vocab, legacyMarks) {
   const first = w.scoreSince;
   const baseline = events[first].priorScore;
   const history = events.map((event,index) => ({event,index})).filter(({event}) => event.wordId === wordId && scoreTypes.has(event.type));
   const replacements = new Map(history.filter(({event}) => Object.hasOwn(event,'previousAnswer')).map(({event}) => [event.roundId,event]));
   const old = history.filter(({index}) => index < first);
   const needsOld = old.some(({event}) => replacements.has(roundFor(event,vocab)));
-  let next = {...baseline};
+  let next = {...scoreDefaults,...baseline};
   if (needsOld) {
     const prior = {practiced:0,result:null};
     for (const {event} of old) score(prior,event,false,vocab);
@@ -161,6 +179,8 @@ function rescore(w, events, wordId, vocab) {
   const applied = new Set();
   for (const {event,index} of history) {
     if (index < first && !needsOld) continue;
+    // Correcting the only wrong answer can remove the reason this word was in review.
+    if (event.type==='familiar' && !isReviewMistake(next,wordId,vocab,legacyMarks)) continue;
     const id = roundFor(event,vocab);
     if (applied.has(id)) continue;
     const replacement = replacements.get(id);
@@ -186,7 +206,7 @@ export function prepareState(source, vocab) {
     if (affected.size) db.words = {...db.words};
     for (const id of affected) {
       db.words[id] = {...db.words[id]};
-      rescore(db.words[id],db.events,id,vocab);
+      rescore(db.words[id],db.events,id,vocab,db.legacyMarks);
     }
     if (affected.size) db.revision++;
     db.scoreRules = 9;
@@ -225,9 +245,18 @@ export function applyEvent(state,input,vocab,at = new Date().toISOString()) {
   const next = {...state,revision:state.revision+1};
   const stored = {...e,word:vocab.rows[wordId-1].word,at};
   const w = {...(own(state.words,wordId) || {heard:0,practiced:0,result:null})};
+  if (scoreTypes.has(type) && !Object.hasOwn(w,'scoreSince')) {
+    w.scoreSince = state.events.length;
+    stored.priorScore = Object.fromEntries(Object.entries(scoreDefaults).map(([k,v]) => [k,w[k] ?? v]));
+  }
   if (type === 'meaning') {
     const mark = Date.parse(e.occurredAt || at);
     if (mark >= (w.meaningAt || 0)) Object.assign(w,{meaning:e.meaning,meaningAt:mark});
+    next.words = {...state.words,[wordId]:w};
+  } else if (type === 'familiar') {
+    requireEvent(w.practiced<30 && isReviewMistake(w,wordId,vocab,state.legacyMarks),'此词没有待练的拼写任务');
+    requireEvent((w.errorCount || 0)===e.expectedErrorCount,'此词的听写记录已更新，请重新选择');
+    score(w,stored,true,vocab);
     next.words = {...state.words,[wordId]:w};
   } else if (type === 'round') {
     const r = own(state.rounds,e.roundId);
@@ -241,10 +270,6 @@ export function applyEvent(state,input,vocab,at = new Date().toISOString()) {
     const prior = own(state.sessions, sessionId) || {wordId,reps:[],confirmed:false,count:0,result:null,...(e.mode && {mode:e.mode,attempts:0})};
     const s = {...prior};
     requireEvent(s.wordId === wordId && s.mode === e.mode,'练习会话发生变化');
-    if (scoreTypes.has(type) && !Object.hasOwn(w,'scoreSince')) {
-      w.scoreSince = state.events.length;
-      stored.priorScore = Object.fromEntries(Object.entries(scoreDefaults).map(([k,v]) => [k,w[k] ?? v]));
-    }
     if (type === 'heard' || type === 'listen') {
       requireEvent(type !== 'listen' || (!s.confirmed && e.rep === s.reps.length+1),'录音遍数不符');
       s.reps = [...s.reps,e.rep].sort((a,b)=>a-b);
@@ -258,7 +283,7 @@ export function applyEvent(state,input,vocab,at = new Date().toISOString()) {
         const source = own(state.rounds,e.extraReviewOf)?.answers[wordId];
         requireEvent(w.practiced === 30 && wrongOutcomes.has(source?.outcome),'此词不在所选轮次的已完成错词中');
       }
-      if (e.spaced) requireEvent(w.practiced === 30 && w.dueDate && w.dueDate <= studyDay(stored),'这个词的巩固任务尚未到期');
+      if (e.spaced) requireEvent((w.practiced===30 || w.familiar) && w.dueDate && w.dueDate <= studyDay(stored),'这个词的巩固任务尚未到期');
       if (e.frequent) requireEvent(w.errorCount >= 2,'此词未进入高频错词本');
       stored.outcome = grade(e.answer,vocab.rows[wordId-1],vocab.acceptedSpellings);
       s.attempts = e.attempt;
@@ -272,13 +297,13 @@ export function applyEvent(state,input,vocab,at = new Date().toISOString()) {
         s.confirmed = true;
       } else if (stored.outcome === 'correct') {
         requireEvent(w.practiced < 30 || e.extraReviewOf || e.spaced || e.frequent,'这个词已完成本轮练习');
-        Object.assign(s,{confirmed:true,count:Number(w.practiced < 30)});
+        Object.assign(s,{confirmed:true,count:Number(!e.spaced && w.practiced < 30)});
       }
     } else {
       requireEvent(s.result == null,'本轮已经判定');
       s.result = e.result;
     }
-    if (Object.hasOwn(e,'previousAnswer')) rescore(w,[...state.events,stored],wordId,vocab);
+    if (Object.hasOwn(e,'previousAnswer')) rescore(w,[...state.events,stored],wordId,vocab,state.legacyMarks);
     else score(w,stored,true,vocab);
     next.words = {...state.words,[wordId]:w};
     next.sessions = {...state.sessions,[sessionId]:s};

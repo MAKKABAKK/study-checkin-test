@@ -7,7 +7,9 @@ import {journalScope} from './journal-scope.js';
 let database;
 function openDatabase() {
   if (!database) database = new Promise((resolve,reject) => {
-    const request = indexedDB.open('shike-online-dictation',2);
+    // Older tabs reject familiarity events. Let them finish their transactions
+    // before the new client starts using the same durable pending queue.
+    const request = indexedDB.open('shike-online-dictation',3);
     request.onupgradeneeded = () => {
       for (const name of ['checkpoints','events','heads','pending','conflicts']) {
         if (!request.result.objectStoreNames.contains(name)) request.result.createObjectStore(name);

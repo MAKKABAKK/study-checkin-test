@@ -10,7 +10,7 @@
 #mixed-meaning{margin:4px 0 8px;color:#405d4a}
 .mixed-spelling{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
 #mixed-word{font-size:23px;color:#254b3d;overflow-wrap:anywhere}
-.mixed-progress{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:14px;font-variant-numeric:tabular-nums}
+.mixed-progress{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0;font-size:14px;font-variant-numeric:tabular-nums}
 .mixed-progress progress{width:min(170px,40%);height:8px;accent-color:#52774e}
 .mixed label{display:block;font-weight:600;margin:0 0 5px}
 .mixed-inputs{display:flex;gap:8px}
@@ -20,7 +20,7 @@
 #mixed-replay{margin-top:8px}
 #mixed-feedback{color:#355b40;margin:9px 0 0}
 #mixed-feedback[data-error="true"]{color:#8d431e}
-#mixed-feedback:empty{margin:0}
+#mixed-feedback:empty,#mixed-familiar-status:empty{margin:0}
 #mixed-list{margin-top:12px;padding-top:12px;padding-bottom:12px}
 #mixed-total{padding:4px 0;min-height:32px;line-height:24px;font-weight:650}
 #mixed-list label{font-size:14px;margin-top:10px}

@@ -9,6 +9,13 @@ export const reviewLevels = [
   {id:'three',label:'三星'},{id:'two',label:'二星'},{id:'one',label:'一星'},
 ];
 
+export function mixedReviewKind(score,status,day) {
+  if (score.practiced >= 30 || score.familiar) {
+    return score.dueDate && score.dueDate <= day ? 'spaced' : null;
+  }
+  return score.result === 'wrong' || status === 'wrong' ? 'practice' : null;
+}
+
 export function reviewJournalKey(url = new URL(location.href)) {
   const book = url.searchParams.get('book');
   const fragment = new URLSearchParams(url.hash.slice(1));
@@ -37,11 +44,10 @@ export async function openReviewLevel(id,journalKey,onChange) {
     const result = [];
     for (const row of words) {
       const score = scores[row.id] || {};
-      const practiced = score.practiced || 0;
-      const due = practiced===30 && score.dueDate && score.dueDate<=day;
-      if (!due && (practiced>=30 || (score.result!=='wrong' && (marks[row.id] ?? row.status)!=='wrong'))) continue;
-      result.push({id:row.id,word:row.word,meaning:row.meaning,practiced,errorCount:score.errorCount || 0,
-        dueDate:score.dueDate,kind:due ? 'spaced' : 'practice'});
+      const kind = mixedReviewKind(score,marks[row.id] ?? row.status,day);
+      if (!kind) continue;
+      result.push({id:row.id,word:row.word,meaning:row.meaning,practiced:score.practiced || 0,errorCount:score.errorCount || 0,
+        dueDate:score.dueDate,familiar:score.familiar === true,kind});
     }
     return result;
   }
@@ -69,21 +75,30 @@ export async function openReviewLevel(id,journalKey,onChange) {
     });
   }
 
+  async function save(event) {
+    const response = await engine.request('api/event',event);
+    const data = await response.json();
+    if (!response.ok) throw Object.assign(Error(data.error),{status:response.status});
+    return data.delta;
+  }
+
+  async function markFamiliar(wordId,stableId,expectedErrorCount=scores[wordId]?.errorCount || 0) {
+    const delta = await save({type:'familiar',action:'mark',wordId,eventId:stableId,sessionId:stableId,expectedErrorCount});
+    const score = delta.words[wordId];
+    scores = {...scores,[wordId]:score};
+    return score;
+  }
+
   async function record(wordId,answer,{sessionId,attempt=1,spaced=false}) {
     const base = {sessionId,wordId,mode:'review'};
-    async function save(event) {
-      const response = await engine.request('api/event',{...base,...event});
-      const data = await response.json();
-      if (!response.ok) throw Error(data.error);
-      return data.delta;
-    }
     // The same listen and answer identifiers can be retried after a failed write.
-    await save({type:'listen',rep:1,eventId:sessionId+':heard'});
-    const delta = await save({type:'answer',answer,attempt,eventId:sessionId+':answer:'+attempt,...(spaced && {spaced:true})});
-    scores = {...scores,[wordId]:delta.words[wordId]};
+    await save({...base,type:'listen',rep:1,eventId:sessionId+':heard'});
+    const delta = await save({...base,type:'answer',answer,attempt,eventId:sessionId+':answer:'+attempt,...(spaced && {spaced:true})});
+    const score = delta.words[wordId];
+    scores = {...scores,[wordId]:score};
     const correct = delta.sessions[sessionId].confirmed;
     const outcome = correct ? 'correct' : ['?','？'].includes(answer.trim()) ? 'unknown' : 'wrong';
-    return {outcome,practiced:delta.words[wordId].practiced};
+    return {outcome,practiced:score.practiced,familiar:score.familiar === true};
   }
-  return {...level,items,refresh,playSource:wordId=>getWordAudio(id,wordId),record,status:engine.status};
+  return {...level,items,refresh,playSource:wordId=>getWordAudio(id,wordId),record,markFamiliar,status:engine.status};
 }

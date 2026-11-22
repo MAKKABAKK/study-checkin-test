@@ -24,7 +24,7 @@
   </div></header>
   <main class="mixed">
     <h1>跨星级错词复习</h1>
-    <p class="mixed-intro">先练到期的词，再练反复听错的词。跟读后打字，按回车接着练。一个错词拼对 30 遍会自动换词。</p>
+    <p class="mixed-intro">先练到期的词，再练反复听错的词。跟读后打字，按回车接着练。拼对 30 遍自动换词。比较熟的词可以提前换，明天再盲听。</p>
     <div class="mixed-loading"><p id="mixed-status" role="status">正在读取各星级的练习记录…</p><button id="mixed-retry" hidden>重新读取</button></div>
     <section id="mixed-card" aria-label="当前错词" hidden>
       <div class="mixed-line"><span id="mixed-level"></span><span id="mixed-reason"></span></div>
@@ -35,7 +35,10 @@
         <strong id="mixed-word" lang="en" hidden></strong>
       </div>
       <p id="mixed-meaning" hidden></p>
-      <div class="mixed-progress"><span id="mixed-count"></span><progress id="mixed-progress" max="30" aria-label="已拼对的遍数"></progress></div>
+      <div class="mixed-progress">
+        <span id="mixed-count"></span><progress id="mixed-progress" max="30" aria-label="已拼对的遍数"></progress>
+        <button type="button" id="mixed-familiar" hidden>比较熟了，先换词</button>
+      </div>
       <button id="mixed-start" class="mixed-primary">开始听音练习</button>
       <form id="mixed-form" autocomplete="off" hidden>
         <label for="mixed-input">输入听到的单词</label>
@@ -46,6 +49,7 @@
       <button id="mixed-retry-save" hidden>重试保存</button>
       <audio id="mixed-audio" preload="auto"></audio>
     </section>
+    <p id="mixed-familiar-status" role="status"></p>
     <details id="mixed-list" hidden>
       <summary id="mixed-total">待练错词</summary>
       <label for="mixed-queue">选择想先练的词</label>

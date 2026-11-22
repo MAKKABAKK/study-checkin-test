@@ -9,6 +9,7 @@ let rows = [], item, journal, started = false, picked = false, listOrder = '';
 let generation = 0, playback = 0, source = '', heard = false;
 let answers = [], saving = false, retrySave = false, revealed = false;
 let sessionId, attempt = 1;
+let pendingFamiliar = false, familiarId;
 
 function message(text = '', error = false) {
   el('feedback').textContent = text;
@@ -35,9 +36,13 @@ function drawCard() {
   el('prompt').textContent = item.kind === 'spaced' ? '听音回忆，拼对一次完成巩固' : '听一遍，跟读后拼写';
   el('meaning').textContent = item.meaning;
   el('word').textContent = item.word;
-  el('count').textContent = item.kind === 'spaced' ? '已练满 30 遍 · 今日复测' : item.practiced + ' / 30 遍';
+  el('count').textContent = item.kind === 'spaced'
+    ? (item.familiar ? '已标记比较熟 · 今日盲听' : '已练满 30 遍 · 今日复测') : item.practiced + ' / 30 遍';
   el('progress').value = item.practiced;
   el('progress').hidden = item.kind === 'spaced';
+  el('familiar').hidden = item.kind !== 'practice';
+  el('familiar').disabled = pendingFamiliar || retrySave;
+  input.readOnly = pendingFamiliar;
   el('start').hidden = started;
   el('form').hidden = !started;
 }
@@ -93,6 +98,8 @@ function select(next) {
   source = '';
   answers = [];
   sessionId = null;
+  familiarId = null;
+  pendingFamiliar = false;
   attempt = 1;
   retrySave = false;
   saving = false;
@@ -149,7 +156,7 @@ function refreshQueue() {
   }
   if (status !== el('status').textContent) el('status').textContent = status;
   // A background update must not switch the answer's destination while it is being saved.
-  if (saving || answers.length) return;
+  if (saving || answers.length || pendingFamiliar) return;
   const keep = (started || picked) && rows.find(row=>row.key===item?.key);
   const next = keep || rows[0];
   if (next?.key !== item?.key || next?.kind !== item?.kind) select(next);
@@ -170,15 +177,26 @@ async function collect() {
     answers.shift();
     saving = false;
     heard = false;
-    picker.disabled = false;
+    picker.disabled = pendingFamiliar;
     const finished = result.outcome==='correct' && (row.kind==='spaced' || result.practiced>=30);
     if (finished) {
+      pendingFamiliar = false;
       answers = [];
       input.value = '';
       picker.disabled = false;
       picked = false;
       refreshQueue();
       if (item) message(row.word + (row.kind==='spaced' ? ' 已完成本次巩固。' : ' 已练满 30 遍。'));
+      return;
+    }
+    if (row.kind==='spaced' && row.familiar && !result.familiar) {
+      refreshQueue();
+      if (item?.key===row.key) showSpelling(true);
+      el('familiar-status').textContent = row.word + ' 已回到跟读练习，从已拼对的 '+result.practiced+' 遍接着练。';
+      return;
+    }
+    if (pendingFamiliar && !answers.length) {
+      void saveFamiliar();
       return;
     }
     if (result.outcome==='correct') {
@@ -206,7 +224,8 @@ async function collect() {
 
 function submit(event) {
   event.preventDefault();
-  if (!item || !started || retrySave || !input.value.trim()) return;
+  if (!item || !started || retrySave || pendingFamiliar || !input.value.trim()) return;
+  el('familiar-status').textContent = '';
   // Each answer is attached to this word. At most the remaining repetitions
   // can queue; the previous word's keystrokes never receive credit on a new word.
   const limit = item.kind==='spaced' ? 1 : Math.max(1,30-item.practiced);
@@ -217,6 +236,38 @@ function submit(event) {
   if (answers.length>1) message('已输入 '+answers.length+' 遍，随发音依次记录。');
   void collect();
 }
+
+async function saveFamiliar() {
+  if (!pendingFamiliar || saving || answers.length || retrySave) return;
+  const row = item;
+  saving = true;
+  try {
+    familiarId ??= crypto.randomUUID();
+    const score = await row.level.markFamiliar(row.id,familiarId,row.errorCount);
+    input.value = '';
+    picked = false;
+    const next = score.dueDate ? score.dueDate+' 再盲听。' : '本轮间隔巩固已完成。';
+    el('familiar-status').textContent = row.word+' 已标记为比较熟，保留 '+score.practiced+' 遍。'+next;
+  } catch (error) {
+    if (error.status===409) familiarId = null;
+    message(error.message || '标记未保存，请再点一次「比较熟了，先换词」。',true);
+    await row.level.refresh().catch(()=>{});
+  } finally {
+    saving = false;
+    pendingFamiliar = false;
+    picker.disabled = false;
+    refreshQueue();
+  }
+}
+
+el('familiar').onclick = () => {
+  if (item?.kind!=='practice' || pendingFamiliar || retrySave) return;
+  pendingFamiliar = true;
+  picker.disabled = true;
+  drawCard();
+  message(answers.length ? '正在保存已提交的拼写，随后换词。' : '正在保存标记…');
+  void saveFamiliar();
+};
 
 el('start').onclick = () => {
   if (!item) return;
